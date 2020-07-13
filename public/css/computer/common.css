@@ -20,8 +20,14 @@ html,body {
     line-height: 40px;
 }
 
+.block {
+    display: block;
+}
+
 .container {
-    width: 1200px;
+    max-width: 1200px;
+    min-width: 880px;
+    overflow: auto;
     padding-left: 20px;
     padding-right: 20px;
     margin: 0 auto;
@@ -80,4 +86,20 @@ html,body {
 
 .relative {
     position: relative;
+}
+
+.selection {
+    height: 28px;
+    border: 1px solid #CCCCCC;
+    padding: 0 16px;
+    min-width: 100px;
+    border-radius: 4px;
+    background: #FFF;
+    color: #333333;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.selection:hover {
+    background: #DDD;
 }

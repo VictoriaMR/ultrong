@@ -56,7 +56,7 @@ class App
 
         if ($info['Class'] != 'Api') {
             //引入公共css js
-            Html::addCss(['common', 'space'], true);
+            Html::addCss(['common', 'space', 'font', 'bootstrap.min.css'], true);
             Html::addJs(['jquery.min', 'common'], true);
         }
 

@@ -112,7 +112,7 @@ function input()
 
 function url($url = '') 
 {
-    return getenv('APP_DOMAIN').$url;
+    return Env('APP_DOMAIN').$url;
 }
 
 function media($url = '', $type='') 
@@ -121,12 +121,12 @@ function media($url = '', $type='')
         case 'product':
             if (empty($url)) {
                 $url = 'image/img/no_img.jpg';
-                $site = getenv('APP_DOMAIN');
+                $site = Env('APP_DOMAIN');
             }
             break;
         default:
             $url = 'image/img/no_img.jpg';
-            $site = getenv('FILE_CENTER');
+            $site = Env('FILE_CENTER');
             break;
     }
 
