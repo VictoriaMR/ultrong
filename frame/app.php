@@ -84,7 +84,7 @@ class App
                 'user_id' => (int) \frame\Session::getInfo('home_user_id'),
                 'path' => implode('/', $info),
                 'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
-                'is_moblie' => IS_MOBLIE ? 1 : 0,
+                'is_moblie' => IS_MOBILE ? 1 : 0,
                 'ip' => $_SERVER['HTTP_CLIENT_IP'] ?? '',
                 'create_at' => time(),
             ];
@@ -132,7 +132,7 @@ class App
         if (is_file($fileName)){
 			require_once $fileName;
 		} else {
-			throw new Exception( $abstract .' was not exist!', 0);
+			throw new Exception( $abstract .' was not exist!', 1);
 		}
 
         $concrete = Container::getInstance()->autoload($abstract);
