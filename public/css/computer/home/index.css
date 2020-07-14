@@ -18,22 +18,102 @@
 #logo-img {
 	max-width: 200px;
 	max-height: 50px;
+	text-align: center;
 }
 
 #address-phone {
-	width: calc(100% - 400px);
+	width: calc(100% - 300px);
 	position: relative;
-	padding: 0 100px;
+	padding-left: 100px;
 }
 
 #address-phone li {
-	width: calc(100% / 3);
+	width: 30%;
 	text-align: center;
 	float: left;
 	height: 50px;
 }
 
+#address-phone .address {
+	width: 40%;
+}
+
 #address-phone li img {
 	max-width: 50px;
 	max-height: 50px;
+}
+
+#address-phone .text-content {
+	padding-left: 10px;
+	text-align: left;
+}
+
+#logo-img img {
+	max-height: 50px;
+	max-width: 200px;
+}
+
+@media screen and (max-width: 1050px) {
+    #logo-img {
+        width: 100%;
+        float: none;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #address-phone {
+    	margin-top: 10px;
+    	width: 100%;
+    }
+}
+
+#menu {
+	background-color: #4e4f4f;
+	height: 70px;
+	overflow: hidden;
+}
+
+#menu .nav-list {
+	width: calc(100% * (8 / 12));
+}
+
+#menu .nav-list li {
+	width: calc((100% - 8px) / 6);
+	line-height: 70px;
+	border-left: 1px solid #213661;
+	float: left;
+	text-align: center;
+}
+
+#menu .nav-list li:last-child {
+	border-right: 1px solid #213661;
+}
+
+#menu .nav-list li a {
+	display: block;
+	font-size: 18px;
+	font-weight: 600;
+	color: #FFFFFF;
+}
+
+#menu .search {
+	width: calc(100% * (4 / 12));
+}
+
+#menu .search .input{
+	width: 70%;
+}
+
+#menu .search .icon {
+	top: 12px; right: 12px
+}
+
+@media screen and (max-width: 950px) {
+    #menu .nav-list {
+        width: 75%;
+    }
+
+    #menu .search {
+		width: 25%;
+	}
 }

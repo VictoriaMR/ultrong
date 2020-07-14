@@ -24,7 +24,7 @@ class TranslateService extends BaseService
     {
         if (empty($name)) return '';
 
-        $language = Session::getInfo('site_language');
+        $language = Session::get('site_language');
 
         if ($language == 'cn') return $name;
 
@@ -34,8 +34,7 @@ class TranslateService extends BaseService
     	$info = Redis(1)->hget($cacheKey, $name);
 
     	if (empty($info)) {
-            //检查默认的中文文本是否存在
-            $this->setNotExist($name, 'cn', $name);
+            //检查文本
             $this->setNotExist($name, $language);
 
             $info = $name;	

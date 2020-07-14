@@ -12,7 +12,7 @@ class Router
      */
     public static function analyze_func()
 	{
-        $pathInfo = trim(str_replace('.html', '', $_SERVER['REQUEST_URI'] ?? ''), '/');
+        $pathInfo = trim(str_replace('.html', '', $_SERVER['PATH_INFO'] ?? ''), '/');
 
 		/* 对Url网址进行拆分 */
 		$pathInfoArr = explode( '/', $pathInfo );

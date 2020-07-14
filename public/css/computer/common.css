@@ -7,10 +7,15 @@ a:hover { text-decoration:underline; }
 img { border:0; max-width: 100%; max-height: 100%;} 
 button, input, select, textarea { font-size:100%; } 
 table { border-collapse:collapse; border-spacing:0; }
-html,body {
-    border: 0;
-    padding: 0;
+* {
     margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+}
+html, body {
+    min-width: 840px;
+    overflow: auto;
+    height: 100%;
 }
 
 .btn {
@@ -25,14 +30,11 @@ html,body {
 }
 
 .container {
-    max-width: 1200px;
-    min-width: 880px;
-    overflow: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    max-width: 1240px;
+    min-width: 800px;
+    padding: 0 20px;
     margin: 0 auto;
     position: relative;
-    z-index: 1;
 }
 
 .clear {
@@ -62,6 +64,7 @@ html,body {
     border: 1px solid #f1eeee;
     padding: 0 10px;
     font-size: 14px;
+    border-radius: 4px;
 }
 
 .input::placeholder {
@@ -89,17 +92,84 @@ html,body {
 }
 
 .selection {
-    height: 28px;
-    border: 1px solid #CCCCCC;
-    padding: 0 16px;
-    min-width: 100px;
+    width: 150px;
+    height: 30px;
+    background: #fff;
     border-radius: 4px;
-    background: #FFF;
+    line-height: 28px;
+    position: relative;
+    cursor: pointer;
     color: #333333;
+}
+
+.selection .selector-icon {
+    padding: 0 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.selection .selector-icon .icon {
+    top: 2px;
+    right: 4px;
+}
+
+.selection .selector {
+    position: absolute;
+    width: calc(100% - 1px);
+    border: 1px solid #1E90FF;
+    background-color: #FFFFFF;
+    color: #333333;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.selection .selector li {
+    padding: 0 8px;
+    position: relative;
     line-height: 28px;
     cursor: pointer;
 }
 
+.selection .selector li span {
+    cursor: pointer;
+}
+
+.selection .selector li:hover {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+}
+
+.selection .selector-icon .icon-curr {
+    top: 6px;
+    left: 8px;
+}
+
 .selection:hover {
     background: #DDD;
+}
+
+.languega-selection .selector-icon {
+    padding-left: 32px;
+}
+
+.languega-selection .selector li {
+    padding-left: 32px;
+}
+
+.languega-selection .selector li .icon-curr {
+    left: 8px;
+    top: 6px;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+#application {
+    padding: 40px 0; 
 }

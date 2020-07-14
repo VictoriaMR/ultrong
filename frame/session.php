@@ -18,7 +18,7 @@ class Session
 		return true;
 	}
 
-	public static function getInfo($name = '') 
+	public static function get($name = '') 
 	{
 		if (empty($name)) return $_SESSION;
 		return $_SESSION[$name] ?? '';

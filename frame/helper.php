@@ -112,6 +112,11 @@ function input()
 
 function url($url = '') 
 {
+    return Env('APP_DOMAIN').$url.'.html';
+}
+
+function siteUrl($url = '')
+{
     return Env('APP_DOMAIN').$url;
 }
 
@@ -167,7 +172,6 @@ function DbConfig($db = 'default')
  */
 function dist($name = '')
 {
-    return $name;
     $translateService = \App::make('App/Services/TranslateService');
     return $translateService->getText($name);
 }

@@ -1,0 +1,355 @@
+.icon {
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    background: url(/image/computer/icon.png) no-repeat;
+    cursor: pointer;
+}
+
+.icon-50 {
+    height: 50px;
+    width: 50px;
+}
+
+.icon-48 {
+    height: 48px;
+    width: 48px;
+}
+
+.icon-40 {
+    height: 40px;
+    width: 40px;
+}
+
+.icon-38 {
+    height: 38px;
+    width: 38px;
+}
+
+.icon-32 {
+    height: 32px;
+    width: 32px;
+}
+
+.icon-16-32 {
+    height: 32px;
+    width: 16px;
+}
+
+.icon-20 {
+    height: 20px;
+    width: 20px;
+}
+
+.icon-16 {
+    height: 16px;
+    width: 16px;
+}
+
+.icon-14 {
+    height: 14px;
+    width: 14px;
+}
+
+.icon-12 {
+    height: 12px;
+    width: 12px;
+}
+
+.icon-arrow-down-12 {
+    background-position: -22px -176px;
+}
+
+.icon-arrow-up-12 {
+    background-position: 0px -176px;
+}
+
+.icon-close-circle-12 {
+    background-position: -156px -124px;
+}
+
+.icon-close-circle-gray-12 {
+    background-position: -178px -124px;
+}
+
+.icon-cross-down-green-12 {
+    background-position: -66px -176px;
+}
+
+.icon-cross-up-green-12 {
+    background-position: -44px -176px;
+}
+
+.icon-star-yellow-14 {
+    background-position: -112px -68px;
+}
+
+.icon-star-light-yellow-14 {
+    background-position: -136px -68px;
+}
+
+.icon-star-yellow-16 {
+    background-position: -60px -68px;
+}
+
+.icon-star-gray-16 {
+    background-position: -86px -68px;
+}
+
+.icon-star-yellow-24 {
+    background-position: -112px -68px;
+    background-size: 24px 24px;
+}
+
+.icon-star-light-yellow-24 {
+    background-position: -136px -68px;
+}
+
+.icon-hook-16 {
+    background-position: 0px -124px;
+}
+
+.icon-hook-green-16 {
+    background-position: -131px -124px;
+}
+
+.icon-arrow-up-16 {
+    background-position: 0px -150px;
+}
+
+.icon-arrow-down-16 {
+    background-position: -26px -150px;
+}
+
+.icon-arrow-right-16 {
+    background-position: -26px -124px;
+}
+
+.icon-angle-down-16 {
+    background-position: -78px -150px;
+}
+
+.icon-angle-up-16 {
+    background-position: -52px -150px;
+}
+
+.icon-angle-left-green-16 {
+    background-position: -78px -124px;
+}
+
+.icon-angle-right-green-16 {
+    background-position: -104px -124px;
+}
+
+
+.icon-add-16 {
+    background-position: -157px -98px;
+}
+
+.icon-add-gray-16 {
+    background-position: -182px -98px;
+}
+
+.icon-add-white-16 {
+    background-position: -52px -124px;
+}
+
+.icon-cut-16 {
+    background-position: -104px -98px;
+}
+
+.icon-cut-gray-16 {
+    background-position: -130px -98px;
+}
+
+.icon-checked-16 {
+    background-position: -78px -98px;
+}
+
+.icon-un-checked-16 {
+    background-position: -52px -98px;
+}
+
+.icon-left-16-32 {
+    background-position: -84px -198px;
+}
+
+.icon-radio-16 {
+    background-position: 0px -98px;
+}
+
+.icon-radio-selected-16 {
+    background-position: -26px -98px;
+}
+
+.icon-radio-20 {
+    background-position: -30px -68px;
+}
+
+.icon-radio-selected-20 {
+    background-position: 0px -68px;
+}
+
+.icon-left-16-32 {
+    background-position: -85px -198px;
+}
+
+.icon-right-16-32 {
+    background-position: -135px -198px;
+}
+
+.icon-left-white-16-32 {
+    background-position: -110px -198px;
+}
+
+.icon-right-white-16-32 {
+    background-position: -162px -198px;
+}
+
+.icon-cross-left-circle-32 {
+    background-position: 0px -198px;
+}
+
+.icon-cross-right-circle-32 {
+    background-position: -42px -198px;
+}
+
+.icon-hook-green-40 {
+    background-position: -118px -280px;
+}
+
+.icon-cross-red-40 {
+    background-position: -168px -280px;
+}
+
+.icon-close-circle-48 {
+    background-position: -60px -280px;
+}
+
+.icon-close {
+    background-position: -136px -34px;
+}
+
+.icon-close-sm {
+    background-position: -194px -118px;
+}
+
+.icon-search {
+    background-position: -68px 0px;
+}
+
+.icon-search-gray-16 {
+    background-position: -208px -98px;
+}
+
+.icon-signin {
+    background-position: 0px 0px;
+}
+
+.icon-basket {
+    background-position: -34px 0px;
+}
+
+.icon-eye {
+    background-position: -136px 0px;
+}
+
+.icon-noeye {
+    background-position: -102px 0px;
+}
+
+.icon-like {
+    background-position: -170px 0px;
+}
+
+.icon-like-gray {
+    background-position: -204px 0px;
+}
+
+.icon-add {
+    background-position: -68px -35px;
+}
+
+.icon-add-gray {
+    background-position: -102px -35px;
+}
+
+.icon-cut {
+    background-position: 0px -35px;
+}
+
+.icon-cut-gray {
+    background-position: -34px -35px;
+}
+
+.icon-angle-w-up {
+    background-position: -100px -145px;
+}
+
+.icon-angle-w-down {
+    background-position: -126px -145px;
+}
+
+.icon-angle-g-down {
+    background-position: -74px -145px;
+}
+
+.icon-angle-g-up {
+    background-position: -48px -145px;
+}
+
+.icon-play-left {
+    background-position: 0px -240px;
+}
+
+.icon-play-left-gray {
+    background-position: -48px -240px;
+}
+
+.icon-play-right-gray {
+    background-position: -144px -240px;
+}
+
+.icon-play-right {
+    background-position: -96px -240px;
+}
+
+/*
+ * 货币图标
+ */
+.icon-curr {
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    background: url(/image/computer/currency.png) no-repeat;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.icon-curr-en {
+    background-position: 0px 3px;
+}
+
+.icon-curr-cn {
+    background-position: 0px -15px;
+}
+
+.icon-curr-cad {
+    background-position: 0px -35px;
+}
+
+.icon-curr-gbp {
+    background-position: 0px -55px;
+}
+
+.icon-curr-aud {
+    background-position: 0px -75px;
+}
+
+.icon-curr-nz {
+    background-position: 0px -95px;
+}
+
+.icon-to-top {
+    background-position: 0px -280px;
+}

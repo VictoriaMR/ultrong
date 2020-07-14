@@ -49,6 +49,7 @@ class App
 	{
 		//路由解析
 		$info = Router::$_route;
+        // dd($info);
 
 		$class = 'App\\Http\\Controllers\\'.$info['Class'].'\\'.$info['ClassPath'].'Controller';
 
@@ -56,8 +57,8 @@ class App
 
         if ($info['Class'] != 'Api') {
             //引入公共css js
-            Html::addCss(['common', 'space', 'font', 'bootstrap.min.css'], true);
-            Html::addJs(['jquery.min', 'common'], true);
+            Html::addCss(['common', 'space', 'font', 'icon'], true);
+            Html::addJs(['jquery', 'common'], true);
         }
 
 		call_user_func_array([self::autoload($class), $info['Func']], []);
@@ -81,7 +82,7 @@ class App
         //访问日志
         if ($info['Class'] == 'Home') {
             $data[] = [
-                'user_id' => (int) \frame\Session::getInfo('home_user_id'),
+                'user_id' => (int) \frame\Session::get('home_user_id'),
                 'path' => implode('/', $info),
                 'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
                 'is_moblie' => IS_MOBILE ? 1 : 0,
