@@ -27,7 +27,6 @@ class View
         }
 
         extract(self::$data);
-        self::$data = [];
 
         include($template);
     }

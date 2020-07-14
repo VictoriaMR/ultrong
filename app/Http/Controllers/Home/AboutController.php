@@ -15,7 +15,7 @@ class AboutController extends Controller
 
 	public function index()
 	{	
-		dd('AboutController');
+		dd(\Router::getFunc('ClassPath'));
 
 		return view();
 	}

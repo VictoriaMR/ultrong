@@ -86,7 +86,7 @@ var HOME_API = "<?php echo Env('APP_DOMAIN').'api/home/';?>";
     <div class="container">
         <div class="nav-list left">
             <ul>
-                <li>
+                <li  class="<?php echo $index == 'index' ? 'select': '';?>">
                     <a href="/"><?php echo dist('首页');?></a>
                 </li>
                 <li>
@@ -115,35 +115,6 @@ var HOME_API = "<?php echo Env('APP_DOMAIN').'api/home/';?>";
         <div class="clear"></div>
     </div>
 </div>
-
-<div id="slider-banner">
-    <ul>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/01.jpg');?>">
-        </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/02.jpg');?>">
-        </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/03.jpg');?>">
-        </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/04.jpg');?>">
-        </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/05.jpg');?>">
-        </li>
-    </ul>
-</div>
-
-<div class="container">
-    <div id="application">
-        <ul>
-            
-        </ul>
-    </div>
-</div>
-
 <script type="text/javascript">
 $(function(){
     $('#languega_list .selector-icon').on('click', function(){
@@ -154,11 +125,6 @@ $(function(){
         API.get(HOME_API+'Index/setSiteLanguage', {'type': type}, function(res) {
             window.location.reload();
         }); 
-    });
-    //轮播图
-    $('#slider-banner').slider({
-        dots: true,
-        fluid: true
     });
 });
 </script>

@@ -11,11 +11,13 @@ use frame\html;
 
 class IndexController extends Controller
 {
-	protected $serivces = null;
-
 	public function index()
 	{	
+		Html::addJs('swiper');
+		Html::addCss('swiper');
 		Html::addCss('index');
+
+		$this->assign('index', 'index');
 
 		return view();
 	}

@@ -172,6 +172,7 @@ function DbConfig($db = 'default')
  */
 function dist($name = '')
 {
+    return $name;
     $translateService = \App::make('App/Services/TranslateService');
     return $translateService->getText($name);
 }
