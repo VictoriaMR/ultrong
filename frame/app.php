@@ -80,10 +80,14 @@ class App
         $info = Router::$_route;
         //访问日志
         if ($info['Class'] == 'Home') {
+            $str = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            if (strlen($str) > 255) {
+                $str = substr($str, 0, 255);
+            }
             $data[] = [
                 'user_id' => (int) \frame\Session::get('home_user_id'),
                 'path' => implode('/', $info),
-                'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+                'user_agent' => $str,
                 'is_moblie' => IS_MOBILE ? 1 : 0,
                 'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
                 'create_at' => time(),
