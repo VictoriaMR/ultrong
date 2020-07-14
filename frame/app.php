@@ -78,7 +78,6 @@ class App
         }
 
         $info = Router::$_route;
-
         //访问日志
         if ($info['Class'] == 'Home') {
             $data[] = [
@@ -86,7 +85,7 @@ class App
                 'path' => implode('/', $info),
                 'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
                 'is_moblie' => IS_MOBILE ? 1 : 0,
-                'ip' => $_SERVER['HTTP_CLIENT_IP'] ?? '',
+                'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
                 'create_at' => time(),
             ];
 
@@ -118,7 +117,7 @@ class App
     	} else {
     		$fileName = $abstract;
     	}
-
+        $fileName = str_replace('\\', '/', $fileName);
         $temp = explode('/', $fileName);
         if ($temp[0] == 'frame') {
             for ($i=1; $i < count($temp); $i++) { 
@@ -133,7 +132,7 @@ class App
         if (is_file($fileName)){
 			require_once $fileName;
 		} else {
-			throw new Exception( $abstract .' was not exist!', 1);
+			throw new Exception( $fileName .' was not exist!', 1);
 		}
 
         $concrete = Container::getInstance()->autoload($abstract);
