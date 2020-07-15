@@ -19,16 +19,10 @@ class LoginController extends Controller
 
 	public function index()
 	{
-		Html::addCss('admin/login');
-		Html::addJs('admin/login');
-
-		$attachmentService = \App::make('App/Services/AttachmentService');
-
-		$data = $attachmentService->getListByTypeOne($attachmentService::constant('TYPE_ADMIN_LOGIN_BACKGROUD'));
+		Html::addCss('login');
+		Html::addJs('login');
 		
-		assign(['bg_img' => $data['url']]);
-		
-		view();
+		return view();
 	}
 
 	public function logout()

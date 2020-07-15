@@ -26,7 +26,7 @@ class MemberService extends BaseService
 	{
 		if (empty($data['password'])) return false;
 		$data['salt'] = $this->getSalt();
-		$data['password'] = \Hash::make($this->getPasswd($data['password'], $data['salt']));
+		$data['password'] = password_hash($this->getPasswd($data['password'], $data['salt']), PASSWORD_DEFAULT);
 
 		return $this->baseModel->create($data);
 	}
@@ -110,6 +110,7 @@ class MemberService extends BaseService
 		if (!$info['status']) return false;
 
 		$password = $this->getPasswd($password, $info['salt']);
+		// dd(password_hash($password, PASSWORD_DEFAULT));
 
 		if ($this->checkPassword($password, $info['password'])) {
 			$data = [
@@ -117,12 +118,12 @@ class MemberService extends BaseService
 				'name' => $info['name'],
 				'mobile' => $info['mobile'],
 				'nickname' => $info['nickname'],
-				'avatar' => media($info['avatar']),
+				'avatar' => media($info['avatar'], 'avatar', ['female'=> $info['gender'] == 0 ? true : false]),
 			];
 
 			if ($isAdmin) {
 				if (!empty($info['color_id'])) {
-					$colorService = \App::make('App\Services\ColorService');
+					$colorService = \App::make('App\Services\Admin\ColorService');
 					$colorInfo = $colorService->loadData($info['color_id']);
 				}
 				$data['is_super'] = $info['is_super'];

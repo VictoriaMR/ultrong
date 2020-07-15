@@ -44,7 +44,6 @@ final class Container
 
         if (!$concrete instanceOf Closure){
             $concrete = $this->getClosure($abstract, $concrete);
-            print_r($concrete);
         }
 
         self::$building[$abstract] =  compact('concrete', 'shared');

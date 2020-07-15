@@ -1,29 +1,6 @@
-body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; } 
-body, button, input, select, textarea { font: 12px/1.5 Microsoft YaHei, tahoma, arial, Hiragino Sans GB, \\5B8B\4F53, sans-serif; color: #3c3c3c;} 
-h1, h2, h3, h4, h5, h6{ font-size:100%; } 
-ul, ol { list-style:none; } 
-a { text-decoration:none; color: #3c3c3c;} 
-a:hover { text-decoration:none; } 
-img { border:0; max-width: 100%; max-height: 100%;} 
-button, input, select, textarea { font-size:100%; } 
-table { border-collapse:collapse; border-spacing:0; }
-* {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-}
-html, body {
-    min-width: 840px;
-    overflow: auto;
-    height: 100%;
-}
-
-.btn {
-    border-radius: 4px;
-    text-align: center;
-    height: 40px;
-    line-height: 40px;
-}
+ul, ol { list-style:none; padding-left: 0;} 
+a {color: #333333; }
+img {max-height: 100%; max-width: 100%;}
 
 .block {
     display: block;

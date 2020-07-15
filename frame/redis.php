@@ -50,7 +50,11 @@ class Redis
     {
         self::$_instance->selectDbByFunc('set');
         if (empty($key)) return false;
-        return self::$_link->set($key, $value, (int)($ext ?? self::DEFAULT_EXT_TIME));
+        $ext = (int)($ext ?? self::DEFAULT_EXT_TIME);
+        if ($ext > 0)
+            return self::$_link->set($key, $value, $ext);
+        else
+            return self::$_link->set($key, $value);
     }
 
     public function __call($func, $arg)

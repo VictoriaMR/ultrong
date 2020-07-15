@@ -26,7 +26,7 @@ class LanguageService extends BaseService
     	if (empty($list)) {
     		$list = $this->baseModel->where('status', 1)->get();
     		$list = json_encode($list, JSON_UNESCAPED_UNICODE);
-    		Redis()->set($cacheKey, $list);
+    		Redis()->set($cacheKey, $list, -1);
     	}
 
     	return !empty($list) ? json_decode($list, true) : [];

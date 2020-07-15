@@ -42,7 +42,7 @@ class VerifyToken
         switch ($request['Class']) {
             case 'Admin':
                 if (!Session::login('admin')) {
-                    // go('login.index');
+                    go('login.index');
                 }
                 break;
             

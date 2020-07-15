@@ -27,10 +27,10 @@ class Html
 
 		if (is_array($name)) {
 			foreach ($name as $value) {
-				self::$_JS[] = Env('APP_DOMAIN') . 'js/' . (IS_MOBILE ? 'mobile/' : 'computer/') . $value . '.js';
+				self::$_JS[] = Env('APP_DOMAIN') . 'js/' . (IS_MOBILE ? 'mobile/' : 'computer/') . ($public ? '' : strtolower(\Router::getFunc('Class')).'/') . $value . '.js';
 			}
 		} else {
-			self::$_JS[] = Env('APP_DOMAIN') . 'js/' . (IS_MOBILE ? 'mobile/' : 'computer/') . $name . '.js';
+			self::$_JS[] = Env('APP_DOMAIN') . 'js/' . (IS_MOBILE ? 'mobile/' : 'computer/') . ($public ? '' : strtolower(\Router::getFunc('Class')).'/') . $name . '.js';
 		}
 		return true;
 	}

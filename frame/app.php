@@ -41,11 +41,17 @@ class App
 		return self::instance();
 	}
 
+    public function execute()
+    {
+        $this->send();
+        $this->end();
+    }
+
 	/**
 	 * @method 执行方法
 	 * @return object_array
 	 */
-	public function send() 
+	protected function send() 
 	{
 		//路由解析
 		$info = Router::$_route;
@@ -61,6 +67,10 @@ class App
             Html::addJs(['jquery', 'common'], true);
         }
 
+        if ($info['Class'] == 'Admin') {
+            Html::addCss('bootstrap', true);
+        }
+
 		call_user_func_array([self::autoload($class), $info['Func']], []);
 	}
 
@@ -70,7 +80,7 @@ class App
      * @date   2020-07-13
      * @return [type]     [description]
      */
-    public function end()
+    protected function end()
     {   
         // 应用调试模式
         if (Env('APP_DEBUG')) {
@@ -203,6 +213,9 @@ class App
                     break;
                 case 'file': // 文件信息
                     $trace[$title] = $info;
+                    break;
+                case 'sql': // 文件信息
+                    $trace[$title] = $GLOBALS['exec_sql'];
                     break;
                 default: // 调试信息
                     if (strpos($name, '|')) {

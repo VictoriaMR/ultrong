@@ -11,36 +11,35 @@ use frame\Session;
  */
 class IndexController extends Controller
 {
-	
-	function __construct()
-	{
-		# code...
-	}
-
 	public function index() 
 	{
-		Html::addCss('admin/common');
-		Html::addJs('admin/index');
+		Html::addCss('index');
+		Html::addJs('index');
 
-		//获取喜好颜色
+		//获取颜色
 		$colorService = \App::make('App\Services\Admin\ColorService');
 		$colorList = $colorService->getList();
 
 		//获取控制器列表
 		$controllerService = \App::make('App\Services\Admin\ControllerService');
-
 		$controllerList = $controllerService->getListFormat();
 
-		$info = Session::getInfo('admin');
+		//网站信息
+		$siteService = \App::make('App/Services/SiteService');
+		$siteInfo = $siteService->getInfo();
 
-		assign('info', $info);
-		assign('list', $controllerList);
+		//基本信息
+		$info = Session::get('admin');
 
-		view();
+		// $this->assign('site_info', $siteInfo);
+		$this->assign('info', $info);
+		$this->assign('list', $controllerList);
+
+		return view();
 	}
 
 	public function show() 
 	{
-		view();
+		return view();
 	}
 }

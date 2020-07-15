@@ -193,6 +193,15 @@ Class Query
 		$returnData = [];
 		if (empty($sql)) return $returnData;
 
+		//sql debug
+		if (Env('APP_DEBUG')) {
+			$str = '';
+			if (!empty($params)) {
+				$str = ' 参数: ' . implode(', ', $params);
+			}
+			$GLOBALS['exec_sql'][] = $sql.$str;
+		}
+
 		if (!empty($params)) {
 
 			if ($stmt = $conn->prepare($sql)) {

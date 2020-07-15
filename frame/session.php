@@ -13,7 +13,12 @@ class Session
 	{
 		if (empty($key)) return false;
 
-		$_SESSION[$key] = $data;
+		$key = explode('_', $key);
+		if (count($key) > 1) {
+			$_SESSION[$key[0]][$key[1]] = $data;
+		} else {
+			$_SESSION[$key[0]] = $data;
+		}
 
 		return true;
 	}
@@ -21,6 +26,15 @@ class Session
 	public static function get($name = '') 
 	{
 		if (empty($name)) return $_SESSION;
-		return $_SESSION[$name] ?? '';
+
+		$name = explode('_', $name);
+
+		$data = $_SESSION[$name[0]] ?? [];
+
+		if (count($key) > 1) {
+			return $data[$name[1]] ?? [];
+		} else {
+			return $data;
+		}
 	}
 }

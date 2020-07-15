@@ -25,9 +25,8 @@ class SiteService extends BaseService
     	$info = Redis()->get($cacheKey);
     	if (empty($info)) {
     		$info = $this->baseModel->find();
-    		// dd($info);
     		$info = json_encode($info, JSON_UNESCAPED_UNICODE);
-    		Redis()->set($cacheKey, $info);
+    		Redis()->set($cacheKey, $info, -1);
     	}
 
     	return !empty($info) ? json_decode($info, true) : [];

@@ -15,23 +15,25 @@ class CommonController extends Controller
 	public function baseHeader()
 	{	
 		Html::addCss('common');
-		// //站点信息
-		// $siteService = \App::make('App/Services/SiteService');
-		// $siteInfo = $siteService->getInfo();
+		Html::addJs('common');
+		
+		//站点信息
+		$siteService = \App::make('App/Services/SiteService');
+		$siteInfo = $siteService->getInfo();
 
-		// $languageService = \App::make('App/Services/LanguageService');
-		// $list = $languageService->getList();
-		// $list = array_column($list, null, 'value');
+		$languageService = \App::make('App/Services/LanguageService');
+		$list = $languageService->getList();
+		$list = array_column($list, null, 'value');
 
-		// //设置默认语言
-		// if (empty(Session::get('site_language'))) {
-		// 	$defaultLanguage = array_column($list, 'is_default')[1] ?? [];
-		// 	Session::set('site_language', empty($defaultLanguage['value']) ? 'cn' : $defaultLanguage['value']);
-		// }
+		//设置默认语言
+		if (empty(Session::get('site_language'))) {
+			$defaultLanguage = array_column($list, 'is_default')[1] ?? [];
+			Session::set('site_language', empty($defaultLanguage['value']) ? 'cn' : $defaultLanguage['value']);
+		}
 
-		// $this->assign('site_language', Session::get('site_language'));
-		// $this->assign('language_list', $list);
-		// $this->assign($siteInfo);
+		$this->assign('site_language', Session::get('site_language'));
+		$this->assign('language_list', $list);
+		$this->assign($siteInfo);
 
 		return view();
 	}

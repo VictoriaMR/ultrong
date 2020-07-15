@@ -59,4 +59,16 @@ class ControllerService extends BaseService
 
     	return $returnData;
     }
+
+    public function getInfoByName($name, $isPerent = false)
+    {
+        if (empty($name)) return [];
+        $query = $this->baseModel->where('name_en', $name);
+        if ($isPerent) 
+            $query->where('parent_id', 0);
+        else 
+            $query->where('parent_id', '<>', 0);
+
+        return $query->find();
+    }
 }

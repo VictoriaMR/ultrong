@@ -7,6 +7,8 @@
 //是否是手机
 function isMobile()
 {
+    if (!empty($_SESSION['site_type'])) return $_SESSION['site_type'];
+
 	if (isset($_SERVER['HTTP_VIA']) && stristr($_SERVER['HTTP_VIA'], "wap")) {
         return true;
     } 
@@ -68,7 +70,7 @@ function go($func = '')
 
 	Router::reload($func);
 
-	App::instance()->send();
+	App::instance()->execute();
 }
 
 function load($func = '')
@@ -112,7 +114,15 @@ function input()
 
 function url($url = '') 
 {
-    return Env('APP_DOMAIN').$url.'.html';
+    if (\Router::getFunc('Class') == 'Home')
+        return Env('APP_DOMAIN').$url.'.html';
+    else
+        return Env('APP_DOMAIN').$url;
+}
+
+function adminUrl($url = '')
+{
+    return Env('APP_DOMAIN').'admin/'.$url;
 }
 
 function siteUrl($url = '')
@@ -120,19 +130,27 @@ function siteUrl($url = '')
     return Env('APP_DOMAIN').$url;
 }
 
-function media($url = '', $type='') 
+function media($url = '', $type='', $param = [])
 {
-    switch ($type) {
-        case 'product':
-            if (empty($url)) {
-                $url = 'image/img/no_img.jpg';
-                $site = Env('APP_DOMAIN');
-            }
-            break;
-        default:
-            $url = 'image/img/no_img.jpg';
-            $site = Env('FILE_CENTER');
-            break;
+    $site = Env('FILE_CENTER');
+    if (empty($url)) {
+        $site = Env('APP_DOMAIN');
+        switch ($type) {
+            case 'product':
+                $url = 'image/computer/no_img.jpg';
+                break;
+            case 'avatar':
+                $male = !empty($param['female']) ? false : true;
+                if ($male)
+                    $url = 'image/computer/male.jpg';
+                else
+                    $url = 'image/computer/female.jpg';
+                break;
+            default:
+                $url = 'image/computer/no_img.jpg';
+                break;
+
+        }
     }
 
     if (strpos($url, 'http') === false && strpos($url, 'https') === false) {
