@@ -31,7 +31,7 @@ class Session
 
 		$data = $_SESSION[$name[0]] ?? [];
 
-		if (count($key) > 1) {
+		if (count($name) > 1) {
 			return $data[$name[1]] ?? [];
 		} else {
 			return $data;

@@ -2,14 +2,17 @@
 <div class="width-100">
 	<div id="header" <?php if (!empty($info['color_value'])) { ?> style="background-color: <?php echo $info['color_value'];?>" <?php } ?>>
 		<a href="/" class="font-16 font-700 color-white padding-left-15"><?php echo $site_info['name'] ?? '';?></a>
-	    <a href="<?php echo url('admin/login/logout');?>" class="right toolbox" data-title="退出系统">
+	    <a href="<?php echo adminUrl('login/logout');?>" class="right toolbox" data-title="退出系统">
 	    	<img src="<?php echo siteUrl('image/computer/icon/exit.png');?>">
 	    </a>
-	    <a target="subframe" href="<?php echo url('admin/index/setting');?>" class="right toolbox setting" data-title="个人设置"> 
+	    <a target="subframe" href="<?php echo adminUrl('index/setting');?>" class="right toolbox setting" data-title="个人设置"> 
 	    	<img src="<?php echo siteUrl('image/computer/icon/setting.png');?>">
 	    </a>
-	    <a target="subframe" href="<?php echo url('admin/message');?>" class="right toolbox" data-title="消息通知"> 
+	    <a target="subframe" href="<?php echo adminUrl('message');?>" class="right toolbox" data-title="消息通知"> 
 	    	<img src="<?php echo siteUrl('image/computer/icon/notice.png');?>">
+	    </a>
+	    <a target="subframe" href="<?php echo adminUrl('profile');?>" class="right toolbox" data-title="用户中心"> 
+	    	<img src="<?php echo siteUrl('image/computer/icon/user.png');?>">
 	    </a>
 	</div>
 </div>
@@ -76,17 +79,6 @@
 					<ul>
 						
 					</ul>
-				</div>
-				<div id="header-nav" class="container-fluid">
-				    <div class="nav" data-id="0"> 
-				        <span></span>
-				        <a title="新窗口中打开" class="extralink" target="_blank" href="#">
-				            <img src="<?php echo siteUrl('image/computer/icon/extralink.png');?>">
-				        </a>
-				        <a title="刷新当前页面" class="extralink" href="#">
-				            <img src="<?php echo siteUrl('image/computer/icon/refresh.png');?>">
-				        </a>
-				     </div>
 				</div>
 				<div id="iframe-list-content">
 					

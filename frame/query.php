@@ -35,14 +35,29 @@ Class Query
 		return $this;
 	}
 
-	public function where($column, $operator, $value = null)
+	public function where($column, $operator = null, $value = null)
 	{
-		if (empty($value)) {
-			$value = $operator;
-			$operator = '=';
-		}
+		if (empty($column)) return $this;
 
-		$this->_where[] = [$column, $operator, $value];
+		if (is_array($column)) {
+			foreach ($column as $key => $value) {
+				$count = count($value);
+				if ($count == 1) {
+					$this->_where[] = [$key, '=', $value];
+				} elseif ($count == 2) {
+					$this->_where[] = [$value[0], '=', $value[1]];
+				} else {
+					$this->_where[] = [$value[0], $value[1], $value[2]];
+				}
+			}
+		} else {
+			if ($value === null) {
+				$value = $operator;
+				$operator = '=';
+			}
+
+			$this->_where[] = [$column, $operator, $value];
+		}
 
 		return $this;
 	}
@@ -54,7 +69,7 @@ Class Query
 
 	public function orWhere($column, $operator, $value = null)
 	{
-		if (empty($value)) {
+		if ($value === null) {
 			$value = $operator;
 			$operator = '=';
 		}
@@ -203,7 +218,6 @@ Class Query
 		}
 
 		if (!empty($params)) {
-
 			if ($stmt = $conn->prepare($sql)) {
 				//这里是引用传递参数
 			    if(is_array($params))
@@ -257,21 +271,18 @@ Class Query
 			    $stmt->free_result();
 			    $stmt->close();
 			} else {
-				throw new \Exception($sql . ' SQL 错误!');
+				throw new \Exception($conn->error, 1);
 			}
 		} else {
 			if ($stmt = $conn->query($sql)) {
-				// var_dump($stmt);dd();
 				if (is_bool($stmt)) {
-					return mysqli_affected_rows($conn);
+					$returnData =  mysqli_affected_rows($conn);
 				} else {
 					while ($row = $stmt->fetch_assoc()){
 					 	$returnData[] = $row;
 					}
 
 					$stmt->free();
-
-					return $returnData;
 				}
 
 			} else {

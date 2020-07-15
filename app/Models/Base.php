@@ -23,6 +23,7 @@ class Base extends Query
      */
     public function loadData($id)
     {
+        if (empty($id)) return [];
         return $this->where($this->primaryKey, (int) $id)
                     ->find();
     }
@@ -49,7 +50,7 @@ class Base extends Query
         return $this->insert($data);
     }
 
-    public function getPaginationList($list, $total, $page = 1, $pagesize = 10)
+    public function getPaginationList($total, $list, $page = 1, $pagesize = 10)
     {
         return [
             'total' => $total,

@@ -202,35 +202,3 @@
 #iframe-list ul > li.select {
 	background-color: #FFF;
 }
-
-#header-nav {
-    margin-top: 10px;
-    margin-bottom: 15px;
-}
-
-#header-nav .nav {
-    border-left-width: 2px;
-    border-left-style: solid;
-    border-left-color: #e7502b;
-    line-height: 20px;
-    padding-left: 5px;
-}
-
-.common-tabs li:hover {
-    background-color: #ccc;
-} 
-
-#header-nav .nav a.extralink {
-    color: #ccc;
-    margin-left: 15px;
-    width: 16px;
-    height: 16px;
-    display: none;
-}
-
-#header-nav .nav:hover a.extralink {
-    margin-left: 15px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-}

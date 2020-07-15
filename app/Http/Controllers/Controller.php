@@ -44,13 +44,23 @@ class Controller
     {
         $info = \Router::getFunc();
 
+        $controllerService = \App::make('App\Services\Admin\ControllerService');
+        $data = $controllerService->getInfoByNameEn(strtolower($info['ClassPath']));
+        if (!empty($data['name']))
+            $navArr[] = $data['name'];
+
+        $data = $controllerService->loadData($data['parent_id'] ?? 0);
+        if (!empty($data['name']))
+            $navArr[] = $data['name'];
+
         $controller = strtolower($info['ClassPath']);
         $func = strtolower($info['Func']);
 
+        krsort($navArr);   
+
+        $this->assign('navArr', $navArr);
         $this->assign('controller', $controller);
         $this->assign('func', $func);
-
         $this->assign('tabs', $this->tabs);
-
     }
 }

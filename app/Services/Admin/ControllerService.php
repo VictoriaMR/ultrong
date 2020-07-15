@@ -60,15 +60,16 @@ class ControllerService extends BaseService
     	return $returnData;
     }
 
-    public function getInfoByName($name, $isPerent = false)
+    /**
+     * @method 根据名称获取信息
+     * @author Victoria
+     * @date   2020-07-15
+     * @return array
+     */
+    public function getInfoByNameEn($name, $isParent = false)
     {
-        if (empty($name)) return [];
-        $query = $this->baseModel->where('name_en', $name);
-        if ($isPerent) 
-            $query->where('parent_id', 0);
-        else 
-            $query->where('parent_id', '<>', 0);
-
-        return $query->find();
+        return $this->baseModel->where('name_en', $name)
+                                ->where('parent_id', $isParent ? '=' : '<>', 0)
+                                ->find();
     }
 }
