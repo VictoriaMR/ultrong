@@ -177,8 +177,8 @@ class Base
      * @date   2020-04-13
      * @return array
      */
-    public function getPaginationList($list, $total, $page = 1, $pagesize = 10)
+    public function getPaginationList($total, $list, $page = 1, $pagesize = 10)
     {
-        return $this->baseModel->getPaginationList($list, $total, $page, $pagesize);
+        return $this->baseModel->getPaginationList($total, $list, $page, $pagesize);
     }
 }

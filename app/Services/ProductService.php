@@ -31,7 +31,7 @@ class ProductService extends BaseService
             }
         }
 
-        return $this->getPaginationList($list ?? [], $total, $page, $size);
+        return $this->getPaginationList($total, $list ?? [], $page, $size);
     }
 
     public function save($proId, $data = [])
