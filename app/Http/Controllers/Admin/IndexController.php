@@ -31,15 +31,11 @@ class IndexController extends Controller
 		//基本信息
 		$info = Session::get('admin');
 
-		// $this->assign('site_info', $siteInfo);
+		$this->assign('site_info', $siteInfo);
 		$this->assign('info', $info);
 		$this->assign('list', $controllerList);
+		$this->assign('title', (!empty($siteInfo['name']) ? $siteInfo['name'].'-' : '') . '管理后台');
 
-		return view();
-	}
-
-	public function show() 
-	{
 		return view();
 	}
 }

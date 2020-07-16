@@ -11,4 +11,7 @@ class Site extends BaseModel
 {
 	//表名
     public $table = 'site';
+
+    //主键
+    protected $primaryKey = 'site_id';
 }

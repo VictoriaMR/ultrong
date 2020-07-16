@@ -37,7 +37,7 @@ class Base extends Query
      */
     public function updateDataById($id, $data)
     {
-        return $this->update($this->table, [$this->primaryKey=>$id], $data);
+        return $this->where($this->primaryKey, $id)->update($data);
     }
 
     public function addDataGetId($data)

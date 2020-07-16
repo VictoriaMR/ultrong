@@ -21,7 +21,7 @@ class Router
 
 		/* 进行网址解析 */
 		if (!empty($GLOBALS['route'])) {
-			if (!in_array($pathInfoArr[0] ?? [], $GLOBALS['route'])) {
+			if (!in_array(strtolower($pathInfoArr[0] ?? ''), $GLOBALS['route'])) {
 				//压入默认站点到路由数组
 				array_unshift($pathInfoArr, $GLOBALS['route'][0]);
 			}

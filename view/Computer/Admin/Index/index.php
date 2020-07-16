@@ -1,7 +1,7 @@
 <?php $this->load('Common.baseHeader');?>
 <div class="width-100">
 	<div id="header" <?php if (!empty($info['color_value'])) { ?> style="background-color: <?php echo $info['color_value'];?>" <?php } ?>>
-		<a href="/" class="font-16 font-700 color-white padding-left-15"><?php echo $site_info['name'] ?? '';?></a>
+		<a href="/" class="font-16 font-700 color-white padding-left-5"><?php echo $site_info['name'] ?? '';?></a>
 	    <a href="<?php echo adminUrl('login/logout');?>" class="right toolbox" data-title="退出系统">
 	    	<img src="<?php echo siteUrl('image/computer/icon/exit.png');?>">
 	    </a>

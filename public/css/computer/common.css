@@ -139,6 +139,10 @@ table {
     text-overflow: ellipsis;
 }
 
+.hide {
+    display: none;
+}
+
 .hidden {
     display: none;
 }
@@ -161,11 +165,11 @@ table {
 }
 
 .left {
-    float: left;
+    float: left !important;
 }
 
 .right {
-    float: right;
+    float: right !important;
 }
 
 .pointer {

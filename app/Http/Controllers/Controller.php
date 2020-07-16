@@ -46,12 +46,13 @@ class Controller
 
         $controllerService = \App::make('App\Services\Admin\ControllerService');
         $data = $controllerService->getInfoByNameEn(strtolower($info['ClassPath']));
-        if (!empty($data['name']))
+        if (!empty($data['name'])) 
             $navArr[] = $data['name'];
 
         $data = $controllerService->loadData($data['parent_id'] ?? 0);
-        if (!empty($data['name']))
+        if (!empty($data['name'])) {
             $navArr[] = $data['name'];
+        }
 
         $controller = strtolower($info['ClassPath']);
         $func = strtolower($info['Func']);

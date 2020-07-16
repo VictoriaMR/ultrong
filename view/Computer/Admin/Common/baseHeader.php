@@ -16,6 +16,7 @@
 <body>
 <script type="text/javascript">
 var ADMIN_API = "<?php echo Env('APP_DOMAIN').'api/admin/';?>";
+var ADMIN_URI = "<?php echo Env('APP_DOMAIN').'admin/';?>";
 </script>
 <?php if (!empty($navArr)) { ?>
 <div id="header-nav" class="container-fluid">

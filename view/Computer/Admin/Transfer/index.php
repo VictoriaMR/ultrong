@@ -17,9 +17,9 @@
             	data-value="<?php echo $value['value'];?>"
             >
                 <td class="col-md-1 col-1"><?php echo $value['tran_id'];?></td>
-                <td class="strong col-md-1 col-1"><?php echo $value['type_name'];?></td>
-                <td class="strong col-md-4 col-4"><?php echo $value['name'];?></td>
-                <td class="strong col-md-4 col-4"><?php echo $value['value'];?></td>
+                <td class="col-md-1 col-1"><?php echo $value['type_name'];?></td>
+                <td class="col-md-4 col-4"><?php echo $value['name'];?></td>
+                <td class="col-md-4 col-4"><?php echo $value['value'];?></td>
                 <td class="col-md-2 col-2">
                     <button class="btn btn-primary btn-sm modify" type="button" ><i class="fa fa-edit"></i>修改</button>
                 </td>
@@ -51,57 +51,18 @@
             <div class="input-group-addon"><span>翻译：</span></div>
             <textarea class="form-control" name="value" required="required" value=""></textarea>
         </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block save" data-loading-text="<span class='glyphicon glyphicon-refresh'></span>">确认</button>
+        <div class="col-md-8 col-8 right" style="padding: 0;">
+        	<button type="button" class="btn btn-success btn-sm btn-block translate-saved" data-loading-text="<span class='glyphicon glyphicon-refresh'></span>">获取智能翻译</button>
+        </div>
+        <div class="clear"></div>
+        <div class="margin-top-15">
+        	<button type="button" class="btn btn-primary btn-lg btn-block save" data-loading-text="<span class='glyphicon glyphicon-refresh'></span>">确认</button>
+        </div>
     </form>
 </div>
 <script type="text/javascript">
 $(function(){
-	$('#dealbox').offsetCenter();
-	$('.modify').on('click', function(){
-		$('#dealbox').show();
-		initShow($(this).parents('tr').data());
-	});
-	$('#dealbox button.save').on('click', function(){
-    	var check = true;
-    	$(this).parent('form').find('[required=required]').each(function(){
-    		var val = $(this).val();
-    		if (val == '') {
-    			check = false;
-    			var name = $(this).prev().text();
-    			POP.tips('请将'+name.slice(0, -1)+'填写完整');
-    			$(this).focus();
-    			return false;
-    		}
-    	});
-    	if (!check) return false;
-    	save();
-    });
-	/*
-	 * 初始化编辑弹窗
-	 */
-	function initShow(data)
-	{
-		for (var i in data) {
-			$('#dealbox [name="'+i+'"]').val(data[i]);
-		}
-	}
-	//保存
-	function save()
-	{
-		if ($('#dealbox button.save').find('.fa-spinner').length > 0) return false;
-    	$('#dealbox button.save').html($('#dealbox button.save').data('loading-text'));
-    	return;
-    	$.post("<?php echo url('Printer/savePage');?>", $('#dealbox form').serializeArray(), function(res){
-    		$('#dealbox button.save').html('确认');
-    		if (res.code == 0) {
-    			successTips(res.msg);
-    			$('#dealbox').hide();
-    			window.location.reload();
-    		} else {
-    			errorTips(res.msg);
-    		}
-    	});
-	}
+	TRANSFER.init();
 })
 </script>
 <?php $this->load('Common.baseFooter');?>

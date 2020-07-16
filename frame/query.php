@@ -197,6 +197,21 @@ Class Query
 		return $this->getQuery($sql);
 	}
 
+	public function update($data = [])
+	{
+		if (empty($data)) return false;
+
+		$tempArr = [];
+		foreach ($data as $key => $value) {
+			$tempArr[] = "`".$key."`="."'".$value."'";
+		}
+		
+		$this->analyzeWhere();
+		$sql = sprintf('UPDATE %s SET %s WHERE %s', $this->_table, implode(', ', $tempArr), $this->_whereStr);
+
+		return $this->getQuery($sql, $this->_param);
+	}
+
 	/**
 	 * @method 查询语句 sql + 预处理语句结果
 	 * @date   2020-04-11
@@ -262,6 +277,9 @@ Class Query
 
 					            $i++;
 					        }
+				        } else {
+				        	$returnData = mysqli_affected_rows($conn);
+				        	$returnData = $returnData > 0 ? $returnData : 1;
 				        }
 		        	}
 		        } else {

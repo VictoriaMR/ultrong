@@ -4,13 +4,15 @@ namespace App\Services;
 
 use App\Services\Base as BaseService;
 use App\Models\Translate;
+use App\Models\TranslateConfig;
 use frame\Session;
 
 class TranslateService extends BaseService
 {
-	public function __construct(Translate $translate)
+	public function __construct(Translate $translate, TranslateConfig $config)
     {
         $this->baseModel = $translate;
+        $this->transModel = $config;
     }
 
     /**
@@ -92,5 +94,30 @@ class TranslateService extends BaseService
     public function getListTotal($where = [])
     {
         return $this->baseModel->where($where)->count();
+    }
+
+    public function getInterfaceList($where = [], $page = 1, $size = 20)
+    {
+        $list = $this->transModel->getInterfaceList($where, $page, $size);
+        return $list;
+    }
+
+    public function getInterfaceListTotal($where = [])
+    {
+        return $this->transModel->where($where)->count();
+    }
+
+    public function updateConfigById($transId, $data)
+    {
+        if (empty($transId) || empty($data)) return false;
+
+        return $this->transModel->updateDataById($transId, $data);
+    }
+
+    public function addConfig($data)
+    {
+        if (empty($data)) return false;
+
+        return $this->transModel->insert($data);
     }
 }

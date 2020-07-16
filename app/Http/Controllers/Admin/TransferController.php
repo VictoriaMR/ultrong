@@ -21,6 +21,8 @@ class TransferController extends Controller
 
 	public function index()
 	{
+		Html::addJs('transfer/index');
+
 		$page = (int) iget('page', 1);
 		$size = (int) iget('size', 20);
 		$type = iget('type', '');
@@ -55,6 +57,63 @@ class TransferController extends Controller
 
 	public function interface()
 	{
+		Html::addJs('transfer/interface');
+
+		$page = (int) iget('page', 1);
+		$size = (int) iget('size', 20);
+
+		$where = [];
+
+		$total = $this->baseService->getInterfaceListTotal($where);
+
+		if ($total > 0) {
+			$list = $this->baseService->getInterfaceList($where, $page, $size);
+		}
+
+		$list = $this->baseService->getPaginationList($total, $list ?? [], $page, $size);
+
+		$pageBar = paginator()->make($size, $total);
+
+		$this->assign('list', $list);
+		$this->assign('pageBar', $pageBar);
+
 		return view();
+	}
+
+	public function saveConfig()
+	{
+		$name = ipost('name', '');
+		$appid = ipost('app_id', '');
+		$appkey = ipost('app_key', '');
+		$status = ipost('status', null);
+		$tcId = (int) ipost('tc_id', 0);
+
+		if (empty($name))
+			return $this->result(10000, false, ['message' => '请将名称填写完整']);
+
+		if (empty($appid))
+			return $this->result(10000, false, ['message' => '请将APPID填写完整']);
+
+		if (empty($appkey))
+			return $this->result(10000, false, ['message' => '请将APPKEY填写完整']);
+
+		$data = [
+			'name' => $name,
+			'app_id' => $appid,
+			'app_key' => $appkey,
+		];
+
+		if ($status !== null) $data['status'] = (int) $status;
+
+		if (!empty($tcId)) {
+			$result = $this->baseService->updateConfigById($tcId, $data);
+		} else {
+			$result = $this->baseService->addConfig($data);
+		}
+
+		if ($result)
+			return $this->result(200, $result, ['message' => '保存成功']);
+		else
+			return $this->result(10000, $result, ['message' => '保存失败']);
 	}
 }
