@@ -112,12 +112,18 @@ function input()
     return array_merge($_GET, $_POST);
 }
 
-function url($url = '') 
+function url($url = '', $param = []) 
 {
     if (\Router::getFunc('Class') == 'Home')
-        return Env('APP_DOMAIN').$url.'.html';
+        $url = Env('APP_DOMAIN').$url.'.html';
     else
-        return Env('APP_DOMAIN').$url;
+        $url = Env('APP_DOMAIN').$url;
+
+    if (!empty($param)) {
+        $url .= '?'. http_build_query($param);
+    }
+
+    return $url;
 }
 
 function adminUrl($url = '')
@@ -193,4 +199,9 @@ function dist($name = '')
     return $name;
     $translateService = \App::make('App/Services/TranslateService');
     return $translateService->getText($name);
+}
+
+function paginator()
+{
+    return \frame\Paginator::getInstance($db);
 }

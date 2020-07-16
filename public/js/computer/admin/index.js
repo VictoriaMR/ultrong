@@ -6,7 +6,7 @@ var INDEX = {
 		$('#left').css({height: height - topH - 1 + 'px'});
 
 		var iframeTop = $('#iframe-list').height();
-		$('iframe').css({height: height - topH - iframeTop - 5 + 'px'})
+		$('#iframe-list-content').css({height: height - topH - iframeTop + 'px', 'margin-top': '-10px'})
 
 		$('#left-one .toggle').on('click', function(){
 			var ow = $('#left-one').width();

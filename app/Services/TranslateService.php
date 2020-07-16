@@ -73,23 +73,20 @@ class TranslateService extends BaseService
 
     public function getList($where = [], $page = 1, $size = 20)
     {
-        $total = $this->getListTotal($where);
-        if ($total > 0) {
-            $list = $this->baseModel->getList($where, $page, $size);
-            if (!empty($list)) {
-                $languageService = \App::make('App/Services/LanguageService');
-                $langList = $languageService->getList();
-                $langList = array_column($langList, null, 'value');
+        $list = $this->baseModel->getList($where, $page, $size);
+        if (!empty($list)) {
+            $languageService = \App::make('App/Services/LanguageService');
+            $langList = $languageService->getList();
+            $langList = array_column($langList, null, 'value');
 
-                foreach ($list as $key => $value) {
-                    $value['type_name'] = $langList[$value['type']]['name'] ?? '';
+            foreach ($list as $key => $value) {
+                $value['type_name'] = $langList[$value['type']]['name'] ?? '';
 
-                    $list[$key] = $value;
-                }
+                $list[$key] = $value;
             }
         }
 
-        return $this->getPaginationList($total, $list ?? [], $page, $size);
+        return $list;
     }
 
     public function getListTotal($where = [])

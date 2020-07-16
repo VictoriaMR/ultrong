@@ -37,9 +37,18 @@ class TransferController extends Controller
 		if (!empty($keyword))
 			$where[] = ['name', 'like' , '%'.$keyword.'%'];
 
-		$list = $this->baseService->getList($where, $page, $size);
+		$total = $this->baseService->getListTotal($where);
 
-		dd($list);
+		if ($total > 0) {
+			$list = $this->baseService->getList($where, $page, $size);
+		}
+
+		$list = $this->baseService->getPaginationList($total, $list ?? [], $page, $size);
+
+		$pageBar = paginator()->make($size, $total);
+
+		$this->assign('list', $list);
+		$this->assign('pageBar', $pageBar);
 
 		return view();
 	}

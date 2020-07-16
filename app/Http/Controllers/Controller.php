@@ -56,7 +56,10 @@ class Controller
         $controller = strtolower($info['ClassPath']);
         $func = strtolower($info['Func']);
 
-        krsort($navArr);   
+        krsort($navArr);
+
+        \frame\Html::addCss('common');
+        \frame\Html::addJs('common');
 
         $this->assign('navArr', $navArr);
         $this->assign('controller', $controller);

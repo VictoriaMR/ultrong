@@ -64,7 +64,7 @@ class App
         if ($info['Class'] != 'Api') {
             //引入公共css js
             Html::addCss(['common', 'space', 'font', 'icon'], true);
-            Html::addJs(['jquery', 'common'], true);
+            Html::addJs(['jquery', 'common', 'syalert'], true);
         }
 
         if ($info['Class'] == 'Admin') {
