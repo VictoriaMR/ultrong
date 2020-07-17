@@ -49,3 +49,54 @@
 .centerShow form .input-group {
     margin-bottom: 15px;
 }
+
+#rightTips {
+    position: fixed;
+    top:40px;
+    right: 4px;
+    width: 200px;
+    z-index: 999;
+}
+
+#rightTips .info {
+    position: relative;
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #333336;
+    margin-bottom: 8px;
+    color: white;
+    word-break:break-all;
+}
+#rightTips .success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
+#rightTips .error {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+}
+
+#rightTips .info .circle{
+    position: absolute;
+    top:4px;
+    left: 4px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #e7502b;
+    animation: scaleout 0.5s infinite ease-in-out;
+}
+
+#rightTips .info .fa-times-circle{
+    cursor: pointer;
+    position: absolute;
+    top:4px;
+    right: 4px;
+    transition: 1s;
+}
+#rightTips .info .fa-times-circle:hover{
+    transform:rotate(180deg);
+}

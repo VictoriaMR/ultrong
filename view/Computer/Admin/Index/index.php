@@ -60,6 +60,7 @@
 										<?php if (!empty($value['son'])) { ?>
 										<?php foreach ($value['son'] as $v) { ?>
 										<li data-src="<?php echo adminUrl($v['name_en']);?>" data-id="<?php echo $v['con_id'];?>">
+											<img src="<?php echo siteUrl('image/computer/icon/feature/'.$v['icon'].'.png');?>">
 											<span><?php echo $v['name'];?></span>
 											<a title="新窗口打开" target="_blank" href="<?php echo adminUrl($v['name_en']);?>"></a>
 										</li>

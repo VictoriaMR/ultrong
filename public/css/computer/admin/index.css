@@ -133,9 +133,16 @@ body {
     height: 35px;
     line-height: 35px;
     font-size: 13px;
-    padding-left: 30px;
+    padding-left: 35px;
     position: relative;
     cursor: pointer;
+}
+
+#left-two .menu-content ul > li img{
+    position: absolute;
+    left: 10px; 
+    top: 9px;
+    display: none;
 }
 
 #left-two .menu-content ul > li:hover {
@@ -147,6 +154,10 @@ body {
     color: #e7502b;
 }
 
+#left-two .menu-content ul > li.selected img {
+    display: inline-block;
+}
+
 #left-two .menu-content ul > li a {
     height: 16px;
     width: 16px;
@@ -155,7 +166,7 @@ body {
     right: 5px;
     margin: 0px;
     padding: 0px;
-    background-image: url(/image/icon/extralink.png);
+    background-image: url(/image/computer/icon/extralink.png);
 }
 
 .tooltips {

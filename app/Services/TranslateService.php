@@ -107,11 +107,11 @@ class TranslateService extends BaseService
         return $this->transModel->where($where)->count();
     }
 
-    public function updateConfigById($transId, $data)
+    public function updateConfigById($id, $data)
     {
-        if (empty($transId) || empty($data)) return false;
+        if (empty($id) || empty($data)) return false;
 
-        return $this->transModel->updateDataById($transId, $data);
+        return $this->transModel->updateDataById($id, $data);
     }
 
     public function addConfig($data)
@@ -119,5 +119,22 @@ class TranslateService extends BaseService
         if (empty($data)) return false;
 
         return $this->transModel->insert($data);
+    }
+
+    public function modifyConfig($id, $data)
+    {
+        if (empty($id) || empty($data)) return false;
+        return $this->transModel->updateDataById($id, $data);
+    }
+
+    public function checkConfig($id)
+    {
+        if (empty($id)) return false;
+
+        $result = \frame\Http::get('1231');
+
+        if ($result['error']) return false;
+
+        return $this->transModel->updateDataById($id, ['checked'=>1]);
     }
 }

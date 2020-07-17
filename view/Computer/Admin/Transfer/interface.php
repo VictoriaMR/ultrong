@@ -10,7 +10,7 @@
             <th class="col-md-2 col-2">APPID</th>
             <th class="col-md-2 col-2">APPKEY</th>
             <th class="col-md-1 col-1">状态</th>
-            <th class="col-md-1 col-1">状态</th>
+            <th class="col-md-1 col-1">检查</th>
             <th class="col-md-3 col-3">操作</th>
         </tr>
         <?php if (!empty($list['list'])) { ?>
@@ -28,11 +28,23 @@
                 <td class="col-md-2 col-2"><?php echo $value['name'];?></td>
                 <td class="col-md-2 col-2"><?php echo $value['app_id'];?></td>
                 <td class="col-md-2 col-2"><?php echo $value['app_key'];?></td>
-                <td class="col-md-1 col-1"></td>
-                <td class="col-md-1 col-1"></td>
+                <td class="col-md-1 col-1">
+                    <?php if($value['status']){?>
+                        <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
+                    <?php }else{?>
+                        <div class="switch_botton status" data-status="0"><div class="switch_status off"></div></div>
+                    <?php }?>
+                </td>
+                <td class="col-md-1 col-1">
+                    <?php if($value['checked']){?>
+                        <div class="switch_botton checked" data-status="1"><div class="switch_status on"></div></div>
+                    <?php }else{?>
+                        <div class="switch_botton checked" data-status="0"><div class="switch_status off"></div></div>
+                    <?php }?>
+                </td>
                 <td class="col-md-2 col-2">
-                    <button class="btn btn-primary btn-sm modify" type="button" ><i class="fa fa-edit"></i>修改</button>
-                    <button class="btn btn-danger btn-sm delete" type="button" ><i class="fa fa-edit"></i>删除</button>
+                    <button class="btn btn-primary btn-sm modify" type="button" ><span class="glyphicon glyphicon-edit"></span>&nbsp;修改</button>
+                    <button class="btn btn-danger btn-sm delete" type="button" ><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
                 </td>
             </tr>
         <?php } ?>

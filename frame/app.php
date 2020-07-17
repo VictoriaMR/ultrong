@@ -64,11 +64,12 @@ class App
         if ($info['Class'] != 'Api') {
             //引入公共css js
             Html::addCss(['common', 'space', 'font', 'icon'], true);
-            Html::addJs(['jquery', 'common', 'syalert'], true);
+            Html::addJs(['jquery', 'common'], true);
         }
 
         if ($info['Class'] == 'Admin') {
             Html::addCss('bootstrap', true);
+            Html::addJs('modal');
         }
 
 		call_user_func_array([self::autoload($class), $info['Func']], []);

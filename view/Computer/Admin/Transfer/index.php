@@ -1,6 +1,6 @@
 <?php $this->load('Common.baseHeader');?>
 <div class="container-fluid">
-   <table class="table  table-hover table-middle margin-top-15">
+   	<table class="table  table-hover table-middle margin-top-15">
         <tr>
         	<th class="col-md-1 col-1">ID</th>
             <th class="col-md-1 col-1">类型</th>
@@ -21,7 +21,7 @@
                 <td class="col-md-4 col-4"><?php echo $value['name'];?></td>
                 <td class="col-md-4 col-4"><?php echo $value['value'];?></td>
                 <td class="col-md-2 col-2">
-                    <button class="btn btn-primary btn-sm modify" type="button" ><i class="fa fa-edit"></i>修改</button>
+                    <button class="btn btn-primary btn-sm modify" type="button" ><span class="glyphicon glyphicon-edit">&nbsp;修改</button>
                 </td>
             </tr>
         <?php } ?>
