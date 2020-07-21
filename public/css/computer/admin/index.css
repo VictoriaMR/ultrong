@@ -145,6 +145,10 @@ body {
     display: none;
 }
 
+#left-two .menu-content ul > li a {
+    display: none;
+}
+
 #left-two .menu-content ul > li:hover {
 	background-color: #FFF;
 }
@@ -152,6 +156,10 @@ body {
 #left-two .menu-content ul > li.selected {
     background-color: #FFF;
     color: #e7502b;
+}
+#left-two .menu-content ul > li:hover > a,
+#left-two .menu-content ul > li.selected a {
+    display: block;
 }
 
 #left-two .menu-content ul > li.selected img {
