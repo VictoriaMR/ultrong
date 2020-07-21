@@ -26,7 +26,7 @@ var LOGIN = {
 				return false;
 			}
 
-			API.post(ADMIN_API+'login/login', $(this).parent('form').serializeArray(), function(res) {
+			API.post(API_URL+'admin/login/login', $(this).parent('form').serializeArray(), function(res) {
 				if (res.code == 200) {
 					window.location.href = res.data.url;
 				} else {

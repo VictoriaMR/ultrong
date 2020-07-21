@@ -43,7 +43,7 @@ class Attachment extends BaseModel
     {
     	if (empty($checkno)) return false;
 
-        $result = $this->getOne($this->table, ['name' => $checkno], ['attach_id', 'type', 'name', 'cate']);
+        $result = $this->where('name', $checkno)->find();
 
         return $result;
     }

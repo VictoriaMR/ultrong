@@ -37,3 +37,43 @@ var VERIFY = {
 		return reg.test(input);
 	}
 };
+
+var UPLOAD = {
+	init: function (data){
+		this.data = data;
+		this.data.obj.css({'cursor': 'pointer'});
+		this.data.obj.on('click', function(event){
+			if ($('body input[type="file"]').length == 0) {
+				$('body').append('<input type="file" style="display: none;" />');
+			}
+			$('body input[type="file"]').trigger('click');
+		});
+
+		$('body').on('change', 'input[type="file"]', function() {
+			UPLOAD.loadFile($(this), UPLOAD.data.site ? UPLOAD.data.site : 'temp');
+		});
+	},
+	loadFile: function(obj, site)
+	{
+		var returnData = {};
+        var formData = new FormData();
+        formData.append('file', obj.get(0).files[0]);  //上传一个files对象
+        formData.append('site', site);
+
+        $.ajax({//jQuery方法，此处可以换成其它请求方式
+            url: API_URL + 'upload',
+            type: 'post',
+            data: formData, 
+            processData: false, //jquery 是否对数据进行 预处理
+            contentType: false, // 不要自己修改请求内容类型
+            error: function (res) {
+                if (UPLOAD.data.error)
+                	UPLOAD.data.error(res);
+            },
+            success: function (res) {
+                if (UPLOAD.data.success)
+                	UPLOAD.data.success(res);
+            }
+        });
+	}
+};

@@ -21,7 +21,7 @@
                 <td class="col-md-4 col-4"><?php echo $value['name'];?></td>
                 <td class="col-md-4 col-4"><?php echo $value['value'];?></td>
                 <td class="col-md-2 col-2">
-                    <button class="btn btn-primary btn-sm modify" type="button" ><span class="glyphicon glyphicon-edit">&nbsp;修改</button>
+                    <button class="btn btn-primary btn-sm modify" type="button" ><span class="glyphicon glyphicon-edit"></span>&nbsp;修改</button>
                 </td>
             </tr>
         <?php } ?>

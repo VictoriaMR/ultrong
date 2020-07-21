@@ -13,11 +13,12 @@ class Session
 	{
 		if (empty($key)) return false;
 
-		$key = explode('_', $key);
-		if (count($key) > 1) {
-			$_SESSION[$key[0]][$key[1]] = $data;
+		$temp = explode('_', $key);
+
+		if (count($temp) > 1) {
+			$_SESSION[$temp[0]][str_replace($temp[0].'_', '', $key)] = $data;
 		} else {
-			$_SESSION[$key[0]] = $data;
+			$_SESSION[$temp[0]] = $data;
 		}
 
 		return true;
@@ -27,12 +28,12 @@ class Session
 	{
 		if (empty($name)) return $_SESSION;
 
-		$name = explode('_', $name);
+		$temp = explode('_', $name);
 
-		$data = $_SESSION[$name[0]] ?? [];
+		$data = $_SESSION[$temp[0]] ?? [];
 
-		if (count($name) > 1) {
-			return $data[$name[1]] ?? [];
+		if (count($temp) > 1) {
+			return $data[str_replace($temp[0].'_', '', $name)] ?? [];
 		} else {
 			return $data;
 		}

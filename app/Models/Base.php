@@ -40,6 +40,11 @@ class Base extends Query
         return $this->where($this->primaryKey, $id)->update($data);
     }
 
+    public function deleteDataById($id)
+    {
+        return $this->where($this->primaryKey, $id)->delete();
+    }
+
     public function addDataGetId($data)
     {
         return $this->insertGetId($data);

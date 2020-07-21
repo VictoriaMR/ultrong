@@ -36,7 +36,7 @@ class Base
      *
      * @param array $data 新增数据
      */
-    public function addData($data)
+    public function insert($data)
     {
         return $this->baseModel->insert($data);
     }
@@ -46,9 +46,9 @@ class Base
      *
      * @param array $data 新增数据
      */
-    public function addDataGetId($data)
+    public function insertGetId($data)
     {
-        return $this->baseModel->insert($data);
+        return $this->baseModel->insertGetId($data);
     }
 
     /**
@@ -59,7 +59,7 @@ class Base
      *
      * @return bool
      */
-    public function updateData($id, $data)
+    public function updateDataById($id, $data)
     {
         return $this->baseModel->updateDataById($id, $data);
     }
@@ -139,9 +139,9 @@ class Base
      *
      * @param $id 主键值
      */
-    public function deleteData($id)
+    public function deleteDataById($id)
     {
-        return $this->baseModel->deleteData($id);
+        return $this->baseModel->deleteDataById($id);
     }
 
     /**

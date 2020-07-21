@@ -44,41 +44,33 @@ class FileService extends BaseService
             ];
 
             //保存文件地址
-            $saveUrl = getenv('FILE_CENTER').$cate;
+            $saveUrl = $cate;
 
             if (!empty($prev))
             	$saveUrl .= '/'.$prev;
 
+            //中间路径
+            $insert['path'] = $saveUrl;
+
             $saveUrl .= '/'.$hash.'.'.$extension;
 
-            // dd($this->squareImage('C:\Users\LMR\Pictures\Saved Pictures\B612Kaji_20180526_105206_792.jpg'));
+            $saveUrl = ROOT_PATH.'public/file_center/'.$saveUrl;
 
-            file_put_contents('./1.jpeg', $this->squareImage('C:\Users\LMR\Pictures\Camera Roll\2a35655e8ab3bd0bc82e34a494e57a7d.jpg'));
-
-
-            dd(4444);
             $savePath = pathinfo($saveUrl, PATHINFO_DIRNAME);
 
             //创建目录
             if (!is_dir($savePath)) {
                 mkdir($savePath, 0777, true);
             }
+
             $result = move_uploaded_file($tmpFile, $saveUrl);
 
             if ($result) {
-                //水印
-                // $imageWater = new \App\Service\Utils\ImageWater($saveUrl);
-                // $imageWater->output();
-                //图片文件压缩存放
-                if (in_array(strtolower($extension), self::FILE_COMPERSS)) {
-                    $imageCompress = new \app\Services\ImageCompress($saveUrl);
-                    $imageCompress->compressImg(getenv('FILE_CENTER').$cate.'/small/'.$hash.'.'.$extension);
-                }
-
-                $attachmentId = $attachmentService->create($insert);
+                //新增文件记录
+                $attachmentId = $attachmentService->addAttactment($insert);
                 if (!$attachmentId) return false;
                 $insert['attach_id'] = $attachmentId;
-                $insert['file_url'] = str_replace('\\', '/', getenv('FILE_DOMAIN').$cate.'/small/'.$hash.'.'.$extension);
+                $insert['url'] = str_replace(ROOT_PATH.'public/', Env('APP_DOMAIN'), $saveUrl);
             }
             $returnData = $insert;
         }

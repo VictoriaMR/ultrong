@@ -57,7 +57,8 @@ class Controller
         $controller = strtolower($info['ClassPath']);
         $func = strtolower($info['Func']);
 
-        krsort($navArr);
+        if (!empty($navArr))
+            krsort($navArr);
 
         \frame\Html::addCss('common');
         \frame\Html::addJs('common');

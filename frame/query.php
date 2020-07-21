@@ -197,6 +197,24 @@ Class Query
 		return $this->getQuery($sql);
 	}
 
+	/**
+	 * @method 新增并返回自增主键
+	 * @author LiaoMingRong
+	 * @date   2020-07-21
+	 * @return integer
+	 */
+	public function insertGetId($data)
+	{
+		$result = $this->insert($data);
+
+		if (!$result) return 0;
+
+		$result = $this->getQuery('SELECT LAST_INSERT_ID() AS last_insert_id');
+		$result = $result[0] ?? 0;
+
+		return $result['last_insert_id'] ?? 0;
+	}
+
 	public function update($data = [])
 	{
 		if (empty($data)) return false;
@@ -208,6 +226,16 @@ Class Query
 		
 		$this->analyzeWhere();
 		$sql = sprintf('UPDATE %s SET %s WHERE %s', $this->_table, implode(', ', $tempArr), $this->_whereStr);
+
+		return $this->getQuery($sql, $this->_param);
+	}
+
+	public function delete()
+	{		
+		$this->analyzeWhere();
+		if (empty($this->_whereStr)) return false;
+
+		$sql = sprintf('DELETE FROM %s WHERE %s', $this->_table, $this->_whereStr);
 
 		return $this->getQuery($sql, $this->_param);
 	}

@@ -110,7 +110,6 @@ class MemberService extends BaseService
 		if (!$info['status']) return false;
 
 		$password = $this->getPasswd($password, $info['salt']);
-		// dd(password_hash($password, PASSWORD_DEFAULT));
 
 		if ($this->checkPassword($password, $info['password'])) {
 			$data = [

@@ -87,7 +87,7 @@ function runningInConsole()
     return php_sapi_name() === 'cli' || php_sapi_name() === 'phpdbg';
 }
 
-function ipost($name = '', $default = '') 
+function ipost($name = '', $default = null) 
 {
     if (empty($name)) return $_POST;
     
@@ -97,7 +97,7 @@ function ipost($name = '', $default = '')
     return $default;
 }
 
-function iget($name = '', $default = '') 
+function iget($name = '', $default = null) 
 {
     if (empty($name)) return $_GET;
     
@@ -107,9 +107,20 @@ function iget($name = '', $default = '')
     return $default;
 }
 
-function input()
+function input($name = '', $default = null)
 {
-    return array_merge($_GET, $_POST);
+    $temp = array_merge($_GET, $_POST);
+
+    if (empty($name)) return $temp;
+
+    return $temp[$name] ?? $default;
+}
+
+function ifile($name = '', $default = null) 
+{
+    if (empty($name)) return $_FILES;
+
+    return $_FILES[$name] ?? $default;
 }
 
 function url($url = '', $param = []) 
@@ -138,7 +149,7 @@ function siteUrl($url = '')
 
 function media($url = '', $type='', $param = [])
 {
-    $site = Env('FILE_CENTER');
+    $site = Env('APP_DOMAIN').'file_center/';
     if (empty($url)) {
         $site = Env('APP_DOMAIN');
         switch ($type) {

@@ -21,6 +21,11 @@ class AttachmentService extends BaseService
         $this->attachModel = $attachModel;
     }
 
+    public function addAttactment($data)
+    {
+        return $this->attachModel->insertGetId($data);
+    }
+
     /**
 	 * @method 新建系统文件记录
 	 * @author Victoria
@@ -29,7 +34,7 @@ class AttachmentService extends BaseService
 	 */
     public function create($data)
     {
-    	return $this->baseModel->create($data);
+    	return $this->baseModel->insertGetId($data);
     }
 
     /**
@@ -52,9 +57,30 @@ class AttachmentService extends BaseService
      */
     public function getAttachmentByHash($checkno)
     {
+        if (empty($checkno)) return [];
+
     	$info = $this->attachModel->getAttachmentByHash($checkno);
 
-    	return $info;
+        return $this->urlInfo($info);;
+    }
+
+    public function getAttachmentById($attachId)
+    {
+        $attachId = (int) $attachId;
+        if (empty($attachId)) return [];
+
+        $info = $this->attachModel->loadData($attachId);
+
+        return $this->urlInfo($info);
+    }
+
+    protected function urlInfo($info)
+    {
+        if (!empty($info)) {
+            $info['url'] = Env('APP_DOMAIN').'file_center/'.$info['path'].'/'.$info['name'].'.'.$info['type'];
+        }
+
+        return $info;
     }
 
     public function getListByType($type = 0)
@@ -88,6 +114,34 @@ class AttachmentService extends BaseService
         if (!empty($type))
             $name .= '.' . $type;
 
-        return getenv('FILE_CENTER') . $name;
+        return Env('APP_DOMAIN').'file_center/'. $name;
+    }
+
+    public function updateData($entityId, $type, $attachId = [])
+    {
+        $entityId = (int) $entityId;
+        $type = (int) $type;
+        if (empty($entityId) || empty($type)) return false;
+
+        $result = $this->baseModel->where('entity_id', $entityId)
+                          ->where('type', $type)
+                          ->delete();
+
+        if (!empty($attachId)){
+            if (!is_array($attachId)) $attachId = [$attachId];
+            $insert = [];
+            foreach ($attachId as $key => $value) {
+                $insert[] = [
+                    'entity_id' => $entityId,
+                    'type' => $type,
+                    'attach_id' => $value,
+                    'sort' => $key,
+                ];
+
+                return $this->baseModel->insert($insert);
+            }
+        }
+
+        return $result;
     }
 }

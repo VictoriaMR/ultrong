@@ -27,13 +27,12 @@ var TRANSFER = {
 		for (var i in data) {
 			$('#dealbox [name="'+i+'"]').val(data[i]);
 		}
-
 	},
 	save: function ()
 	{
 		if ($('#dealbox button.save').find('.fa-spinner').length > 0) return false;
 	    	$('#dealbox button.save').html($('#dealbox button.save').data('loading-text'));
-	    	$.post(ADMIN_URL, $('#dealbox form').serializeArray(), function(res){
+	    	$.post(ADMIN_URI , $('#dealbox form').serializeArray(), function(res){
 	    		$('#dealbox button.save').html('确认');
 	    		if (res.code == 200) {
 	    			window.location.reload();

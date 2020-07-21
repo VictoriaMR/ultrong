@@ -16,7 +16,7 @@
 </head>
 <body>
 <script type="text/javascript">
-var ADMIN_API = "<?php echo Env('APP_DOMAIN').'api/admin/';?>";
+var API_URL = "<?php echo Env('APP_DOMAIN').'api/';?>";
 var ADMIN_URI = "<?php echo Env('APP_DOMAIN').'admin/';?>";
 </script>
 <?php if (!empty($navArr)) { ?>
@@ -33,7 +33,7 @@ var ADMIN_URI = "<?php echo Env('APP_DOMAIN').'admin/';?>";
 </div>
 <?php } ?>
 <?php if (!empty($tabs)) { ?>
-<div class="container-fluid" style="margin-bottom: 15px;">
+<div class="container-fluid" style="margin: 15px 0;">
     <ul class="nav nav-tabs common-tabs">
         <?php foreach ($tabs as $key => $val) {?>
             <li class="<?php echo $key == $func ? 'active' : '';?>"><a href="<?php echo adminUrl($controller.'/'.$key);?>"><?php echo $val; ?></a></li>

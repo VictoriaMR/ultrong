@@ -19,25 +19,16 @@ class ControllerService extends BaseService
         $this->baseModel =  $model;
     }
 
-    public function getList() 
+    public function getList($where) 
     {
-    	$cacheKey = 'ADMIN_CONTROLLER_LIST';
-    	$list = Redis()->get($cacheKey);
-    	if (empty($list)) {
-    		$list = $this->baseModel->getList();
-    		// Redis()->set($cacheKey, json_encode($list, JSON_UNESCAPED_UNICODE), self::constant('EXPIRE_TIME'));
-    	}
-
-    	if (!empty($list) && !is_array($list)) {
-    		$list = json_decode($list, true);
-    	}
+    	$list = $this->baseModel->where($where)->get();
 
     	return $list;
     }
 
-    public function getListFormat() 
+    public function getListFormat($where = []) 
     {
-    	$list = $this->getList();
+    	$list = $this->getList($where);
 
     	$list = $this->listFormat($list);
 
@@ -71,5 +62,50 @@ class ControllerService extends BaseService
         return $this->baseModel->where('name_en', $name)
                                 ->where('parent_id', $isParent ? '=' : '<>', 0)
                                 ->find();
+    }
+
+    /**
+     * @method 检查是否为父类
+     * @author LiaoMingRong
+     * @date   2020-07-21
+     * @return boolean 
+     */
+    public function isParent($conId)
+    {
+        $conId = (int) $conId;
+        if (empty($conId)) return false;
+
+        return $this->baseModel->where('con_id', $conId)
+                               ->where('parent_id', 0)
+                               ->count() > 0;
+    }
+
+    /**
+     * @method 根据父类ID修改信息
+     * @author LiaoMingRong
+     * @date   2020-07-21
+     */
+    public function modifyIndoByParentId($parentId, $data)
+    {
+        $parentId = (int) $parentId;
+        if (empty($parentId) || empty($data)) return false;
+
+        return $this->baseModel->where('parent_id', $parentId)
+                               ->update($data);
+    }
+
+    /**
+     * @method 根据父ID删除
+     * @author LiaoMingRong
+     * @date   2020-07-21
+     * @return boolean
+     */
+    public function deleteByParentId($parentId)
+    {
+        $parentId = (int) $parentId;
+        if (empty($parentId)) return false;
+
+        return $this->baseModel->where('parent_id', $parentId)
+                               ->delete();
     }
 }
