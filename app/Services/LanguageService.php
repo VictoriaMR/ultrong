@@ -19,7 +19,7 @@ class LanguageService extends BaseService
      * @param  [type]     $data [description]
      * @return array
      */
-    public function getList($where = [])
+    public function getListCache($where = [])
     {
     	$cacheKey = 'LANGUAGE_LIST_CACHE';
     	$list = Redis()->get($cacheKey);
@@ -30,5 +30,12 @@ class LanguageService extends BaseService
     	}
 
     	return !empty($list) ? json_decode($list, true) : [];
+    }
+
+    public function getList($where = [])
+    {
+        $list = $this->baseModel->where($where)->get();
+
+        return $list;
     }
 }

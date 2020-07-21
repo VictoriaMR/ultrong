@@ -14,9 +14,10 @@
 	        </ul>
 	    </div>
 	    <div class="col-md-5 left">
-	    	<div class="col-md-2 thumbnail avatar" style="border:solid:1px;width:210px;height:210px;">
+	    	<div class="thumbnail avatar" style="border:solid:1px;width:210px;height:210px;">
                 <img src="<?php echo $info['avatar'];?>">
             </div>
+            <div class="color-9">点击上传新头像</div>
 	    </div>
 	</div>
 </div>

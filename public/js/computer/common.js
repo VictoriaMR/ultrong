@@ -1,16 +1,25 @@
 var API = {
 	get: function(url, param, callback) {
+		var returnData = {};
+		$.ajaxSetup({
+	  		async: false
+	  	});
 		$.get(url, param, function(res) {
 			if (callback) callback(res);
+			else returnData = res;
 		}, 'json');
+		return returnData;
 	},
 	post: function(url, param, callback) {
+		var returnData = {};
 		$.ajaxSetup({
-	  		async: true
+	  		async: false
 	  	});
 		$.post(url, param, function(res) {
 			if (callback) callback(res);
+			else returnData = res;
 		}, 'json');
+		return returnData;
 	},
 };
 

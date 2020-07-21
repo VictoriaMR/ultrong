@@ -41,6 +41,11 @@ class Base
         return $this->baseModel->insert($data);
     }
 
+    public function update($data)
+    {
+        return $this->baseModel->update($data);
+    }
+
     /**
      * 新增数据.
      *

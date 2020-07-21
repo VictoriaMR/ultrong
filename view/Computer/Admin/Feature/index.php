@@ -12,7 +12,7 @@
             <th class="col-md-2 col-2">控制器名称(英文小写)</th>
             <th class="col-md-1 col-1">状态</th>
             <th class="col-md-3 col-3">备注</th>
-            <th class="col-md-3 col-3">操作1</th>
+            <th class="col-md-3 col-3">操作</th>
         </tr>
         <?php if (!empty($list)) { ?>
         <?php foreach ($list as $key => $value){ ?>

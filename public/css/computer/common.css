@@ -160,6 +160,10 @@ body {
     color: #e7502b;
 }
 
+.color-9 {
+    color: #999999;
+}
+
 .ellipsis-1 {
     overflow: hidden;
     text-overflow: ellipsis;

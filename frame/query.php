@@ -41,13 +41,17 @@ Class Query
 
 		if (is_array($column)) {
 			foreach ($column as $key => $value) {
-				$count = count($value);
-				if ($count == 1) {
-					$this->_where[] = [$key, '=', $value];
-				} elseif ($count == 2) {
-					$this->_where[] = [$value[0], '=', $value[1]];
+				if (is_array($value)) {
+					$count = count($value);
+					if ($count == 1) {
+						$this->_where[] = [$key, '=', $value];
+					} elseif ($count == 2) {
+						$this->_where[] = [$value[0], '=', $value[1]];
+					} else {
+						$this->_where[] = [$value[0], $value[1], $value[2]];
+					}
 				} else {
-					$this->_where[] = [$value[0], $value[1], $value[2]];
+					$this->_where[] = [$key, '=', $value];
 				}
 			}
 		} else {
@@ -225,7 +229,11 @@ Class Query
 		}
 		
 		$this->analyzeWhere();
-		$sql = sprintf('UPDATE %s SET %s WHERE %s', $this->_table, implode(', ', $tempArr), $this->_whereStr);
+
+		if (!empty($this->_whereStr))
+			$sql = sprintf('UPDATE %s SET %s WHERE %s', $this->_table, implode(', ', $tempArr), $this->_whereStr);
+		else 
+			$sql = sprintf('UPDATE %s SET %s', $this->_table, implode(', ', $tempArr));
 
 		return $this->getQuery($sql, $this->_param);
 	}

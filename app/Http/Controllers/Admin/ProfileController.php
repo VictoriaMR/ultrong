@@ -61,4 +61,33 @@ class ProfileController extends Controller
 			return $this->result(10000, false, ['message' => '更新失败']);
 		}
 	}
+
+	public function modifyPassword()
+	{
+		return view();
+	}
+
+	public function updatePassword()
+	{
+		$password = ipost('password', '');
+		$repassword = ipost('repassword', '');
+
+		if (empty($password) || empty($repassword))
+			return $this->result(10000, false, ['message' => '密码输入不正确']);
+
+		if ($password != $repassword)
+			return $this->result(10000, false, ['message' => '两次输入密码不正确']);
+
+		$password = $this->baseService->getPasswd($password, Session::get('admin_salt'));
+
+		$password = password_hash($password, PASSWORD_DEFAULT);
+
+		$result = $this->baseService->updateDataById(Session::get('admin_mem_id'), ['password' => $password]);
+
+		if ($result) {
+			return $this->result(200, true, ['message' => '修改成功']);
+		} else {
+			return $this->result(10000, false, ['message' => '修改失败']);
+		}
+	}
 }

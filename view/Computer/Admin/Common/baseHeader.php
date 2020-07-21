@@ -36,7 +36,7 @@ var ADMIN_URI = "<?php echo Env('APP_DOMAIN').'admin/';?>";
 <div class="container-fluid" style="margin: 15px 0;">
     <ul class="nav nav-tabs common-tabs">
         <?php foreach ($tabs as $key => $val) {?>
-            <li class="<?php echo $key == $func ? 'active' : '';?>"><a href="<?php echo adminUrl($controller.'/'.$key);?>"><?php echo $val; ?></a></li>
+            <li class="<?php echo strtolower($key) == $func ? 'active' : '';?>"><a href="<?php echo adminUrl($controller.'/'.$key);?>"><?php echo $val; ?></a></li>
         <?php } ?>
     </ul>
 </div>
