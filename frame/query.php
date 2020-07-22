@@ -85,11 +85,7 @@ Class Query
 
 	public function select($columns = ['*'])
 	{
-		$this->columns = [];
-
-        $columns = is_array($columns) ? $columns : func_get_args();
-
-        $this->columns = $columns;
+        $this->_columns = is_array($columns) ? $columns : func_get_args();
 
         return $this;
 	}

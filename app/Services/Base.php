@@ -46,6 +46,12 @@ class Base
         return $this->baseModel->update($data);
     }
 
+    public function where($column, $operator = null, $value = null)
+    {
+        return $this->baseModel->where($column, $operator, $value);
+    }
+
+
     /**
      * 新增数据.
      *

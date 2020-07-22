@@ -25,6 +25,11 @@ function isMobile()
     return false;
 }
 
+function isAjax()
+{
+    return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+}
+
 function dd($data = '') 
 {
     print_r($data);

@@ -40,7 +40,7 @@
                 </td>
                 <td class="col-md-3 col-3">
                 	<button class="btn btn-primary btn-sm modify" type="button" ><span class="glyphicon glyphicon-edit"></span>&nbsp;修改</button>
-                    <button class="btn btn-danger btn-sm delete" type="button" ><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
+                    <button class="btn btn-danger btn-sm delete hide" type="button" ><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
                 </td>
             </tr>
         <?php } ?>
@@ -50,6 +50,38 @@
     	</tr>
     	<?php } ?>
     </table>
+</div>
+<div id="dealbox" style="display: none;">
+    <form class="form-horizontal">
+        <input type="hidden" class="form-control" name="lan_id" value="0">
+        <button type="button" class="close" aria-hidden="true">&times;</button>
+        <h3 style="margin-top: 0px;">新增语言</h3>
+        <div class="input-group">
+            <div class="input-group-addon"><span>名称：</span></div>
+            <input type="text" class="form-control" name="name" required="required" maxlength="30" value="">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon"><span>值：</span></div>
+            <input type="text" class="form-control" name="value" required="required" maxlength="30" value="">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon"><span>状态：</span></div>
+            <div class="form-control" style="padding-top: 2px;">
+                <div class="switch_botton" data-status="1"><div class="switch_status on"></div></div>
+                <input type="hidden" name="status" value="1">
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon"><span>是否默认：</span></div>
+            <div class="form-control" style="padding-top: 2px;">
+                <div class="switch_botton" data-status="0"><div class="switch_status off"></div></div>
+                <input type="hidden" name="is_default" value="0">
+            </div>
+        </div>
+        <div class="margin-top-15">
+            <button type="button" class="btn btn-primary btn-lg btn-block save" data-loading-text="<span class='glyphicon glyphicon-refresh'></span>">确认</button>
+        </div>
+    </form>
 </div>
 <script>
 $(function(){

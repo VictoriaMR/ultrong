@@ -30,6 +30,7 @@ header("Content-Root: " . Env("APP_DOMAIN"));
 @session_start();
 
 define('IS_MOBILE', isMobile() ? true : false);
+define('IS_AJAX', isAjax() ? true : false);
 
 //执行文件入口
 App::run()->execute();

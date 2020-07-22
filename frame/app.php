@@ -69,7 +69,7 @@ class App
 
         if ($info['Class'] == 'Admin') {
             Html::addCss('bootstrap', true);
-            Html::addJs('modal');
+            Html::addJs(['modal', 'button']);
         }
 
 		call_user_func_array([self::autoload($class), $info['Func']], []);

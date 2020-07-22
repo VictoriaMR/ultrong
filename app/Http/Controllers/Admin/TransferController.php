@@ -156,4 +156,19 @@ class TransferController extends Controller
 		else
 			return $this->result(10000, $result, ['message' => '检查不通过']);
 	}
+
+	/**
+	 * @method 重构翻译缓存
+	 * @author LiaoMingRong
+	 * @date   2020-07-22
+	 */
+	public function reloadCache()
+	{
+		$result = $this->baseService->reloadCache();
+
+		if ($result)
+			return $this->result(200, $result, ['message' => '重构成功']);
+		else
+			return $this->result(10000, $result, ['message' => '重构失败']);
+	}
 }

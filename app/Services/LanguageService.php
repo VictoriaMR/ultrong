@@ -25,7 +25,6 @@ class LanguageService extends BaseService
     	$list = Redis()->get($cacheKey);
     	if (empty($list)) {
     		$list = $this->baseModel->where('status', 1)->get();
-    		$list = json_encode($list, JSON_UNESCAPED_UNICODE);
     		Redis()->set($cacheKey, $list, -1);
     	}
 
@@ -37,5 +36,23 @@ class LanguageService extends BaseService
         $list = $this->baseModel->where($where)->get();
 
         return $list;
+    }
+
+    public function clearCache()
+    {
+        $cacheKey = 'LANGUAGE_LIST_CACHE';
+        Redis()->del($cacheKey);
+        return true;
+    }
+
+    public function existLanguage($value, $lanId = 0)
+    {
+        if (empty($value)) return false;
+
+        $query = $this->baseModel->where('value', $value);
+        if (!empty($lanId))
+            $query->where('lan_id', '<>', (int) $lanId);
+
+        return $query->count() > 0;
     }
 }

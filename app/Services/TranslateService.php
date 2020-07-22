@@ -9,6 +9,8 @@ use frame\Session;
 
 class TranslateService extends BaseService
 {
+    const CACHE_KEY = 'SITE_TRANSLATE_TEXT_';
+
 	public function __construct(Translate $translate, TranslateConfig $config)
     {
         $this->baseModel = $translate;
@@ -30,7 +32,7 @@ class TranslateService extends BaseService
 
         if ($language == 'cn') return $name;
 
-        $cacheKey = 'SITE_TRANSLATE_TEXT_'.strtoupper($language);
+        $cacheKey = self::CACHE_KEY.strtoupper($language);
 
         //获取缓存中对应的翻译文本
     	$info = Redis(1)->hget($cacheKey, $name);
@@ -136,5 +138,37 @@ class TranslateService extends BaseService
         if ($result['error']) return false;
 
         return $this->transModel->updateDataById($id, ['checked'=>1]);
+    }
+
+    public function reloadCache()
+    {
+        $languageService = \App::make('App/Services/LanguageService');
+        $list = $languageService->getList();
+
+        foreach ($list as $key => $value) {
+            $cacheKey = self::CACHE_KEY.strtoupper($value['value']);
+            Redis(1)->del($cacheKey);
+        }
+
+        $data = $this->baseModel->where('value', '<>', '')->get();
+
+        if (empty($data))
+            return true;
+
+        $tempData = [];
+
+        foreach ($data as $key => $value) {
+            if (!isset($tempData[$value['type']]))
+                $tempData[$value['type']] = [];
+
+            $tempData[$value['type']][$value['name']] = $value['value'];
+        }
+
+        foreach ($tempData as $key => $value) {
+            $cacheKey = self::CACHE_KEY.strtoupper($key);
+            Redis(1)->hmset($cacheKey, $value);
+        }
+
+        return true;
     }
 }

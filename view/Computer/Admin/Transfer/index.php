@@ -1,5 +1,8 @@
 <?php $this->load('Common.baseHeader');?>
 <div class="container-fluid">
+    <div class="bottom15">
+        <button class="btn btn-primary reload-cache" data-loading-text="Loading..." type="button"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;重构缓存</button>
+    </div>
    	<table class="table  table-hover table-middle margin-top-15">
         <tr>
         	<th class="col-md-1 col-1">ID</th>

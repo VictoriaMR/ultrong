@@ -64,6 +64,7 @@ class ProfileController extends Controller
 
 	public function modifyPassword()
 	{
+		Html::addJs('profile/password');
 		return view();
 	}
 

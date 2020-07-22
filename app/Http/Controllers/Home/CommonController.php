@@ -22,7 +22,7 @@ class CommonController extends Controller
 		$siteInfo = $siteService->getInfo();
 
 		$languageService = \App::make('App/Services/LanguageService');
-		$list = $languageService->getList();
+		$list = $languageService->getListCache();
 		$list = array_column($list, null, 'value');
 
 		//设置默认语言

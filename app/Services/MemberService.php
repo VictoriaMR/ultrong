@@ -28,7 +28,19 @@ class MemberService extends BaseService
 		$data['salt'] = $this->getSalt();
 		$data['password'] = password_hash($this->getPasswd($data['password'], $data['salt']), PASSWORD_DEFAULT);
 
-		return $this->baseModel->create($data);
+		return $this->baseModel->insertGetId($data);
+	}
+
+	public function updateById($memId, $data)
+	{
+		if (empty($memId) || empty($data)) return false;
+
+		if (!empty($data['password'])) {
+			$data['salt'] = $this->getSalt();
+			$data['password'] = password_hash($this->getPasswd($data['password'], $data['salt']), PASSWORD_DEFAULT);
+		}
+
+		return $this->baseModel->updateDataById($memId, $data);
 	}
 	/**
 	 * @method 获取随机数
@@ -334,38 +346,52 @@ class MemberService extends BaseService
         return Cache::foget($cacheKey);
     }
 
+    public function getTotal($data) 
+    {
+    	if (!empty($data['keyword'])) {
+    		$this->baseModel->where('name', 'like', '%'.$data['keyword'].'%')
+    						->orWhere('mobile', 'like', '%'.$data['keyword'].'%');
+    	}
+    	return $this->baseModel->count();
+    }
+
     /**
      * @method 获取用户列表
      * @author Victoria
      * @date   2020-01-12
      * @return array list
      */
-    public function getList($data, $page = 1, $pagesize = 20)
+    public function getList($data, $page = 1, $size = 20)
     {
-    	$filter = [];
 
-    	$total = $this->getDataCount($data);
-
-    	if ($total > 0) {
-    		$field = [
-    			'mem_id', 
-    			'nickname', 
-    			'name',
-    			'mobile',
-    			'email',
-    			'is_super',
-    			'status',
-    			'create_at',
-    			'login_at',
-    		];
-    		$list = $this->getDataList($data, $field, ['page' => $page, 'pagesize' => $pagesize], [['create_at', 'DESC']]);
-
-    		foreach ($list as $key => $value) {
-    			$value['create_at'] = date('Y-m-d', $value['create_at']);
-    			$list[$key] = $value;
-    		}
+    	if (!empty($data['keyword'])) {
+    		$this->baseModel->where('name', 'like', '%'.$data['keyword'].'%')
+    						->orWhere('mobile', 'like', '%'.$data['keyword'].'%');
     	}
 
-    	return $this->getPaginationList($list ?? [], $total, $page, $pagesize);
+		$field = [
+			'mem_id', 
+			'nickname', 
+			'name',
+			'mobile',
+			'email',
+			'is_super',
+			'status',
+			'create_at',
+			'login_at',
+		];
+		$list = $this->baseModel->select($field)
+								->offset(($page - 1) * $size)
+			                    ->limit($size)
+			                    ->get();
+			                  
+		if (!empty($list)) {
+			foreach ($list as $key => $value) {
+				$value['create_at'] = date('Y-m-d', $value['create_at']);
+				$list[$key] = $value;
+			}
+		}
+
+    	return $list;
     }
 }

@@ -42,6 +42,7 @@ class Controller
      */
     protected function _initialize()
     {
+        if (IS_AJAX) return false;
         $info = \Router::getFunc();
 
         $controllerService = \App::make('App\Services\Admin\ControllerService');

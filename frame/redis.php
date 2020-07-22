@@ -46,11 +46,25 @@ class Redis
         return true;
     }
 
+    public function get($key)
+    {
+        $data = self::$_link->get($key);
+        $temp = json_decode($data, true);
+        if (is_array($temp))
+            return $temp;
+        else
+            return $data;
+    }
+
     public function set($key, $value, $ext=null) 
     {
         self::$_instance->selectDbByFunc('set');
         if (empty($key)) return false;
         $ext = (int)($ext ?? self::DEFAULT_EXT_TIME);
+
+        if (is_array($value))
+            $value = json_encode($value, JSON_UNESCAPED_UNICODE);
+
         if ($ext > 0)
             return self::$_link->set($key, $value, $ext);
         else

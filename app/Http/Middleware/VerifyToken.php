@@ -42,7 +42,12 @@ class VerifyToken
         switch ($request['Class']) {
             case 'Admin':
                 if (!Session::login('admin')) {
-                    go('login.index');
+                    if (IS_AJAX) {
+                        $controller = \App::make('App\Http\Controllers\Controller');
+                        $controller->result(400, false, ['message' => '未登录']);
+                    } else {
+                        go('login.index');
+                    }
                 }
                 break;
             
