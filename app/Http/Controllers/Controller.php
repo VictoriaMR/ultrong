@@ -18,6 +18,15 @@ class Controller
             'data' => $data
         ];
 
+        if (!empty($options)) {
+            if (!is_array($options)) {
+                $options = ['message' => $options];
+            } else if (!empty($options[0])) {
+                $options['message'] = $options[0];
+                unset($options[0]);
+            }
+        }
+
         $data = array_merge($data, $options);
         
         header('Content-Type:application/json; charset=utf-8');

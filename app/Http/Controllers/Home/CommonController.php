@@ -26,12 +26,13 @@ class CommonController extends Controller
 		$list = array_column($list, null, 'value');
 
 		//设置默认语言
-		if (empty(Session::get('site_language'))) {
+		$site_language = Session::get('site_language_name');
+		if (empty($site_language)) {
 			$defaultLanguage = array_column($list, 'is_default')[1] ?? [];
-			Session::set('site_language', empty($defaultLanguage['value']) ? 'cn' : $defaultLanguage['value']);
+			Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
 		}
 
-		$this->assign('site_language', Session::get('site_language'));
+		$this->assign('site_language', $site_language);
 		$this->assign('language_list', $list);
 		$this->assign($siteInfo);
 

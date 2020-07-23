@@ -23,10 +23,8 @@ class Product extends BaseModel
      */
     public function getList($where = [], $page, $size)
     {
-    	if (!empty($where))
-            $this->where($where);
-
-        return $this->offset(($page - 1) * $size)
+        return $this->where($where)
+                    ->offset(($page - 1) * $size)
                     ->limit($size)
                     ->get();
     }

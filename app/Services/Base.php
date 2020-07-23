@@ -51,7 +51,6 @@ class Base
         return $this->baseModel->where($column, $operator, $value);
     }
 
-
     /**
      * 新增数据.
      *
@@ -150,9 +149,9 @@ class Base
      *
      * @param $id 主键值
      */
-    public function deleteDataById($id)
+    public function deleteById($id)
     {
-        return $this->baseModel->deleteDataById($id);
+        return $this->baseModel->deleteById($id);
     }
 
     /**

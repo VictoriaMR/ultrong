@@ -27,6 +27,7 @@ require_once ROOT_PATH . 'frame/app.php';
 header("Content-Type: text/html;charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 header("Content-Root: " . Env("APP_DOMAIN"));
+header("Connection: close");
 @session_start();
 
 define('IS_MOBILE', isMobile() ? true : false);

@@ -1,5 +1,5 @@
-var FEATURE = {
-	init: function() 
+var CATEGORY = {
+	init: function()
 	{
 		var _this = this;
 		$('#dealbox').offsetCenter();
@@ -20,18 +20,34 @@ var FEATURE = {
 	    		}
 	    	});
 	    	if (!check) return false;
+	    	$(this).button('loading');
 	    	_this.save();
+	    	$(this).button('reset');
 	    });
 	    //状态
 	    $('table .switch_botton.status .switch_status').on('click', function() {
 	    	var _thisobj = $(this);
-	    	var con_id = _thisobj.parents('tr').data('con_id');
+	    	var cate_id = _thisobj.parents('tr').data('cate_id');
 	    	var status = _thisobj.hasClass('on') ? 0 : 1;
-	    	API.post(ADMIN_URI + 'feature/modify', {con_id: con_id, status: status }, function(res) {
+	    	API.post(ADMIN_URI + 'category/modify', {cate_id: cate_id, status: status }, function(res) {
     			if (res.code == 200) {
     				successTips(res.message);
     				switch_status(_thisobj, status);
     				_thisobj.parents('tr').data('status', status);
+    			} else {
+    				errorTips(res.message);
+    			}
+    		});
+	    });
+	    $('table .switch_botton.is_index .switch_status').on('click', function() {
+	    	var _thisobj = $(this);
+	    	var cate_id = _thisobj.parents('tr').data('cate_id');
+	    	var is_index = _thisobj.hasClass('on') ? 0 : 1;
+	    	API.post(ADMIN_URI + 'category/modify', {cate_id: cate_id, is_index: is_index }, function(res) {
+    			if (res.code == 200) {
+    				successTips(res.message);
+    				switch_status(_thisobj, is_index);
+    				_thisobj.parents('tr').data('status', is_index);
     			} else {
     				errorTips(res.message);
     			}
@@ -48,8 +64,8 @@ var FEATURE = {
 	    $('.delete').on('click', function(){
 	    	var _thisobj = $(this);
 	    	confirm('确定删除吗?', function(){
-	    		var con_id = _thisobj.parents('tr').data('con_id');
-	    		API.post(ADMIN_URI+'feature/delete', { con_id: con_id}, function(res) {
+	    		var cate_id = _thisobj.parents('tr').data('cate_id');
+	    		API.post(ADMIN_URI+'category/delete', { cate_id: cate_id}, function(res) {
 	    			if (res.code == 200) {
 	    				successTips(res.message);
 	    				window.location.reload();
@@ -81,20 +97,20 @@ var FEATURE = {
 				$('#dealbox [name="status"]').val(1).parents('.input-group').find('.switch_status').removeClass('off').addClass('on');
 			}
 		}
-
-		if (data.parent_id) {
-			$('#dealbox [name="icon"]').parents('.input-group').hide();
+		if (typeof data.is_index != 'undefined') {
+			if (data.is_index != 1) {
+				$('#dealbox [name="is_index"]').val(0).parents('.input-group').find('.switch_status').removeClass('on').addClass('off');
+			} else {
+				$('#dealbox [name="is_index"]').val(1).parents('.input-group').find('.switch_status').removeClass('off').addClass('on');
+			}
 		} else {
-			$('#dealbox [name="icon"]').parents('.input-group').show();
+			$('#dealbox [name="is_index"]').val(0).parents('.input-group').find('.switch_status').removeClass('on').addClass('off');
 		}
 		$('#dealbox').show();
 	},
 	save: function ()
 	{
-		if ($('#dealbox button.save').find('span').length > 0) return false;
-    	$('#dealbox button.save').html($('#dealbox button.save').data('loading-text'));
-    	API.post(ADMIN_URI + 'feature/modify', $('#dealbox form').serializeArray(), function(res){
-    		$('#dealbox button.save').html('确认');
+    	API.post(ADMIN_URI + 'category/modify', $('#dealbox form').serializeArray(), function(res){
     		if (res.code == 200) {
     			successTips(res.message);
     			window.location.reload();

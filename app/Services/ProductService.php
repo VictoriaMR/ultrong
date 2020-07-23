@@ -16,22 +16,16 @@ class ProductService extends BaseService
         $this->baseModel = $model;
     }
 
+    public function getTotal($where = [])
+    {
+        return $this->baseModel->where($where)->count();
+    }
+
     public function getList($where = [], $page = 1, $size = 10)
     {
-        $total = $this->baseModel->getListTotal($where);
+        $list = $this->baseModel->getList($where, $page, $size);
 
-        if ($total > 0) {
-            $list = $this->baseModel->getList($where, $page, $size);
-            if (!empty($list)) {
-                foreach ($list as $key => $value) {
-                    $value['creat_format_at'] = date('Y-m-d H:i:s', $value['create_at']);
-                    $value['pro_image'] = media($value['pro_image'], 'product');
-                    $list[$key] = $value;
-                }
-            }
-        }
-
-        return $this->getPaginationList($total, $list ?? [], $page, $size);
+        return $list;
     }
 
     public function save($proId, $data = [])
@@ -47,7 +41,6 @@ class ProductService extends BaseService
         }
 
         return true;
-
     }
 
     /**

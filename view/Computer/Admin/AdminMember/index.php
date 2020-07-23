@@ -44,22 +44,28 @@
                 <td class="col-md-2 col-2"><?php echo $value['nickname'];?></td>
                 <td class="col-md-2 col-2"><?php echo $value['mobile'];?></td>
                 <?php if ($is_super) { ?>
-                <th class="col-md-1 col-1">
+                <td class="col-md-1 col-1">
+                <?php if ($value['mem_id'] != $self_id) { ?>
                     <?php if($value['status']){?>
                         <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
                     <?php }else{?>
                         <div class="switch_botton status" data-status="0"><div class="switch_status off"></div></div>
                     <?php }?>
-                </th>
-                <th class="col-md-1 col-1">
+                <?php } ?>
+                </td>
+                <td class="col-md-1 col-1">
+                <?php if ($value['mem_id'] != $self_id) { ?>
                     <?php if($value['is_super']){?>
                         <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
                     <?php }else{?>
                         <div class="switch_botton status" data-status="0"><div class="switch_status off"></div></div>
                     <?php }?>
-                </th>
+                <?php } ?>
+                </td>
                 <td class="col-md-2 col-2">
+                <?php if ($value['mem_id'] != $self_id && $value['is_super']) { ?>
                     <button class="btn btn-primary btn-sm modify" type="button" ><span class="glyphicon glyphicon-edit"></span>&nbsp;修改</button>
+                <?php } ?>
                 </td>
                 <?php } ?>
             </tr>

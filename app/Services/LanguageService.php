@@ -7,9 +7,9 @@ use App\Models\Language;
 
 class LanguageService extends BaseService
 {
-	public function __construct(Language $language)
+	public function __construct(Language $model)
     {
-        $this->baseModel = $language;
+        $this->baseModel = $model;
     }
 
     /**
@@ -21,7 +21,7 @@ class LanguageService extends BaseService
      */
     public function getListCache($where = [])
     {
-    	$cacheKey = 'LANGUAGE_LIST_CACHE';
+    	$cacheKey = 'LANGUAGE_LIST_ON_CACHE';
     	$list = Redis()->get($cacheKey);
     	if (empty($list)) {
     		$list = $this->baseModel->where('status', 1)->get();
@@ -33,15 +33,24 @@ class LanguageService extends BaseService
 
     public function getList($where = [])
     {
-        $list = $this->baseModel->where($where)->get();
+        $cacheKey = 'LANGUAGE_LIST_ALL_CACHE';
+        $list = Redis()->get($cacheKey);
+        if (empty($list)) {
+            $list = $this->baseModel->get();
+            Redis()->set($cacheKey, $list, -1);
+        }
 
         return $list;
     }
 
     public function clearCache()
     {
-        $cacheKey = 'LANGUAGE_LIST_CACHE';
+        $cacheKey = 'LANGUAGE_LIST_ON_CACHE';
         Redis()->del($cacheKey);
+
+        $cacheKey = 'LANGUAGE_LIST_ALL_CACHE';
+        Redis()->del($cacheKey);
+
         return true;
     }
 
