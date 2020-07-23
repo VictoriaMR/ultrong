@@ -28,7 +28,7 @@ class LanguageService extends BaseService
     		Redis()->set($cacheKey, $list, -1);
     	}
 
-    	return !empty($list) ? json_decode($list, true) : [];
+    	return $list;
     }
 
     public function getList($where = [])

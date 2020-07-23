@@ -1,3 +1,9 @@
+html,body {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
 ul, ol { list-style:none; padding-left: 0;} 
 a {color: #333333; }
 img {max-height: 100%; max-width: 100%;}
