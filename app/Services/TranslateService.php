@@ -28,7 +28,7 @@ class TranslateService extends BaseService
     {
         if (empty($name)) return '';
 
-        $language = Session::get('site_language');
+        $language = Session::get('site_language_name');
 
         if ($language == 'cn') return $name;
 

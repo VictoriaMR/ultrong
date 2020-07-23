@@ -28,7 +28,7 @@ class CommonController extends Controller
 		//设置默认语言
 		$site_language = Session::get('site_language_name');
 		if (empty($site_language)) {
-			$defaultLanguage = array_column($list, 'is_default')[1] ?? [];
+			$defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
 			Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
 		}
 
