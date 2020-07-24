@@ -1,13 +1,11 @@
 .banner-content li {
 	height: 100px;
 	width: 320px;
-	border: 1px solid #cccc;
 	background: #eee;
 	margin-bottom: 10px;
     float: left;
     margin-right: 15px;
-    display: table-cell;
-    vertical-align: middle;
     text-align: center;
     line-height: 0;
+    line-height: 98px;
 }

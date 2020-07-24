@@ -61,6 +61,7 @@ class SiteController extends Controller
 	public function banner()
 	{
 		Html::addCss('banner');
+		Html::addJs('banner/index');
 		//获取开启的语言列表
 		$languageService = \App::make('App/Services/LanguageService');
 		$list = $languageService->getListCache();
@@ -80,5 +81,27 @@ class SiteController extends Controller
 		$this->assign('list', $list);
 
 		return view();
+	}
+
+	/**
+	 * @method 保存banner
+	 * @author Victoria
+	 * @date   2020-07-24
+	 */
+	public function saveBanner()
+	{
+		$lanId = (int) ipost('lan_id', 0);
+		$attchId = ipost('attach_id', '');
+
+		if (empty($lanId) || empty($attchId))
+			return $this->result(10000, false, ['参数错误']);
+
+		$attachmentService = \App::make('App/Services/AttachmentService');
+		$result = $attachmentService->updateData($lanId, $attachmentService::constant('TYPE_INDEX_BANNER'), explode(',', $attchId));
+
+		if ($result)
+			return $this->result(200, $result, ['保存成功']);
+		else
+			return $this->result(10000, $result, ['保存失败']);
 	}
 }

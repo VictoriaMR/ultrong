@@ -86,7 +86,7 @@ class AttachmentService extends BaseService
 
         $attachIdArr = array_unique(array_column($list, 'attach_id'));
 
-        $infoArr = $this->attachIdArr->whereIn('attach_id', $attachIdArr)->get();
+        $infoArr = $this->attachModel->whereIn('attach_id', $attachIdArr)->get();
         $infoArr = array_column($infoArr, null, 'attach_id');
         foreach ($infoArr as $key => $value) {
             $infoArr[$key] = $this->urlInfo($value);

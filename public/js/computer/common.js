@@ -157,7 +157,7 @@ var UPLOAD = {
 					}
 
 					$('#'+idArr[0]).find('.upload-item').eq(idArr[1]).find('img').attr('src', res.data.url);
-					$('#'+idArr[0]).find('.upload-item').eq(idArr[1]).data('attach_id', res.data.attach_id);
+					$('#'+idArr[0]).find('.upload-item').eq(idArr[1]).attr('data-attach_id', res.data.attach_id);
 
 	                UPLOAD.initItem($('#'+idArr[0]));
 
@@ -190,6 +190,8 @@ var UPLOAD = {
 			if (!check) return false;
 			var node = parentObj.find('.upload-item').eq(0).clone(true);
 			node.find('img').attr('src', '');
+			node.data('attach_id', 0);
+			node.attr('data-attach_id', 0);
 			parentObj.append(node)
 		}
 	}

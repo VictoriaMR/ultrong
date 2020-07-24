@@ -25,6 +25,9 @@ class FileService extends BaseService
         $extension = $tmpname[1] ?? ''; //后缀
         $tmpFile = $file['tmp_name']; //上传文件路径
 
+        if (!in_array($extension, self::constant('FILE_COMPERSS')))
+            return false;
+
         $hash = hash_file('md5', $tmpFile); //生成文件hash值
 
         $attachmentService = \App::make('App\Services\AttachmentService');
