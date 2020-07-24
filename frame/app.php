@@ -51,7 +51,7 @@ class App
 	 * @method 执行方法
 	 * @return object_array
 	 */
-	protected function send() 
+	public function send() 
 	{
 		//路由解析
 		$info = Router::$_route;

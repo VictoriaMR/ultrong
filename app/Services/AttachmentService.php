@@ -74,6 +74,31 @@ class AttachmentService extends BaseService
         return $this->urlInfo($info);
     }
 
+    public function getListByEntityId($entityId, $type = 0)
+    {
+        if (empty($entityId)) return [];
+        if (!is_array($entityId)) $entityId = [$entityId];
+
+        $list = $this->baseModel->whereIn('entity_id', $entityId)
+                                ->where(!empty($type) ? ['type'=>(int)$type] : [])
+                                ->get();
+        if (empty($list)) return [];
+
+        $attachIdArr = array_unique(array_column($list, 'attach_id'));
+
+        $infoArr = $this->attachIdArr->whereIn('attach_id', $attachIdArr)->get();
+        $infoArr = array_column($infoArr, null, 'attach_id');
+        foreach ($infoArr as $key => $value) {
+            $infoArr[$key] = $this->urlInfo($value);
+        }
+
+        foreach ($list as $key => $value) {
+            $list[$key] = array_merge($value, $infoArr[$value['attach_id']] ?? []);
+        }
+
+        return $list;
+    }
+
     protected function urlInfo($info)
     {
         if (!empty($info)) {

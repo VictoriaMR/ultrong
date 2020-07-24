@@ -1,5 +1,5 @@
 <?php load('Common.baseHeader');?>
-<div id="slider-banner">
+<div id="banner" class="hide">
     <ul>
         <li class="slider">
             <img src="<?php echo siteUrl('image/computer/01.jpg');?>">
@@ -22,7 +22,7 @@
 <script type="text/javascript">
 $(function(){
 	//轮播图
-    $('#slider-banner').slider({
+    $('#banner').slider({
         dots: true,
         fluid: true
     });

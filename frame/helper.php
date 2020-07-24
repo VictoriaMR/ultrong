@@ -80,7 +80,11 @@ function go($func = '')
 
 function load($func = '')
 {
-    go($func);
+    $func = explode('.', $func);
+
+    Router::reload($func);
+
+    App::instance()->send();
 }
 
 /**
@@ -90,6 +94,15 @@ function load($func = '')
 function runningInConsole()
 {
     return php_sapi_name() === 'cli' || php_sapi_name() === 'phpdbg';
+}
+
+function imethod($name = '') 
+{
+    $method = $_SERVER['REQUEST_METHOD'] ?? '';
+
+    if (empty($name)) return strtolower($method);
+
+    return strtolower($method) == strtolower($name);
 }
 
 function ipost($name = '', $default = null) 

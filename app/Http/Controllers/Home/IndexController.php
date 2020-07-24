@@ -13,12 +13,6 @@ class IndexController extends Controller
 {
 	public function index()
 	{	
-		Html::addJs('swiper');
-		Html::addCss('swiper');
-		Html::addCss('index');
-
-		$this->assign('index', 'index');
-
 		return view();
 	}
 

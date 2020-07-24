@@ -7,6 +7,8 @@ use App\Models\Site;
 
 class SiteService extends BaseService
 {
+    const CACHE_KEY = 'SITE_INFO_CACHE';
+
 	public function __construct(Site $site)
     {
         $this->baseModel = $site;
@@ -21,13 +23,17 @@ class SiteService extends BaseService
      */
     public function getInfo($where = [])
     {
-    	$cacheKey = 'SITE_INFO_CACHE';
-    	$info = Redis()->get($cacheKey);
+    	$info = Redis()->get(self::constant('CACHE_KEY'));
     	if (empty($info)) {
     		$info = $this->baseModel->find();
-    		Redis()->set($cacheKey, $info, -1);
+    		Redis()->set(self::constant('CACHE_KEY'), $info, -1);
     	}
 
     	return $info;
+    }
+
+    public function clearCache()
+    {
+        return Redis()->del(self::constant('CACHE_KEY'));
     }
 }

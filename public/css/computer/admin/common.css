@@ -99,3 +99,27 @@
 #rightTips .info .fa-times-circle:hover{
     transform:rotate(180deg);
 }
+
+.delete {
+    text-align: center;
+    position: absolute;
+    height: 16px;
+    top: calc(100% - 16px);
+    left: calc(50% - 7px);
+    display: none;
+}
+
+.to-left, .to-right {
+    width: 16px;
+    position: absolute;
+    top: calc(50% - 8px);
+    display: none;
+}
+
+.to-left {
+    left: 0;
+}
+
+.to-right {
+    right: 0;
+}

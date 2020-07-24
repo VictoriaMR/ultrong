@@ -273,7 +273,6 @@ Class Query
 		        		reset($params);
 		        		$params = [$params];
 		        	}
-
 		        	foreach ($params as $key => $value) {
 		        		$type = $this->analyzeType($value);
 			            $bind_names[] = $type;
@@ -487,10 +486,10 @@ Class Query
 	 */
 	private function analyzeType()
 	{
-		if (empty($this->_where)) return '';
+		if (empty($this->_param)) return '';
 
 		$typeStr = '';
-		foreach ($this->_where as $key => $value) {
+		foreach ($this->_param as $key => $value) {
 			if (is_numeric($value)) $typeStr .= 'd';
 			else $typeStr .= 's';
 		}

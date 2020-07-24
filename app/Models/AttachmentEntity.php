@@ -10,7 +10,7 @@ class AttachmentEntity extends Base
     protected $table = 'attachment_entity';
 
     //文件类型
-    const TYPE_ADMIN_LOGIN_BACKGROUD = 1;
+    const TYPE_INDEX_BANNER = 1; //首页banner
 
     public function getListByType($type = 0)
     {

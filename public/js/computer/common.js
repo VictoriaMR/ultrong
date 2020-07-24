@@ -47,27 +47,98 @@ var VERIFY = {
 	}
 };
 
+function _getRandomString(len) {
+    len = len || 32;
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
+}
+
 var UPLOAD = {
 	init: function (data){
-		this.data = data;
-		this.data.obj.css({'cursor': 'pointer'});
-		this.data.obj.on('click', function(event){
-			if ($('body input[type="file"]').length == 0) {
-				$('body').append('<input type="file" style="display: none;" />');
+		var _this = this;
+		_this.data = data;
+		_this.data.obj.css({'cursor': 'pointer', 'position': 'relative'});
+		_this.data.obj.on('click', function(event){
+			event.stopPropagation();
+			var pid = $(this).parent().attr('id');
+			if (!pid) {
+				pid = _getRandomString(8);
+				$(this).parent().attr('id', pid);
 			}
-			$('body input[type="file"]').trigger('click');
+			var index = $(this).index();
+			var fileId = pid+'_file_'+index;
+
+			if ($('body').find('#'+fileId).length == 0) {
+				$('body').append('<input id="'+fileId+'" type="file" style="display: none;" />');
+			}
+			$('#'+fileId).click();
 		});
 
+		if (_this.data.obj.parent().data('delete')) {
+			if (_this.data.obj.find('.delete').length == 0) {
+				_this.data.obj.append('<span class="glyphicon glyphicon-trash delete"></span>');
+			}
+
+			_this.data.obj.on('click', '.delete', function(event){
+				event.stopPropagation();
+				if (_this.data.obj.find('img').length == 0) return false;
+				var parent = $(this).parent().parent()
+				$(this).parent().remove();
+				UPLOAD.initItem(parent);
+			});
+		}
+
+		if (_this.data.obj.parent().data('sort')) {
+			if (_this.data.obj.find('.to-left').length == 0) {
+				_this.data.obj.append('<span class="glyphicon glyphicon-chevron-left to-left"></span>');
+			}
+
+			if (_this.data.obj.find('.to-right').length == 0) {
+				_this.data.obj.append('<span class="glyphicon glyphicon-chevron-right to-right"></span>');
+			}
+
+			_this.data.obj.on('click', '.to-right, .to-left', function(event){
+				event.stopPropagation();
+				if ($(this).hasClass('to-left')) {
+					if ($(this).parent().index() == 0) return false;
+					$(this).parent().prev().before($(this).parent());
+				} else {
+					if ($(this).parent().index() == $(this).parent().siblings().length) return false;
+					$(this).parent().next().after($(this).parent());
+				}
+			});
+		}
+
+		_this.data.obj.on('mouseover', function(){
+			$(this).find('span').show();
+		}).on('mouseleave', function(){
+			$(this).find('span').hide();
+		});
+
+
 		$('body').on('change', 'input[type="file"]', function() {
-			UPLOAD.loadFile($(this), UPLOAD.data.site ? UPLOAD.data.site : 'temp');
+			var id = $(this).attr('id');
+			idArr = id.split('_file_');
+			UPLOAD.loadFile($(this), $('#'+idArr[0]).data('site') ? $('#'+idArr[0]).data('site') : 'temp');
 		});
 	},
 	loadFile: function(obj, site)
 	{
 		var returnData = {};
         var formData = new FormData();
+
+        if (!obj.get(0).files[0]) return false;
+        
         formData.append('file', obj.get(0).files[0]);  //上传一个files对象
         formData.append('site', site);
+
+        var id = obj.attr('id');
+		idArr = id.split('_file_');
 
         $.ajax({//jQuery方法，此处可以换成其它请求方式
             url: API_URL + 'upload',
@@ -77,12 +148,49 @@ var UPLOAD = {
             contentType: false, // 不要自己修改请求内容类型
             error: function (res) {
                 if (UPLOAD.data.error)
-                	UPLOAD.data.error(res);
+                	UPLOAD.data.error(res, $('#'+idArr[0]).find('.upload-item').eq(idArr[1]));
             },
             success: function (res) {
-                if (UPLOAD.data.success)
-                	UPLOAD.data.success(res);
+            	if (res.code == 200) {
+					if ($('#'+idArr[0]).find('.upload-item').eq(idArr[1]).find('img').length == 0) {
+						$('#'+idArr[0]).find('.upload-item').eq(idArr[1]).append('<img src="" />');
+					}
+
+					$('#'+idArr[0]).find('.upload-item').eq(idArr[1]).find('img').attr('src', res.data.url);
+					$('#'+idArr[0]).find('.upload-item').eq(idArr[1]).data('attach_id', res.data.attach_id);
+
+	                UPLOAD.initItem($('#'+idArr[0]));
+
+	                if (UPLOAD.data.success)
+	                	UPLOAD.data.success(res, $('#'+idArr[0]).find('.upload-item').eq(idArr[1]));
+            	} else {
+            		errorTips(res.message);
+            	}
             }
         });
+	},
+	initItem: function(parentObj)
+	{
+		var len = parentObj.data('length');
+		console.log(parentObj.find('.upload-item').length, len)
+		if (len > parentObj.find('.upload-item').length) {
+			var check = true;
+			parentObj.find('.upload-item').each(function(){
+				if ($(this).find('img').length == 0) {
+					check = false;
+					return false;
+				} else {
+					if (!$(this).find('img').attr('src')) {
+						check = false;
+						return false;
+					}
+				}
+			});
+
+			if (!check) return false;
+			var node = parentObj.find('.upload-item').eq(0).clone(true);
+			node.find('img').attr('src', '');
+			parentObj.append(node)
+		}
 	}
 };
