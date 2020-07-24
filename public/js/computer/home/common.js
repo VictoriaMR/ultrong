@@ -1,11 +1,14 @@
 $(function(){
-    $('#languega_list .selector-icon').on('click', function(){
-        $(this).parent().find('.selector').slideToggle('200');
+    $('.header-top .language').on('click', function(){
+        $(this).find('.selector').slideToggle(100);
     });
-    $('#languega_list .selector li').on('click', function(){
-        var type = $(this).data('type');
-        API.get(HOME_API+'Index/setSiteLanguage', {'type': type}, function(res) {
-            window.location.reload();
+    $('.header-top .language li').on('click', function(event){
+    	event.stopPropagation();
+        if ($(this).hasClass('selected')) return false;
+        var id = $(this).data('id');
+        API.get(HOME_URI+'Index/setSiteLanguage', {'lan_id': id}, function(res) {
+        	if (res.code == 200)
+            	window.location.reload();
         }); 
     });
 });

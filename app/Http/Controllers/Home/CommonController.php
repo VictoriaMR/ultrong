@@ -31,7 +31,8 @@ class CommonController extends Controller
 			$defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
 			Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
 		}
-
+		// print_r($site_language);
+		// dd($list);
 		$this->assign('site_language', $site_language);
 		$this->assign('language_list', $list);
 		$this->assign($siteInfo);

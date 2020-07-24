@@ -19,18 +19,21 @@
 </head>
 <body>
 <script type="text/javascript">
-var HOME_API = "<?php echo Env('APP_DOMAIN').'api/home/';?>";
-var HOME_URL = "<?php echo Env('APP_DOMAIN').'home/';?>";
+var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
 <div class="header-top">
     <div class="container">
         <a class="right help" href="<?php echo url('help');?>"><?php echo dist('帮助');?></a>
-        <a class="right language" href="javascript:;"><?php echo dist('语言');?><span class="icon icon-angle-w-down"></span>
+        <a class="right language" href="javascript:;"><span><?php echo dist('语言');?></span><span class="icon icon-angle-w-down"></span>
+            <?php if (!empty($language_list)) { ?>
             <ul class="language-selector selector hidden">
-                <li class="select" data-id="3200">
-                    <span>English</span>
+                <?php foreach ($language_list as $key => $value) { ?>
+                <li class="<?php echo $site_language == $value['value'] ? 'selected': '';?>" data-id="<?php echo $value['lan_id'];?>">
+                    <span><?php echo $value['name'];?></span>
                 </li>
+                <?php } ?>
             </ul>
+            <?php } ?>
         </a>
         <div class="clear"></div>
     </div>
