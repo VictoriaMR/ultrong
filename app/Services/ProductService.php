@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Services\Base as BaseService;
-use App\Services\ProductDataService;
 use App\Models\Product;
 
 /**
@@ -25,22 +24,33 @@ class ProductService extends BaseService
     {
         $list = $this->baseModel->getList($where, $page, $size);
 
+        if (!empty($list)) {
+            $categoryService = \App::make('App/Services/CategoryService');
+            $cateList = $categoryService->getList();
+            $cateList = array_column($cateList, null, 'cate_id');
+            //语言列表
+            $languageService = \App::make('App/Services/LanguageService');
+            $lanList = $languageService->getList();
+            $lanList = array_column($lanList, null, 'cate_id');
+            foreach ($list as $key => $value) {
+                $value['cate_name'] = $cateList[$value['cate_id']]['name'] ?? '';
+                $value['language_name'] = $lanList[$value['lan_id']]['name'] ?? '';
+                $list[$key] = $value;
+            }
+        }
+
         return $list;
     }
 
-    public function save($proId, $data = [])
+    public function updateData($proId, $lanId, $data)
     {
-        if (empty($proId) || empty($data)) return false;
+        $proId = (int) $proId;
+        $lanId = (int) $lanId;
+        if (empty($proId) || empty($lanId) || empty($data)) return false;
 
-        //存在更新 不存在插入
-        if ($this->isExistData($proId)) {
-            $this->baseModel->updateDataById($proId, $data);
-        } else {
-            $data['pro_id'] = $proId;
-            $this->baseModel->addData($data);
-        }
-
-        return true;
+        return $this->baseModel->where('pro_id', $proId)
+                               ->where('lan_id', $lanId)
+                               ->update($data);
     }
 
     /**
@@ -49,8 +59,53 @@ class ProductService extends BaseService
      * @date   2020-04-25
      * @return boolean  
      */
-    public function isExistData($proId)
+    public function isExist($proId, $lanId)
     {
-        return $this->baseModel->isExistData($proId);
+        return $this->baseModel->where('pro_id', $proId)
+                               ->where('lan_id', $lanId)
+                               ->count() > 0;
+    }
+
+    public function getInfo($proId, $lanId)
+    {
+        $proId = (int) $proId;
+        $lanId = (int) $lanId;
+        if (empty($lanId) || empty($lanId)) return [];
+
+        $cacheKey = 'PRODUCT_INFO_CACHE_'.$proId.'_'.$lanId;
+
+        $info = Redis()->get($cacheKey);
+
+        if (empty($info)) {
+            $info = $this->baseModel->where('pro_id', $proId)
+                                    ->where('lan_id', $lanId)
+                                    ->find();
+
+            if (!empty($info)) {
+                //商品详情
+                $dataService = \App::make('App/Services/ProductDataService');
+                $data = $dataService->getInfo($proId, $lanId);
+
+                $info = array_merge($info, $data);
+
+                //商品图片
+                if (!empty($info['image'])) {
+                    $attchService = \App::make('App/Services/AttachmentService');
+                    $imageList = $attchService->getAttachmentListById($info['image']);
+                }
+                $info['image_list'] = $imageList ?? [];
+
+                Redis()->set($cacheKey, $info, -1);
+            }
+        }
+
+        return $info;
+    }
+
+    public function clearCache($proId, $lanId)
+    {
+        $cacheKey = 'PRODUCT_INFO_CACHE_'.$proId.'_'.$lanId;
+
+        return Redis()->del($cacheKey);
     }
 }

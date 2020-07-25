@@ -74,6 +74,20 @@ class AttachmentService extends BaseService
         return $this->urlInfo($info);
     }
 
+    public function getAttachmentListById($attachId)
+    {
+        if (empty($attachId)) return [];
+        if (!is_array($attachId)) $attachId = explode(',', $attachId);
+
+        $list = $this->attachModel->whereIn('attach_id', $attachId)
+                                  ->get();
+        foreach ($list as $key => $value) {
+            $list[$key] = $this->urlInfo($value);
+        }
+
+        return $list;
+    }
+
     public function getListByEntityId($entityId, $type = 0)
     {
         if (empty($entityId)) return [];
@@ -168,5 +182,50 @@ class AttachmentService extends BaseService
         }
 
         return $result;
+    }
+
+    public function getFileList($type, $page, $size)
+    {
+        $data = $this->baseModel->where('type', (int) $type)
+                                ->value('attach_id');
+
+        $total = count($data);
+        if ($total > 0) {
+            $list = $this->attachModel->whereIn('attach_id', $data)
+                                      ->offset(($page - 1) * $size)
+                                      ->limit($size)
+                                      ->get();
+            foreach ($list as $key => $value) {
+                $list[$key] = $this->urlInfo($value);
+            }
+        }
+
+        return $this->getPaginationList($total, $list ?? [], $page, $size);
+    }
+
+    public function addNotExist($entityId, $type, $attachId)
+    {
+        if (empty($entityId) || empty($type) || empty($attachId)) return false;
+        if (!is_array($attachId)) $attachId = explode(',', $attachId);
+
+        $hasIdArr = $this->baseModel->where('entity_id', $entityId)
+                                    ->where('type', $type)
+                                    ->value('attach_id');
+
+        $diff = array_diff($attachId, $hasIdArr);
+
+        if (!empty($diff)) {
+            $insert = [];
+            foreach ($diff as $key => $value) {
+                $insert[] = [
+                    'entity_id' => $entityId,
+                    'type' => $type,
+                    'attach_id' => $value,
+                ];
+            }
+            $this->baseModel->insert($insert);
+        }
+
+        return true;
     }
 }

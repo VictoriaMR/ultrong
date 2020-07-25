@@ -1,0 +1,15 @@
+.product-page .input-group-addon{
+	min-width: 100px;
+}
+
+.product-page .product-image-content .upload-item {
+	height: 100px;
+	width: 100px;
+	background: #eee;
+	margin-bottom: 10px;
+    float: left;
+    margin-right: 15px;
+    text-align: center;
+    line-height: 0;
+    line-height: 98px;
+}

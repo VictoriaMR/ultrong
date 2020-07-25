@@ -9,8 +9,8 @@
             <th class="col-md-2 col-2">分类名称</th>
             <th class="col-md-1 col-1">状态</th>
             <th class="col-md-1 col-1">前端展示</th>
-            <th class="col-md-2 col-2">备注</th>
-            <th class="col-md-3 col-3">操作</th>
+            <th class="col-md-3 col-3">备注</th>
+            <th class="col-md-2 col-2">操作</th>
         </tr>
         <?php if (!empty($list)) { ?>
         <?php foreach ($list as $key => $value){ ?>
@@ -38,10 +38,10 @@
                         <div class="switch_botton is_index" data-status="0"><div class="switch_status off"></div></div>
                     <?php }?>
                 </td>
-                <td class="col-md-2 col-2">
+                <td class="col-md-3 col-3">
                 	<div><?php echo $value['remark'];?></div>
                 </td>
-                <td class="col-md-3 col-3">
+                <td class="col-md-2 col-2">
                 	<button class="btn btn-primary btn-sm modify" type="button" ><span class="glyphicon glyphicon-edit"></span>&nbsp;修改</button>
                     <button class="btn btn-danger btn-sm delete" type="button" ><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
                 </td>

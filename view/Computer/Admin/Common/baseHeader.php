@@ -1,3 +1,6 @@
+<script type="text/javascript">
+window.API_URI = "<?php echo Env('APP_DOMAIN').'api/upload';?>";
+</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +9,7 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="shortcut icon" href="image/admin-favicon.ico">
+    <link rel="shortcut icon" href="<?php echo siteUrl('image/admin-favicon.ico');?>">
     <?php foreach (\frame\Html::getCss() as $value) { ?>
     <link rel="stylesheet" type="text/css" href="<?php echo $value;?>">
     <?php }?>
@@ -36,7 +39,9 @@ var ADMIN_URI = "<?php echo Env('APP_DOMAIN').'admin/';?>";
 <div class="container-fluid" style="margin: 15px 0;">
     <ul class="nav nav-tabs common-tabs">
         <?php foreach ($tabs as $key => $val) {?>
-            <li class="<?php echo strtolower($key) == $func ? 'active' : '';?>"><a href="<?php echo adminUrl($controller.'/'.$key);?>"><?php echo $val; ?></a></li>
+        <li class="<?php echo strtolower($key) == $func ? 'active' : '';?>">
+            <a href="<?php echo adminUrl($controller.'/'.$key);?>"><?php echo $val; ?></a>
+        </li>
         <?php } ?>
     </ul>
 </div>

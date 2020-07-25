@@ -12,9 +12,6 @@ class Product extends BaseModel
 	//表名
     public $table = 'product_spu';
 
-    //主键
-    protected $primaryKey = 'pro_id';
-
     /**
      * @method 获取列表
      * @author Victoria

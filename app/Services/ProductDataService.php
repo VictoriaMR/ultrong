@@ -2,29 +2,34 @@
 
 namespace App\Services;
 
+use App\Models\ProductData;
+
 /**
  * 
  */
 class ProductDataService
 {
-	public function __construct()
+	public function __construct(ProductData $model)
     {
+        $this->baseModel = $model;
     }
 
-    public function save($proId, $data = [])
+    public function updateProductData($proId, $lanId, $data)
     {
-        if (empty($proId) || empty($data)) return false;
+        $proId = (int) $proId;
+        $lanId = (int) $lanId;
+        if (empty($proId) || empty($lanId) || empty($data)) return false;
 
-        //存在更新 不存在插入
-        if ($this->isExistData($proId)) {
-            $this->baseModel->updateDataById($proId, $data);
+        if ($this->isExist($proId, $lanId)) {
+            $result = $this->baseModel->where('pro_id', $proId)
+                                      ->where('lan_id', $lanId)
+                                      ->update($data);
         } else {
             $data['pro_id'] = $proId;
-            $this->baseModel->addData($data);
+            $data['lan_id'] = $lanId;
+            $result = $this->baseModel->insert($data);
         }
-
-        return true;
-
+        return $result;
     }
 
     /**
@@ -33,8 +38,21 @@ class ProductDataService
      * @date   2020-04-25
      * @return boolean  
      */
-    public function isExistData($proId)
+    public function isExist($proId, $lanId)
     {
-        return $this->baseModel->isExistData($proId);
+        return $this->baseModel->where('pro_id', $proId)
+                               ->where('lan_id', $lanId)
+                               ->count() > 0;
+    }
+
+    public function getInfo($proId, $lanId)
+    {
+        $proId = (int) $proId;
+        $lanId = (int) $lanId;
+        if (empty($lanId) || empty($lanId)) return [];
+
+        return $this->baseModel->where('pro_id', $proId)
+                               ->where('lan_id', $lanId)
+                               ->find();
     }
 }

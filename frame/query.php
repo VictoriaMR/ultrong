@@ -124,6 +124,17 @@ Class Query
 		return $this->getResult();
 	}
 
+	public function value($name)
+	{
+		$this->select($name);
+		$data = $this->get();
+
+		if (!empty($data))
+			$data = array_unique(array_column($data, $name));
+
+		return $data;
+	}
+
 	public function find()
 	{
 		$this->_offset = 0;

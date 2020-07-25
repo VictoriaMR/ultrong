@@ -155,9 +155,13 @@ function url($url = '', $param = [])
     return $url;
 }
 
-function adminUrl($url = '')
+function adminUrl($url = '', $param = [])
 {
-    return Env('APP_DOMAIN').'admin/'.$url;
+    $url = Env('APP_DOMAIN').'admin/'.$url;
+    if (!empty($param)) {
+        $url .= '?'. http_build_query($param);
+    }
+    return $url;
 }
 
 function siteUrl($url = '')
