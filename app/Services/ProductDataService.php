@@ -47,12 +47,6 @@ class ProductDataService
 
     public function getInfo($proId, $lanId)
     {
-        $proId = (int) $proId;
-        $lanId = (int) $lanId;
-        if (empty($lanId) || empty($lanId)) return [];
-
-        return $this->baseModel->where('pro_id', $proId)
-                               ->where('lan_id', $lanId)
-                               ->find();
+        return $this->baseModel->getInfo($proId, $lanId);
     }
 }

@@ -237,3 +237,8 @@ function paginator()
 {
     return \frame\Paginator::getInstance($db);
 }
+
+function Router()
+{
+    
+}

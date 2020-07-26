@@ -13,3 +13,42 @@
     line-height: 0;
     line-height: 98px;
 }
+
+.product-content{
+	min-height: 700px;
+	padding: 20px 0;
+}
+
+.product-content ul li {
+	width: 250px;
+	float: left;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	overflow: hidden;
+	margin-bottom: 15px;
+	margin-right: 15px;
+	position: relative;
+}
+
+.product-content ul li .delete-btn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+
+.product-content ul li .image-item {
+	display: block;
+	height: 250px;
+	display: table-cell;
+    vertical-align: middle;
+	text-align: center;
+	line-height: 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.product-content .info-content{
+	padding: 5px 10px 0 10px;
+	display: block;
+	color: #333;
+}

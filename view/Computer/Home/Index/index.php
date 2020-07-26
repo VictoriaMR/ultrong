@@ -22,10 +22,10 @@
 <script type="text/javascript">
 $(function(){
 	//轮播图
-    $('#banner').slider({
-        dots: true,
-        fluid: true
-    });
+    // $('#banner').slider({
+    //     dots: true,
+    //     fluid: true
+    // });
 });
 </script>
 <?php $this->load('Common.baseFooter');?>

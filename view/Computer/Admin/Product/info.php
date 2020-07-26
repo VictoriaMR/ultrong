@@ -92,7 +92,8 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	UE.getEditor('editor');
+	if ($('#editor').length > 0)
+		UE.getEditor('editor');
     PRODUCT.init();
 });
 </script>

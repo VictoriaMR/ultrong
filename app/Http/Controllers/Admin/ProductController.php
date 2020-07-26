@@ -17,12 +17,15 @@ class ProductController extends Controller
 	{
 		$this->baseService = $service;
 		$this->dataService = $dataService;
-		$this->tabs = ['index'=>'SPU列表', 'info' => '新增SPU'];
+		$this->tabs = ['index'=>'SPU列表', 'info' => 'SPU详情'];
 		parent::_initialize();
+		Html::addCss('product');
 	}
 
 	public function index()
 	{
+		Html::addJs('product/index');
+
 		$page = iget('page', 1);
 		$size = iget('size', 30);
 		$spuId = iget('spu_id', '');
@@ -47,14 +50,14 @@ class ProductController extends Controller
 			$list = $this->baseService->getList($where, $page, $size);
 		}
 
-		dd($list);
-
 		//分类列表
 		$categoryService = \App::make('App/Services/CategoryService');
 		$cateList = $categoryService->getList();
 		//语言列表
 		$languageService = \App::make('App/Services/LanguageService');
 		$lanList = $languageService->getList();
+
+		$pageBar = paginator()->make($size, $total);
 
 		$this->assign('cateList', $cateList);
 		$this->assign('lanList', $lanList);
@@ -65,13 +68,13 @@ class ProductController extends Controller
 		$this->assign('keyword', $keyword);
 		$this->assign('cate_id', $cateId);
 		$this->assign('lan_id', $lanId);
+		$this->assign('pageBar', $pageBar);
 
 		return view();
 	}
 
 	public function info()
 	{
-		Html::addCss('product');
 		Html::addJs('product/info');
 		Html::addJs('ueditor/ueditor.config', true);
 		Html::addJs('ueditor/ueditor.all', true);
@@ -156,6 +159,22 @@ class ProductController extends Controller
 		} else {
 			return $this->result(10000, $result, ['保存失败']);
 		}
+	}
 
+	public function delete()
+	{
+		$proId = (int) ipost('pro_id', 0);
+		$lanId = (int) ipost('lan_id', 0);
+
+		if (empty($proId) || empty($lanId))
+			return $this->result(10000, false, ['参数不正确']);
+
+		$result = $this->baseService->delete($proId, $lanId);
+
+		if ($result) {
+			return $this->result(200, $result, ['删除成功']);
+		} else {
+			return $this->result(10000, $result, ['删除失败']);
+		}
 	}
 }

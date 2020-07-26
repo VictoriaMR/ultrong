@@ -29,8 +29,36 @@
 		</div>
 		<button type="submit" class="btn btn-primary">查询</button>
 	</form>
-	<div class="content">
-		
+	<div class="product-content" style="min-height: 700px;">
+		<?php if (!empty($list)) { ?>
+		<ul>
+			<?php foreach ($list as $key => $value) { ?>
+			<li data-pro_id="<?php echo $value['pro_id'];?>" data-lan_id="<?php echo $value['lan_id'];?>">
+				<a class="image-item" href="<?php echo adminUrl('product/info', ['pro_id'=>$value['pro_id'], 'lan_id'=>$value['lan_id']]);?>">
+			      	<img src="<?php echo $value['image'];?>">
+			    </a>
+				<a class="info-content" href="<?php echo adminUrl('product/info', ['pro_id'=>$value['pro_id'], 'lan_id'=>$value['lan_id']]);?>">
+					<div>
+						<label>语言: </label>
+						<label><?php echo $value['language_name'];?></label>
+					</div>
+					<div>
+						<label>分类: </label>
+						<label><?php echo $value['cate_name'];?></label>
+					</div>
+				</a>
+				<span class="glyphicon glyphicon-trash delete-btn"></span>
+			</li>
+			<?php } ?>
+		</ul>
+		<div class="clear"></div>
+		<?php } ?>
 	</div>
+	<?php echo $pageBar ?? '';?>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    PRODUCT.init();
+});
+</script>
 <?php $this->load('Common.baseFooter');?>

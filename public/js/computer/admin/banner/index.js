@@ -19,17 +19,19 @@ var BANNER = {
 			var lan_id = $(this).parents('.banner-content').data('lan_id');
 
 			var idArr = [];
-			$(this).parents('.banner-content').find('ul li').each(function(){
-				var id = $(this).data('attach_id');
+			$(this).parents('form').eq(0).find('.upload-item').each(function(){
+				var id = $(this).attr('data-attach_id');
 				if (id > 0)
 					idArr.push(id);
 			});
 
+			$(this).parents('form').eq(0).find('input[name="image"]').val(idArr.join(','));
 			if (idArr.length == 0) return false;
 			$(this).button('loading');
-			API.post(ADMIN_URI+'site/saveBanner', {lan_id: lan_id, attach_id: idArr.join(',')}, function(res){
+			API.post(ADMIN_URI+'site/saveBanner', $(this).parents('form').eq(0).serializeArray(), function(res){
 				if (res.code == 200) {
 					successTips(res.message);
+					window.location.reload();
 				} else {
 					errorTips(res.message);
 				}

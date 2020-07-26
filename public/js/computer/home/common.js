@@ -1,8 +1,8 @@
 $(function(){
-    $('.header-top .language').on('click', function(){
+    $('#header-top .language').on('click', function(){
         $(this).find('.selector').slideToggle(100);
     });
-    $('.header-top .language li').on('click', function(event){
+    $('#header-top .language li').on('click', function(event){
     	event.stopPropagation();
         if ($(this).hasClass('selected')) return false;
         var id = $(this).data('id');

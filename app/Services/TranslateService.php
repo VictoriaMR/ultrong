@@ -32,7 +32,7 @@ class TranslateService extends BaseService
 
         if ($language == 'cn') return $name;
 
-        $cacheKey = self::CACHE_KEY.strtoupper($language);
+        $cacheKey = self::constant('CACHE_KEY').strtoupper($language);
 
         //获取缓存中对应的翻译文本
     	$info = Redis(1)->hget($cacheKey, $name);

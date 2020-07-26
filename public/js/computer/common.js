@@ -68,9 +68,12 @@ var UPLOAD = {
 			var pid = $(this).parent().attr('id');
 			if (!pid) {
 				pid = _getRandomString(8);
-				$(this).parent().attr('id', pid);
+				if (_this.data.obj.parents('.upload-item-content').data('href')) 
+					$(this).parent().parent().attr('id', pid);
+				else
+					$(this).parent().attr('id', pid);
 			}
-			var index = $(this).index();
+			var index = $(this).parent().index();
 			var fileId = pid+'_file_'+index;
 
 			if ($('body').find('#'+fileId).length == 0) {
@@ -79,7 +82,7 @@ var UPLOAD = {
 			$('#'+fileId).click();
 		});
 
-		if (_this.data.obj.parent().data('delete')) {
+		if (_this.data.obj.parents('.upload-item-content').data('delete')) {
 			if (_this.data.obj.find('.delete').length == 0) {
 				_this.data.obj.append('<span class="glyphicon glyphicon-trash delete"></span>');
 			}
@@ -87,13 +90,18 @@ var UPLOAD = {
 			_this.data.obj.on('click', '.delete', function(event){
 				event.stopPropagation();
 				if (_this.data.obj.find('img').length == 0) return false;
-				var parent = $(this).parent().parent()
-				$(this).parent().remove();
+				if (_this.data.obj.parents('.upload-item-content').data('href')) {
+					var parent = $(this).parent().parent();
+					$(this).parent().parent().remove();
+				} else {
+					var parent = $(this).parent();
+					$(this).parent().remove();
+				}
 				UPLOAD.initItem(parent);
 			});
 		}
 
-		if (_this.data.obj.parent().data('sort')) {
+		if (_this.data.obj.parents('.upload-item-content').data('sort')) {
 			if (_this.data.obj.find('.to-left').length == 0) {
 				_this.data.obj.append('<span class="glyphicon glyphicon-chevron-left to-left"></span>');
 			}
@@ -105,11 +113,25 @@ var UPLOAD = {
 			_this.data.obj.on('click', '.to-right, .to-left', function(event){
 				event.stopPropagation();
 				if ($(this).hasClass('to-left')) {
-					if ($(this).parent().index() == 0) return false;
-					$(this).parent().prev().before($(this).parent());
+					if (_this.data.obj.parents('.upload-item-content').data('href')) {
+						if ($(this).parent().parent().index() == 0) return false;
+					} else {
+						if ($(this).parent().index() == 0) return false;
+					}
+					if (_this.data.obj.parents('.upload-item-content').data('href'))
+						$(this).parent().parent().prev().before($(this).parent().parent());
+					else
+						$(this).parent().prev().before($(this).parent());
 				} else {
-					if ($(this).parent().index() == $(this).parent().siblings().length) return false;
-					$(this).parent().next().after($(this).parent());
+					if (_this.data.obj.parents('.upload-item-content').data('href')) {
+						if ($(this).parent().parent().index() == $(this).parent().parent().siblings().length) return false;
+					} else {
+						if ($(this).parent().index() == $(this).parent().siblings().length) return false;
+					}
+					if (_this.data.obj.parents('.upload-item-content').data('href'))
+						$(this).parent().parent().next().after($(this).parent().parent());
+					else
+						$(this).parent().next().after($(this).parent());
 				}
 			});
 		}
@@ -172,7 +194,6 @@ var UPLOAD = {
 	initItem: function(parentObj)
 	{
 		var len = parentObj.data('length');
-		console.log(parentObj.find('.upload-item').length, len)
 		if (len > parentObj.find('.upload-item').length) {
 			var check = true;
 			parentObj.find('.upload-item').each(function(){
@@ -188,10 +209,11 @@ var UPLOAD = {
 			});
 
 			if (!check) return false;
-			var node = parentObj.find('.upload-item').eq(0).clone(true);
+			var node = parentObj.find('.upload-item').parent().eq(0).clone(true);
 			node.find('img').attr('src', '');
-			node.data('attach_id', 0);
-			node.attr('data-attach_id', 0);
+			node.find('input').val('');
+			node.find('.upload-item').data('attach_id', 0);
+			node.find('.upload-item').attr('data-attach_id', 0);
 			parentObj.append(node)
 		}
 	}

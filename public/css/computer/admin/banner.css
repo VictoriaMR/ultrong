@@ -1,11 +1,16 @@
 .banner-content li {
+	width: 320px;
+	margin-right: 15px;
+	margin-bottom: 10px;
+    float: left;   
+}
+
+.banner-content li .upload-item {
 	height: 100px;
 	width: 320px;
-	background: #eee;
-	margin-bottom: 10px;
-    float: left;
-    margin-right: 15px;
     text-align: center;
     line-height: 0;
-    line-height: 98px;
+    background: #eee;
+    display: table-cell;
+    vertical-align: middle;
 }

@@ -4,15 +4,17 @@ namespace App\Services;
 
 use App\Services\Base as BaseService;
 use App\Models\Product;
+use App\Models\ProductData;
 
 /**
  * 
  */
 class ProductService extends BaseService
 {
-	public function __construct(Product $model)
+	public function __construct(Product $model, ProductData $dataModel)
     {
         $this->baseModel = $model;
+        $this->dataModel = $dataModel;
     }
 
     public function getTotal($where = [])
@@ -26,15 +28,22 @@ class ProductService extends BaseService
 
         if (!empty($list)) {
             $categoryService = \App::make('App/Services/CategoryService');
+            $languageService = \App::make('App/Services/LanguageService');
+            $attchService = \App::make('App/Services/AttachmentService');
+
             $cateList = $categoryService->getList();
             $cateList = array_column($cateList, null, 'cate_id');
             //语言列表
-            $languageService = \App::make('App/Services/LanguageService');
             $lanList = $languageService->getList();
             $lanList = array_column($lanList, null, 'cate_id');
             foreach ($list as $key => $value) {
                 $value['cate_name'] = $cateList[$value['cate_id']]['name'] ?? '';
                 $value['language_name'] = $lanList[$value['lan_id']]['name'] ?? '';
+
+                if (!empty($value['image'])) {
+                    $data = $attchService->getAttachmentById(explode(',', $value['image'])[0]);
+                    $value['image'] = $data['url'];
+                }
                 $list[$key] = $value;
             }
         }
@@ -83,8 +92,7 @@ class ProductService extends BaseService
 
             if (!empty($info)) {
                 //商品详情
-                $dataService = \App::make('App/Services/ProductDataService');
-                $data = $dataService->getInfo($proId, $lanId);
+                $data = $this->dataModel->getInfo($proId, $lanId);
 
                 $info = array_merge($info, $data);
 
@@ -107,5 +115,25 @@ class ProductService extends BaseService
         $cacheKey = 'PRODUCT_INFO_CACHE_'.$proId.'_'.$lanId;
 
         return Redis()->del($cacheKey);
+    }
+
+    public function delete($proId, $lanId)
+    {
+        $proId = (int) $proId;
+        $lanId = (int) $lanId;
+        if (empty($lanId) || empty($lanId)) return false;
+
+        $result = $this->baseModel->where('pro_id', $proId)
+                                  ->where('lan_id', $lanId)
+                                  ->delete();
+        if ($result) {
+            $result = $this->dataModel->where('pro_id', $proId)
+                                      ->where('lan_id', $lanId)
+                                      ->delete();
+
+            $result = $this->clearCache($proId, $lanId);
+        }
+
+        return $result;
     }
 }

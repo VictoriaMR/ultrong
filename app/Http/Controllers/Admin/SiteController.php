@@ -62,22 +62,15 @@ class SiteController extends Controller
 	{
 		Html::addCss('banner');
 		Html::addJs('banner/index');
+
+		$bannerService = \App::make('App/Services/BannerService');
+		$bannerList = $bannerService->getList();
+
 		//获取开启的语言列表
 		$languageService = \App::make('App/Services/LanguageService');
 		$list = $languageService->getListCache();
 
-		//获取各语言图片
-		$attachmentService = \App::make('App/Services/AttachmentService');
-		$bannerArr = $attachmentService->getListByEntityId(array_column($list, 'lan_id'), $attachmentService::constant('TYPE_INDEX_BANNER'));
-
-		$imageArr = [];
-		if (!empty($bannerArr)) {
-			foreach ($bannerArr as $key => $value) {
-				$imageArr[$value['entity_id']][] = $value;
-			}
-		}
-
-		$this->assign('imageArr', $imageArr);
+		$this->assign('bannerList', $bannerList);
 		$this->assign('list', $list);
 
 		return view();
@@ -91,13 +84,36 @@ class SiteController extends Controller
 	public function saveBanner()
 	{
 		$lanId = (int) ipost('lan_id', 0);
-		$attchId = ipost('attach_id', '');
+		$image = ipost('image', '');
+		$href = ipost('href');
+		$background = ipost('background');
 
-		if (empty($lanId) || empty($attchId))
+		if (empty($lanId) || empty($image))
 			return $this->result(10000, false, ['参数错误']);
 
+		$data = [];
+
+		$image = explode(',', $image);
+
+		if (!empty($image)) {
+			$temp = [];
+			foreach ($image as $key => $value) {
+				$temp[] = [
+					'attach_id' => $value,
+					'href' => $href[$key] ?? '',
+				];
+			}
+			$data['content'] = json_encode($temp, );
+		}
+
+		if (!empty($background))
+			$data['background'] = $background;
+
+		$bannerService = \App::make('App/Services/BannerService');
+		$bannerService->updateData($lanId, $data);
+
 		$attachmentService = \App::make('App/Services/AttachmentService');
-		$result = $attachmentService->updateData($lanId, $attachmentService::constant('TYPE_INDEX_BANNER'), explode(',', $attchId));
+		$result = $attachmentService->updateData($lanId, $attachmentService::constant('TYPE_INDEX_BANNER'), $image);
 
 		if ($result)
 			return $this->result(200, $result, ['保存成功']);

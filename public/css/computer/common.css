@@ -3,7 +3,7 @@ body, button, input, select, textarea { font: 12px/1.5 Microsoft YaHei, tahoma, 
 h1, h2, h3, h4, h5, h6{ font-size:100%; } 
 ul, ol { list-style:none; } 
 a { text-decoration:none; color: #3c3c3c;} 
-a:hover { text-decoration:underline; } 
+a:hover { text-decoration:none; } 
 img { border:0; max-width: 100%; max-height: 100%;} 
 button, input, select, textarea { font-size:100%; } 
 table { border-collapse:collapse; border-spacing:0; }

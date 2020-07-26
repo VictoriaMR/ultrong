@@ -76,6 +76,7 @@ class AttachmentService extends BaseService
 
     public function getAttachmentListById($attachId)
     {
+        // dd($attachId);
         if (empty($attachId)) return [];
         if (!is_array($attachId)) $attachId = explode(',', $attachId);
 
