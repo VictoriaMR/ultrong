@@ -26,10 +26,10 @@ var ADMIN_URI = "<?php echo Env('APP_DOMAIN').'admin/';?>";
 <div id="header-nav" class="container-fluid">
     <div class="nav" data-id="0"> 
         <span><?php echo implode(' > ', $navArr);?></span>
-        <a title="新窗口中打开" class="extralink" target="_blank" href="#">
+        <a title="新窗口中打开" class="extralink" target="_blank" href="">
             <img src="<?php echo siteUrl('image/computer/icon/extralink.png');?>">
         </a>
-        <a title="刷新当前页面" class="extralink" href="#">
+        <a title="刷新当前页面" class="extralink" href="">
             <img src="<?php echo siteUrl('image/computer/icon/refresh.png');?>">
         </a>
      </div>

@@ -1,9 +1,13 @@
 <?php $this->load('Common.baseHeader');?>
 <div class="container-fluid">
+	<select class="form-control margin-bottom-15 shebei" style="width: 200px;">
+		<option value="0" <?php echo !$shebei ? 'selected' : '';?>>PC端</option>
+		<option value="1" <?php echo $shebei ? 'selected' : '';?>>手机端</option>
+	</select>
 	<?php if (!empty($list)) { ?>
 	<?php foreach ($list as $key => $value) { ?>
 	<?php $info = $bannerList[$value['lan_id']] ?? [];?>
-	<div class="banner-content" data-lan_id="<?php echo $value['lan_id'];?>">
+	<div class="banner-content margin-bottom-15" data-lan_id="<?php echo $value['lan_id'];?>">
 		<form>
 			<input type="hidden" name="lan_id" value="<?php echo $value['lan_id'];?>">
 			<input type="hidden" name="image" value="">

@@ -38,5 +38,9 @@ var BANNER = {
 			});
 			$(this).button('reset');
 		});
+
+		$('.shebei').on('change', function(){
+
+		});
 	}
 };
