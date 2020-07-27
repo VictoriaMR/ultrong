@@ -14,26 +14,29 @@ class BannerService extends BaseService
         $this->baseModel = $site;
     }
 
-    public function updateData($lanId, $data) 
+    public function updateData($lanId, $type, $data) 
     {
         $lanId = (int) $lanId;
         if (empty($lanId) || empty($data)) return false;
 
-        $this->clearCache($lanId);
+        $this->clearCache($lanId, $type);
 
-        if ($this->isExist($lanId)) {
-            return $this->baseModel->updateDataById($lanId, $data);
+        if ($this->isExist($lanId, $type)) {
+            return $this->baseModel->where('lan_id', $lanId)
+                                   ->where('type', $type)
+                                   ->update($data);
         } else {
             $data['lan_id'] = $lanId;
+            $data['type'] = $type;
             return $this->baseModel->insert($data);
         }
     }
 
-    public function isExist($lanId)
+    public function isExist($lanId, $type)
     {
         if (empty($lanId)) return false;
 
-        return $this->baseModel->where('lan_id', $lanId)->count() > 0;
+        return $this->baseModel->where('lan_id', $lanId)->where('type', $type)->count() > 0;
     }
 
     /**
@@ -43,10 +46,10 @@ class BannerService extends BaseService
      * @param  [type]     $data [description]
      * @return array
      */
-    public function getInfo($lanId)
+    public function getInfo($lanId, $type)
     {
-        $cacheKey = self::constant('CACHE_KEY').$lanId;
-    	$info = Redis()->get($cacheKey);
+        $cacheKey = self::constant('CACHE_KEY').$lanId.'_'.$type;
+    	// $info = Redis()->get($cacheKey);
     	if (empty($info)) {
     		$info = $this->baseModel->loadData($lanId);
             $info['content'] = json_decode($info['content'], true);
@@ -64,9 +67,9 @@ class BannerService extends BaseService
     	return $info;
     }
 
-    public function getList()
+    public function getList($where = [])
     {
-        $list = $this->baseModel->get();
+        $list = $this->baseModel->where($where)->get();
         $attachmentService = \App::make('App/Services/AttachmentService');
 
         foreach ($list as $key => $value) {
@@ -88,8 +91,8 @@ class BannerService extends BaseService
         return $list;
     }
 
-    public function clearCache($lanId)
+    public function clearCache($lanId, $type)
     {
-        return Redis()->del(self::constant('CACHE_KEY').$lanId);
+        return Redis()->del(self::constant('CACHE_KEY').$lanId.'_'.$type);
     }
 }

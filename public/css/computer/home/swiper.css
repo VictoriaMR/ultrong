@@ -5,9 +5,10 @@
 #slider-banner ul {
     white-space: nowrap;
     overflow: hidden;
+    display: inline-table;
 }
 #slider-banner .slider {
-    max-height: 500px;
+    max-height: 550px;
     text-align: center;
     width: 100%;
     display: inline-block;
@@ -15,15 +16,16 @@
     left: 0;
 }
 
-#slider-banner .slider img {
-    max-width: 100%;
-    max-height: 500px;
-    margin: 0 auto;
+#slider-banner .slider a.block {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
 }
 
 #slider-banner .dots {
     position: absolute;
-    bottom: 0;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     height: 20px;
@@ -58,7 +60,7 @@
 }
 
 #slider-banner .arrows .prev {
-    left: 0;
+    left: 15px;
     top: 50%;
     height: 32px;
     width: 16px;
@@ -66,7 +68,7 @@
 }
 
 #slider-banner .arrows .next {
-    right: 0;
+    right: 15px;
     top: 50%;
     height: 32px;
     width: 16px;

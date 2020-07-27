@@ -14,3 +14,11 @@
     display: table-cell;
     vertical-align: middle;
 }
+
+.url-content label {
+    width: 40px;
+}
+
+.url-content input {
+    width: calc(100% - 45px) !important;
+}

@@ -39,8 +39,8 @@ var BANNER = {
 			$(this).button('reset');
 		});
 
-		$('.shebei').on('change', function(){
-
+		$('.type').on('change', function(){
+			window.location.href = ADMIN_URI + 'site/banner?type='+$(this).val();
 		});
 	}
 };

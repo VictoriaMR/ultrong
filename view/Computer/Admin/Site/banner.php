@@ -1,8 +1,8 @@
 <?php $this->load('Common.baseHeader');?>
 <div class="container-fluid">
-	<select class="form-control margin-bottom-15 shebei" style="width: 200px;">
-		<option value="0" <?php echo !$shebei ? 'selected' : '';?>>PC端</option>
-		<option value="1" <?php echo $shebei ? 'selected' : '';?>>手机端</option>
+	<select class="form-control margin-bottom-15 type" style="width: 200px;">
+		<option value="0" <?php echo !$type ? 'selected' : '';?>>PC端</option>
+		<option value="1" <?php echo $type ? 'selected' : '';?>>手机端</option>
 	</select>
 	<?php if (!empty($list)) { ?>
 	<?php foreach ($list as $key => $value) { ?>
@@ -11,13 +11,8 @@
 		<form>
 			<input type="hidden" name="lan_id" value="<?php echo $value['lan_id'];?>">
 			<input type="hidden" name="image" value="">
-			<div class="form-inline">
-				<h4 class="left"><?php echo $value['name'];?></h4>
-				<div class="left form-group margin-left-15">
-					<label>背景色</label>
-					<input type="text" class="form-control" name="background" value="<?php echo $info['background'] ?? '';?>">
-				</div>
-			</div>
+			<input type="hidden" name="type" value="<?php echo $type ?? 0;?>">
+			<h3 class="left font-16 margin-bottom-15"><?php echo $value['name'];?></h3>
 			<div class="clear"></div>
 			<ul class="upload-item-content" data-length="6" data-site="banner" data-sort="1" data-delete="1" data-href="1">
 				<?php if (!empty($info['content'])) { ?>
@@ -26,8 +21,13 @@
 					<div class="upload-item" data-attach_id="<?php echo $v['attach_id'];?>">
 						<img src="<?php echo $v['url'];?>">
 					</div>
-					<div class="margin-top-3">
-						<input type="text" class="form-control" name="href[]" value="<?php echo $v['href'] ?? '';?>" />
+					<div class="margin-top-3 form-inline url-content">
+						<label>链接: </label>
+						<input type="text" class="form-control width-100" name="href[]" value="<?php echo $v['href'] ?? '';?>" />
+					</div>
+					<div class="margin-top-3 form-inline url-content">
+						<label>背景色: </label>
+						<input type="text" class="form-control width-100" name="background[]" value="<?php echo $v['background'] ?? '';?>" />
 					</div>
 				</li>
 				<?php } ?>

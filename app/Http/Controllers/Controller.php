@@ -78,4 +78,29 @@ class Controller
         $this->assign('func', $func);
         $this->assign('tabs', $this->tabs);
     }
+
+    protected function _init()
+    {
+        \frame\Html::addCss('common');
+        \frame\Html::addJs('common');
+        
+        //站点信息
+        $siteService = \App::make('App/Services/SiteService');
+        $siteInfo = $siteService->getInfo();
+
+        $languageService = \App::make('App/Services/LanguageService');
+        $list = $languageService->getListCache();
+        $list = array_column($list, null, 'value');
+
+        //设置默认语言
+        $site_language = \frame\Session::get('site_language_name');
+        if (empty($site_language)) {
+            $defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
+            Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
+        }
+        
+        $this->assign('site_language', $site_language);
+        $this->assign('language_list', $list);
+        $this->assign($siteInfo);
+    }
 }

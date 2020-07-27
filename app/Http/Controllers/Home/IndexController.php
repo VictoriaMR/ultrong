@@ -12,11 +12,20 @@ use frame\Session;
 
 class IndexController extends Controller
 {
+	public function __construct()
+	{
+		parent::_init();
+	}
+
 	public function index()
 	{	
+		Html::addCss('swiper');
+		Html::addJs('swiper', true);
 		$bannerService = \App::make('App/Services/BannerService');
-		$banner = $bannerService->getInfo(Session::get('site_language_id'));
-		
+		$banner = $bannerService->getInfo(Session::get('site_language_id'), isMobile());
+
+		// print_r($banner);
+
 		$this->assign('banner', $banner);
 		return view();
 	}

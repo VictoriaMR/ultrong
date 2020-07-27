@@ -1,31 +1,26 @@
-<?php load('Common.baseHeader');?>
-<div id="banner" class="hide">
+<?php $this->load('Common.baseHeader');?>
+<?php if (!empty($banner)) { ?>
+<div id="slider-banner">
     <ul>
+        <?php foreach ($banner['content'] as $key => $value) { ?>
         <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/01.jpg');?>">
+            <div style="width: 100%; display: table;background-color: <?php echo $value['background'] ?? '#000';?>;">
+                <a class="block" href="<?php echo $value['href'] ?? 'javascript:;';?>">
+                    <img src="<?php echo $value['url'];?>">
+                </a>
+            </div>
         </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/02.jpg');?>">
-        </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/03.jpg');?>">
-        </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/04.jpg');?>">
-        </li>
-        <li class="slider">
-            <img src="<?php echo siteUrl('image/computer/05.jpg');?>">
-        </li>
+        <?php } ?>
     </ul>
 </div>
-
+<?php } ?>
 <script type="text/javascript">
 $(function(){
 	//轮播图
-    // $('#banner').slider({
-    //     dots: true,
-    //     fluid: true
-    // });
+    $('#slider-banner').slider({
+        dots: true,
+        fluid: true
+    });
 });
 </script>
 <?php $this->load('Common.baseFooter');?>

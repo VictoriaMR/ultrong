@@ -108,7 +108,6 @@ class Router
                 self::$_route['ClassPath'] = implode('\\', $funcArr);
 				break;
 		}
-
 		return true;
 	}
 }

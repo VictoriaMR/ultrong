@@ -60,11 +60,13 @@ class SiteController extends Controller
 
 	public function banner()
 	{
+		$type = iget('type', 0);
+
 		Html::addCss('banner');
 		Html::addJs('banner/index');
 
 		$bannerService = \App::make('App/Services/BannerService');
-		$bannerList = $bannerService->getList();
+		$bannerList = $bannerService->getList(['type'=>$type]);
 
 		//获取开启的语言列表
 		$languageService = \App::make('App/Services/LanguageService');
@@ -72,6 +74,7 @@ class SiteController extends Controller
 
 		$this->assign('bannerList', $bannerList);
 		$this->assign('list', $list);
+		$this->assign('type', $type);
 
 		return view();
 	}
@@ -84,6 +87,7 @@ class SiteController extends Controller
 	public function saveBanner()
 	{
 		$lanId = (int) ipost('lan_id', 0);
+		$type = (int) ipost('type', 0);
 		$image = ipost('image', '');
 		$href = ipost('href');
 		$background = ipost('background');
@@ -93,7 +97,7 @@ class SiteController extends Controller
 
 		$data = [];
 
-		$image = explode(',', $image);
+		$image = array_unique(explode(',', $image));
 
 		if (!empty($image)) {
 			$temp = [];
@@ -101,16 +105,14 @@ class SiteController extends Controller
 				$temp[] = [
 					'attach_id' => $value,
 					'href' => $href[$key] ?? '',
+					'background' => $background[$key] ?? '',
 				];
 			}
 			$data['content'] = json_encode($temp, JSON_UNESCAPED_UNICODE);
 		}
 
-		if (!empty($background))
-			$data['background'] = $background;
-
 		$bannerService = \App::make('App/Services/BannerService');
-		$bannerService->updateData($lanId, $data);
+		$result = $bannerService->updateData($lanId, $type, $data);
 
 		$attachmentService = \App::make('App/Services/AttachmentService');
 		$result = $attachmentService->updateData($lanId, $attachmentService::constant('TYPE_INDEX_BANNER'), $image);

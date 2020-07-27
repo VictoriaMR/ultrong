@@ -51,11 +51,11 @@ class App
 	 * @method 执行方法
 	 * @return object_array
 	 */
-	public function send() 
+	public function send($info = []) 
 	{
 		//路由解析
-		$info = Router::$_route;
-        // dd($info);
+        if (empty($info))    
+            $info = Router::$_route;
 
 		$class = 'App\\Http\\Controllers\\'.$info['Class'].'\\'.$info['ClassPath'].'Controller';
 
