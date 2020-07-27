@@ -103,7 +103,7 @@ class SiteController extends Controller
 					'href' => $href[$key] ?? '',
 				];
 			}
-			$data['content'] = json_encode($temp, );
+			$data['content'] = json_encode($temp, JSON_UNESCAPED_UNICODE);
 		}
 
 		if (!empty($background))
