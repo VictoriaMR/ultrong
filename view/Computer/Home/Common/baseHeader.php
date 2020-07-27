@@ -50,25 +50,28 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                     <a href="/" class="title <?php echo 'selected';?>"><?php echo dist("首页");?></a>
                 </li>
                 <li>
-                    <a href="/" class="title"><?php echo dist('关于'.$site_name);?></a>
+                    <a href="/" class="title about-us"><?php echo dist('关于'.$site_name);?></a>
                 </li>
                 <li>
-                    <a href="/" class="title"><?php echo dist('产品中心');?></a>
+                    <a href="/" class="title product-center"><?php echo dist('产品中心');?></a>
                 </li>
                 <li>
-                    <a href="/" class="title"><?php echo dist('新闻中心');?></a>
+                    <a href="/" class="title news-center"><?php echo dist('新闻中心');?></a>
                 </li>
                 <li>
-                    <a href="/" class="title"><?php echo dist('服务支持');?></a>
+                    <a href="/" class="title server-support"><?php echo dist('服务支持');?></a>
                 </li>
                 <li>
-                    <a href="/" class="title"><?php echo dist('解决方案');?></a>
+                    <a href="/" class="title server-deal"><?php echo dist('解决方案');?></a>
                 </li>
                 <li>
-                    <a href="/" class="title"><?php echo dist('联系我们');?></a>
+                    <a href="/" class="title contact-us"><?php echo dist('联系我们');?></a>
                 </li>
                 <li>
-                    <a href="/" class="title"><?php echo dist('搜索');?></a>
+                    <a href="/" class="title">
+                        <span><?php echo dist('搜索');?></span>
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
                 </li>
             </ul>
         </div>
