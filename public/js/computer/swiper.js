@@ -7,7 +7,7 @@
         this.max = [0, 0];
         this.current = 0;
         this.interval = t;
-        this.opts = { speed: 500, delay: 2000, complete: t, keys: !t, dots: t, fluid: t };
+        this.opts = { speed: 500, delay: 5000, complete: t, keys: !t, dots: t, fluid: t };
         var n = this;
         this.init = function(t, n) {
             this.el = t;
