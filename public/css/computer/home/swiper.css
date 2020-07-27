@@ -41,6 +41,7 @@
     border-radius: 50%;
     transition: .65s;
     cursor: pointer;
+    overflow: hidden;
 }
 
 #slider-banner .dots-content {
