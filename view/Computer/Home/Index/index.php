@@ -28,7 +28,7 @@
                     <?php foreach ($value['product'] as $k => $v) { ?>
                     <li>
                         <a class="block" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
-                            <img src="<?php echo $v['image'];?>" alt="<?php  echo dist($v['name']);?>">
+                            <img src="<?php echo $v['image'];?>" alt="<?php echo $v['name'];?>">
                         </a>
                         <a class="block product-title" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
                             <div class="font-18 word-ellipsis-1"><?php echo $v['name'];?></div>
