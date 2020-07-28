@@ -96,7 +96,7 @@ class Controller
         $site_language = \frame\Session::get('site_language_name');
         if (empty($site_language)) {
             $defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
-            Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
+            \frame\Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
         }
         
         $this->assign('site_language', $site_language);
