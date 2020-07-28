@@ -22,7 +22,7 @@ class IndexController extends Controller
 		Html::addCss('swiper');
 		Html::addJs('swiper', true);
 		$bannerService = \App::make('App/Services/BannerService');
-		$banner = $bannerService->getInfo(Session::get('site_language_id'), isMobile());
+		$banner = $bannerService->getInfo(Session::get('site_language_id'), isMobile() ? 1 : 0);
 
 		// print_r($banner);
 

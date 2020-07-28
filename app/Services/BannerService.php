@@ -46,10 +46,12 @@ class BannerService extends BaseService
      * @param  [type]     $data [description]
      * @return array
      */
-    public function getInfo($lanId, $type)
+    public function getInfo($lanId, $type = 0)
     {
+        $lanId = (int) $lanId;
+        $type = (int) $type;
         $cacheKey = self::constant('CACHE_KEY').$lanId.'_'.$type;
-    	// $info = Redis()->get($cacheKey);
+    	$info = Redis()->get($cacheKey);
     	if (empty($info)) {
     		$info = $this->baseModel->loadData($lanId);
             $info['content'] = json_decode($info['content'], true);
@@ -91,8 +93,10 @@ class BannerService extends BaseService
         return $list;
     }
 
-    public function clearCache($lanId, $type)
+    public function clearCache($lanId, $type = 0)
     {
+        $lanId = (int) $lanId;
+        $type = (int) $type;
         return Redis()->del(self::constant('CACHE_KEY').$lanId.'_'.$type);
     }
 }
