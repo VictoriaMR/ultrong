@@ -14,6 +14,35 @@
     </ul>
 </div>
 <?php } ?>
+<?php if (!empty($cateList)) { ?>
+<div class="container">
+    <?php foreach ($cateList as $key => $value) {?>
+    <div class="category-item margin-top-40">
+        <div class="text-center">
+            <div class="font-24 font-600"><?php echo dist($value['name']);?></div>
+            <div class="font-16 margin-top-3"><?php echo dist($value['remark']);?></div>
+        </div>
+        <div class="bg-f5 category-product margin-top-10">
+            <div class="product-box">
+                <ul>
+                    <?php foreach ($value['product'] as $k => $v) { ?>
+                    <li>
+                        <a class="block" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
+                            <img src="<?php echo $v['image'];?>" alt="<?php  echo dist($v['name']);?>">
+                        </a>
+                        <a class="block product-title" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
+                            <div class="font-18 word-ellipsis-1"><?php echo $v['name'];?></div>
+                            <div class="font-14 margin-top-10 word-ellipsis-5"><?php echo $v['desc'];?></div>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+</div>
+<?php }?>
 <script type="text/javascript">
 $(function(){
 	//轮播图

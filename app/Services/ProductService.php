@@ -22,9 +22,9 @@ class ProductService extends BaseService
         return $this->baseModel->where($where)->count();
     }
 
-    public function getList($where = [], $page = 1, $size = 10)
+    public function getList($where = [], $page = 1, $size = 10, $orderBy = [])
     {
-        $list = $this->baseModel->getList($where, $page, $size);
+        $list = $this->baseModel->getList($where, $page, $size, $orderBy);
 
         if (!empty($list)) {
             $categoryService = \App::make('App/Services/CategoryService');

@@ -11,12 +11,13 @@ use frame\html;
 
 class ProductController extends Controller
 {
-	protected $serivces = null;
+	public function __construct()
+	{
+		parent::_init();
+	}
 
 	public function index()
 	{	
-		dd('ProductController');
-
 		return view();
 	}
 }

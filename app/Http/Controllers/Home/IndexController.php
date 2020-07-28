@@ -19,12 +19,27 @@ class IndexController extends Controller
 
 	public function index()
 	{	
+		Html::addCss('index');
 		Html::addCss('swiper');
 		Html::addJs('swiper', true);
 		$bannerService = \App::make('App/Services/BannerService');
 		$banner = $bannerService->getInfo(Session::get('site_language_id'), isMobile() ? 1 : 0);
 
+		//展示分类
+		$cateService = \App::make('App/Services/CategoryService');
+		$cateList = $cateService->getList(['status'=>1, 'is_index'=>1]);
+
+		//获取分类下商品
+		$productService = \App::make('App/Services/ProductService');
+
+		foreach ($cateList as $key => $value) {
+			$cateList[$key]['product'] = $productService->getList(['is_deleted'=>0, 'cate_id'=>$value['cate_id']], 1, 20, [['is_hot', 'desc'], ['hit_count', 'desc']]);
+			if (empty($cateList[$key]['product'])) unset($cateList[$key]);
+		}
+		// print_r($cateList);
+		$this->assign('cateList', $cateList);
 		$this->assign('banner', $banner);
+
 		return view();
 	}
 

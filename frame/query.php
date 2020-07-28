@@ -99,8 +99,14 @@ Class Query
 
 	public function orderBy($value = '', $type = 'DESC')
 	{
-		$this->_orderBy = $value . ' ' . strtoupper($type);
-
+		if (is_array($value)) {
+			foreach ($value as $k => $v) {
+				$this->_orderBy .= ','.$v[0] . ' ' . strtoupper($v[1] ?? 'desc');
+			}
+		} else {
+			$this->_orderBy .= ','.$value . ' ' . strtoupper($type);
+		}
+		$this->_orderBy = trim($this->_orderBy, ',');
 		return $this;
 	}
 
