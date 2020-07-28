@@ -42,9 +42,11 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </div>
 <div id="header-content">
     <div class="container">
-        <a class="left logo block" href="/">
-            <img src="<?php echo siteUrl('image/computer/logo.png');?>" alt="logo">
-        </a>
+        <div class="left logo-box">
+            <a class="block logo" href="/">
+                <img src="<?php echo siteUrl('image/computer/logo.png');?>" alt="logo">
+            </a>
+        </div>
         <div class="left nav">
             <ul>
                 <li>

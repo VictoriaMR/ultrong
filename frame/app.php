@@ -97,6 +97,7 @@ class App
             }
             $data[] = [
                 'user_id' => (int) \frame\Session::get('home_user_id'),
+                'language' => \frame\Session::get('site_language_name'),
                 'path' => implode('/', $info),
                 'user_agent' => $str,
                 'is_moblie' => IS_MOBILE ? 1 : 0,

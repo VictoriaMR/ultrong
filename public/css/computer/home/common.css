@@ -53,12 +53,17 @@
     height: 60px;
 }
 
+#header-content .logo-box {
+    width: 20%;
+    display: table;
+    height: 60px;
+}
+
 #header-content .logo {
     display: table-cell;
     vertical-align: middle;
     text-align: left;
     line-height: 0;
-    width: 20%;
 }
 
 #header-content .logo img {
