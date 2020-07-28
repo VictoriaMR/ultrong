@@ -2,13 +2,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title><?php echo $title ?? '';?></title>
+    <title><?php echo $_title ?? '';?></title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-title" content="<?php echo $name ?? '';?>">
-    <meta name="keywords" content="<?php echo $seo ?? '';?>">
-    <meta name="description" content="<?php echo $description ?? '';?>">
+    <meta name="apple-mobile-web-app-title" content="<?php echo $_name ?? '';?>">
+    <meta name="keywords" content="<?php echo $_seo ?? '';?>">
+    <meta name="description" content="<?php echo $_description ?? '';?>">
     <link rel="shortcut icon" href="image/favicon.ico">
     <?php foreach (\frame\Html::getCss() as $value) { ?>
     <link rel="stylesheet" type="text/css" href="<?php echo $value;?>">
@@ -23,6 +23,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
 <div id="header-top">
     <div class="container">
+        <a class="font-16" href="/"><?php echo $site['name'];?></a>
         <a class="right help" href="<?php echo url('help');?>"><?php echo dist('帮助');?></a>
         <a class="right language" href="javascript:;"><span><?php echo dist('语言');?></span><span class="icon icon-angle-w-down"></span>
             <?php if (!empty($language_list)) { ?>

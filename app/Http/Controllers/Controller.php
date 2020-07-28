@@ -101,6 +101,10 @@ class Controller
         
         $this->assign('site_language', $site_language);
         $this->assign('language_list', $list);
-        $this->assign($siteInfo);
+        $this->assign('site', $siteInfo);
+        $this->assign('_title', $siteInfo['title']);
+        $this->assign('_name', $siteInfo['name']);
+        $this->assign('_seo', $siteInfo['seo']);
+        $this->assign('_description', $siteInfo['description']);
     }
 }
