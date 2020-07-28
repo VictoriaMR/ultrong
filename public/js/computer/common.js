@@ -73,7 +73,15 @@ var UPLOAD = {
 				else
 					$(this).parent().attr('id', pid);
 			}
-			var index = $(this).parent().index();
+			if (_this.data.obj.parents('.upload-item-content').data('href')){
+				var index = $(this).parent().index(this);
+			} else {
+
+				var index = $(this).index();
+				console.log(index)
+			}
+
+
 			var fileId = pid+'_file_'+index;
 
 			if ($('body').find('#'+fileId).length == 0) {
@@ -209,11 +217,18 @@ var UPLOAD = {
 			});
 
 			if (!check) return false;
-			var node = parentObj.find('.upload-item').parent().eq(0).clone(true);
+			if (parentObj.find('li.upload-item').length > 0) {
+				var node = parentObj.find('.upload-item').eq(0).clone(true);
+				node.data('attach_id', 0);
+				node.attr('data-attach_id', 0);
+			} else {
+				var node = parentObj.find('.upload-item').parent().eq(0).clone(true);
+				node.find('.upload-item').data('attach_id', 0);
+				node.find('.upload-item').attr('data-attach_id', 0);
+			}
+
 			node.find('img').attr('src', '');
 			node.find('input').val('');
-			node.find('.upload-item').data('attach_id', 0);
-			node.find('.upload-item').attr('data-attach_id', 0);
 			parentObj.append(node)
 		}
 	}
