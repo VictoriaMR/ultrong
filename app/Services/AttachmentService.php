@@ -187,12 +187,9 @@ class AttachmentService extends BaseService
 
     public function getFileList($type, $page, $size)
     {
-        $data = $this->baseModel->where('type', (int) $type)
-                                ->value('attach_id');
-
-        $total = count($data);
+        $total = $this->attachModel->where('path', 'product')->count();
         if ($total > 0) {
-            $list = $this->attachModel->whereIn('attach_id', $data)
+            $list = $this->attachModel->where('path', 'product')
                                       ->offset(($page - 1) * $size)
                                       ->limit($size)
                                       ->get();

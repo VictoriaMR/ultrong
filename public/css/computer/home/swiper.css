@@ -20,7 +20,11 @@
     position: relative;
     overflow: hidden;
     width: 100vw;
-    max-height: 500px;
+    max-height: 600px;
+}
+
+#slider-content .slider-box .slider img {
+    
 }
 
 #slider-content .slider-box .slider a.block {

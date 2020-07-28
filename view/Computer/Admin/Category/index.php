@@ -59,21 +59,21 @@
         <input type="hidden" class="form-control" name="cate_id" value="0">
         <input type="hidden" class="form-control" name="parent_id" value="0">
         <button type="button" class="close" aria-hidden="true">&times;</button>
-        <h3 style="margin-top: 0px;">新增分类</h3>
+        <h3 class="margin-bottom-15">新增分类</h3>
         <div class="input-group">
             <div class="input-group-addon"><span>分类名称：</span></div>
             <input type="text" class="form-control" name="name" required="required" maxlength="30" value="">
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>状态：</span></div>
-            <div class="form-control" style="padding-top: 2px;">
+            <div class="form-control" style="width: 212px;">
                 <div class="switch_botton" data-status="1"><div class="switch_status on"></div></div>
                 <input type="hidden" name="status" value="1">
             </div>
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>前端展示：</span></div>
-            <div class="form-control" style="padding-top: 2px;">
+            <div class="form-control" style="width: 184px;">
                 <div class="switch_botton" data-status="0"><div class="switch_status off"></div></div>
                 <input type="hidden" name="is_index" value="0">
             </div>

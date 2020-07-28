@@ -71,9 +71,9 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                     <a href="/" class="title contact-us"><?php echo dist('联系我们');?></a>
                 </li>
                 <li>
-                    <a href="/" class="title">
+                    <a href="javascript:;" class="title">
                         <span><?php echo dist('搜索');?></span>
-                        <span class="glyphicon glyphicon-search"></span>
+                        <span class="icon search-icon"></span>
                     </a>
                 </li>
             </ul>

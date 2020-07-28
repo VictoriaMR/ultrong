@@ -30,7 +30,7 @@ var PRODUCT = {
 	    	if (!check) return false;
 			$(this).button('loading');
 			_this.initImage();
-			// _this.save($(this).parents('form').serializeArray());
+			_this.save($(this).parents('form').serializeArray());
 		});
 		//编辑框开关切换
 	    $('.switch_status').on('click', function(){
