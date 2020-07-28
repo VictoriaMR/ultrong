@@ -22,7 +22,7 @@
 var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
 <div id="header-top">
-    <div class="container">
+    <div class="container hidden">
         <a class="font-15 left" href="/"><?php echo $_name ?? '';?></a>
         <a class="right help" href="<?php echo url('help');?>"><?php echo dist('帮助');?></a>
         <a class="right language" href="javascript:;"><span><?php echo dist('语言');?></span><span class="icon icon-angle-w-down"></span>
@@ -41,7 +41,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
     </div>
 </div>
 <div id="header-content">
-    <div class="container">
+    <div class="container hidden">
         <div class="left logo-box">
             <a class="block logo" href="/">
                 <img src="<?php echo siteUrl('image/computer/logo.png');?>" alt="logo">

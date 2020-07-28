@@ -1,29 +1,38 @@
-#slider-banner {
-    position: relative;
-}
-
-#slider-banner ul {
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-table;
-}
-#slider-banner .slider {
-    max-height: 550px;
-    text-align: center;
+#slider-content {
     width: 100%;
-    display: inline-block;
     position: relative;
-    left: 0;
 }
 
-#slider-banner .slider a.block {
+#slider-content .slider-box {
+    width: max-content;
+    display: inline-flex;
+    position: relative;
+}
+
+#slider-content .slider-box div {
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+#slider-content .slider-box .slider {
+    float: left;
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    max-height: 500px;
+}
+
+#slider-content .slider-box .slider a.block {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
     width: 100%;
+    height: 100%;
+    line-height: 0;
 }
 
-#slider-banner .dots {
+#slider-content .dots {
     position: absolute;
     bottom: 15px;
     left: 50%;
@@ -32,7 +41,7 @@
     min-width: 350px;
 }
 
-#slider-banner .dots-content li{
+#slider-content .dots-content li{
     background: #fafafa;
     width: 8px;
     height: 8px;
@@ -44,7 +53,7 @@
     overflow: hidden;
 }
 
-#slider-banner .dots-content {
+#slider-content .dots-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -54,13 +63,13 @@
     clear: both;
 }
 
-#slider-banner .dots .active {
+#slider-content .dots .active {
     width: 12px;
     height: 12px;
     margin-top: 3px;
 }
 
-#slider-banner .arrows .prev {
+#slider-content .arrows .prev {
     left: 15px;
     top: calc(50% - 16px);
     height: 32px;
@@ -68,7 +77,7 @@
     position: absolute;
 }
 
-#slider-banner .arrows .next {
+#slider-content .arrows .next {
     right: 15px;
     top: calc(50% - 16px);
     height: 32px;

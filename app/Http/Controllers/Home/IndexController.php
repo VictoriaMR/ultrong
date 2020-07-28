@@ -24,8 +24,6 @@ class IndexController extends Controller
 		$bannerService = \App::make('App/Services/BannerService');
 		$banner = $bannerService->getInfo(Session::get('site_language_id'), isMobile() ? 1 : 0);
 
-		// print_r($banner);
-
 		$this->assign('banner', $banner);
 		return view();
 	}

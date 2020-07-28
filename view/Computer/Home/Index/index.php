@@ -1,10 +1,10 @@
 <?php $this->load('Common.baseHeader');?>
 <?php if (!empty($banner)) { ?>
-<div id="slider-banner">
-    <ul>
+<div id="slider-content">
+    <ul class="slider-box">
         <?php foreach ($banner['content'] as $key => $value) { ?>
         <li class="slider">
-            <div style="width: 100%; display: table;background-color: <?php echo $value['background'] ?? '#000';?>;">
+            <div style="background-color: <?php echo $value['background'] ?? '#000';?>;">
                 <a class="block" href="<?php echo $value['href'] ?? 'javascript:;';?>">
                     <img src="<?php echo $value['url'];?>">
                 </a>
@@ -17,9 +17,11 @@
 <script type="text/javascript">
 $(function(){
 	//轮播图
-    $('#slider-banner').slider({
+    $('#slider-content').slider({
         dots: true,
-        fluid: true
+        fluid: true,
+        items: '.slider',
+        width: '100vw',
     });
 });
 </script>
