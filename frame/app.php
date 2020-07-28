@@ -101,7 +101,7 @@ class App
                 'path' => implode('/', $info),
                 'user_agent' => $str,
                 'is_moblie' => IS_MOBILE ? 1 : 0,
-                'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
+                'ip' => getIp(),
                 'create_at' => time(),
             ];
 

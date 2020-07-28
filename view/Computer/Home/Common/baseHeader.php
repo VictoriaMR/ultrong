@@ -23,7 +23,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
 <div id="header-top">
     <div class="container">
-        <a class="font-16 left" href="/"><?php echo $site['name'];?></a>
+        <a class="font-15 left" href="/"><?php echo $site['name'];?></a>
         <a class="right help" href="<?php echo url('help');?>"><?php echo dist('帮助');?></a>
         <a class="right language" href="javascript:;"><span><?php echo dist('语言');?></span><span class="icon icon-angle-w-down"></span>
             <?php if (!empty($language_list)) { ?>

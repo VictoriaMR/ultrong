@@ -62,7 +62,7 @@
 
 #slider-banner .arrows .prev {
     left: 15px;
-    top: 50%;
+    top: calc(50% - 16px);
     height: 32px;
     width: 16px;
     position: absolute;
@@ -70,7 +70,7 @@
 
 #slider-banner .arrows .next {
     right: 15px;
-    top: 50%;
+    top: calc(50% - 16px);
     height: 32px;
     width: 16px;
     position: absolute;

@@ -1,7 +1,11 @@
 @font-face {
     font-family: 'Glyphicons Halflings';
     src: url(/font/glyphicons-halflings-regular.eot);
-    src: url(/font/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(/font/glyphicons-halflings-regular.woff2) format('woff2'), url(/font/glyphicons-halflings-regular.woff) format('woff'), url(/font/glyphicons-halflings-regular.ttf) format('truetype'), url(/font/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+    src: url(/font/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), 
+         url(/font/glyphicons-halflings-regular.woff2) format('woff2'), 
+         url(/font/glyphicons-halflings-regular.woff) format('woff'), 
+         url(/font/glyphicons-halflings-regular.ttf) format('truetype'), 
+         url(/font/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg');
 }
 
 .glyphicon {
@@ -1076,6 +1080,11 @@
 .font-14 {
 	font-size: 14px;
 }
+
+.font-15 {
+    font-size: 15px;
+}
+
 
 .font-16 {
 	font-size: 16px;
