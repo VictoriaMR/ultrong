@@ -36,7 +36,7 @@ class IndexController extends Controller
 			$cateList[$key]['product'] = $productService->getList(['is_deleted'=>0, 'cate_id'=>$value['cate_id']], 1, 20, [['is_hot', 'desc'], ['hit_count', 'desc']]);
 			if (empty($cateList[$key]['product'])) unset($cateList[$key]);
 		}
-		// print_r($cateList);
+		
 		$this->assign('cateList', $cateList);
 		$this->assign('banner', $banner);
 

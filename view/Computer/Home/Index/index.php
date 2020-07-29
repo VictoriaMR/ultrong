@@ -17,7 +17,7 @@
 <?php if (!empty($cateList)) { ?>
 <div class="container">
     <?php foreach ($cateList as $key => $value) {?>
-    <div class="category-item margin-top-40">
+    <div class="category-item margin-top-30">
         <div class="text-center">
             <div class="font-24 font-600"><?php echo dist($value['name']);?></div>
             <div class="font-16 margin-top-3"><?php echo dist($value['remark']);?></div>
