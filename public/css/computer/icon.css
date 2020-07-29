@@ -361,3 +361,28 @@
     right: 17px;
     top: 17px;
 }
+
+.ant2-icon {
+    width: 63px;
+    height: 75px;
+    background: url(/image/computer/icon/ant2.png) no-repeat;
+    top: calc(50% - 38px);
+}
+
+.prev-stay {
+    background-position: 0 0;
+    opacity: 0.2;
+}
+
+.prev-active {
+    background-position: -62px 0;
+}
+
+.next-stay {
+    background-position: 0 -72px;
+    opacity: 0.2;
+}
+
+.next-active {
+    background-position: -62px -72px;
+}

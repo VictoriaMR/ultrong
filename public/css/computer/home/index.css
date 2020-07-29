@@ -13,6 +13,7 @@
 
 	/*width: max-content;*/
 	overflow: hidden;
+	min-width: 100%;
 }
 
 .category-product .product-box li {
@@ -25,4 +26,12 @@
 
 .category-product .product-box .product-title {
 	padding: 10px;
+}
+
+.category-product .ant2-icon.left {
+	left: 8px;
+}
+
+.category-product .ant2-icon.right {
+	right: 8px;
 }
