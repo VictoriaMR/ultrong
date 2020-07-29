@@ -374,8 +374,13 @@
     opacity: 0.2;
 }
 
+.prev-stay:hover {
+    background-position: -64px 0;
+    opacity: 1;
+}
+
 .prev-active {
-    background-position: -62px 0;
+    background-position: -64px 0;
 }
 
 .next-stay {
@@ -383,6 +388,11 @@
     opacity: 0.2;
 }
 
+.next-stay:hover {
+    background-position: -64px -72px;
+    opacity: 1;
+}
+
 .next-active {
-    background-position: -62px -72px;
+    background-position: -64px -72px;
 }

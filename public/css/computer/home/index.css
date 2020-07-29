@@ -10,22 +10,28 @@
 
 .category-product .product-box ul {
 	display: inline-flex;
-
-	/*width: max-content;*/
 	overflow: hidden;
 	min-width: 100%;
 }
 
 .category-product .product-box li {
-	width: calc((100% -30px) / 4);
+	min-width: calc((100% - 38px) / 4);
+	max-width: calc((100% - 38px) / 4);
 	float: left;
 	border: 1px solid #e7e8eb;
 	margin-right: 10px;
 	background-color: #fff;
+	position: relative;
+}
+
+.category-product .product-box li:hover .product-title {
+	background-color: #41bdd7;
+	color: #fff;
 }
 
 .category-product .product-box .product-title {
 	padding: 10px;
+	height: 100%;
 }
 
 .category-product .ant2-icon.left {

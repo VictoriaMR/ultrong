@@ -95,8 +95,13 @@ class Controller
         //设置默认语言
         $site_language = \frame\Session::get('site_language_name');
         if (empty($site_language)) {
-            $defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
-            \frame\Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
+            $language = header('Accept-Language');
+            if (!empty($language) && strpos(strtolower($language ), 'zh') === false) {
+                \frame\Session::set('site', ['language_name' => $list['en']['value'] ?? '', 'language_id' => $list['en']['lan_id'] ?? 0]);
+            } else {
+                $defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
+                \frame\Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
+            }
         }
         
         $this->assign('site_language', $site_language);

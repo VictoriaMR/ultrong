@@ -58,6 +58,12 @@ function _getRandomString(len) {
     return pwd;
 }
 
+function _pxToNum(str) {
+    if (!str) return 0;
+    str = str.substring(0, str.length-2);
+    return parseFloat(str);
+}
+
 var UPLOAD = {
 	init: function (data){
 		var _this = this;

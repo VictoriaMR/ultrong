@@ -26,7 +26,7 @@
             <div class="product-box">
                 <ul>
                     <?php foreach ($value['product'] as $k => $v) { ?>
-                    <li>
+                    <li class="slider">
                         <a class="square" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
                             <img src="<?php echo $v['image'];?>" alt="<?php echo $v['name'];?>">
                         </a>
@@ -47,6 +47,7 @@
 <?php }?>
 <script type="text/javascript">
 $(function(){
+    INDEX.init();
 	//轮播图
     $('#slider-content').slider({
         dots: true,
