@@ -14,6 +14,11 @@ class Router
 	{
         $pathInfo = trim(str_replace('.html', '', $_SERVER['REQUEST_URI'] ?? ''), '/');
 
+		if (strpos($_SERVER['REQUEST_URI'], '.html') !== false) {
+			$temp = explode('_', $pathInfo);
+			self::analyzeParam($temp);
+			$pathInfo = $temp[0] ?? '';
+		}
         $pathInfo = explode('?', $pathInfo)[0] ?? '';
 
 		/* 对Url网址进行拆分 */
@@ -52,6 +57,22 @@ class Router
 		];
 
 		self::$_route = self::realFunc($funcArr);
+	}
+
+	protected static function analyzeParam($data) {
+		if (empty($data)) return false;
+		$func = $data[0] ?? '';
+		array_shift($data);
+		switch (strtolower($func)) {
+			case 'product':
+				$_GET['pro_id'] = $data[0] ?? 0;
+				$_GET['lan_id'] = $data[1] ?? 0;
+				break;
+			
+			default:
+				# code...
+				break;
+		}
 	}
 
 	public static function getFunc($name = '')

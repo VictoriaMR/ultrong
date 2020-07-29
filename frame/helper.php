@@ -168,15 +168,17 @@ function ifile($name = '', $default = null)
 
 function url($url = '', $param = []) 
 {
-    if (\Router::getFunc('Class') == 'Home')
+    if (\Router::getFunc('Class') == 'Home') {
+        if (!empty($param)) {
+            $url = implode('_', array_merge([$url], $param));
+        }
         $url = Env('APP_DOMAIN').$url.'.html';
-    else
+    } else {
         $url = Env('APP_DOMAIN').$url;
-
-    if (!empty($param)) {
-        $url .= '?'. http_build_query($param);
+        if (!empty($param)) {
+            $url .= '?'. http_build_query($param);
+        }
     }
-
     return $url;
 }
 
