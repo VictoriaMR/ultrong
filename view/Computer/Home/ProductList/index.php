@@ -47,9 +47,4 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-$(function(){
-	PRODUCT.init();
-})
-</script>
 <?php $this->load('Common.baseFooter');?>

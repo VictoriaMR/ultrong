@@ -91,6 +91,11 @@
     color: #fff;
 }
 
+#header-content .nav li .title.selected {
+    background-color: #41BDD7;
+    color: #fff;
+}
+
 #header-content .nav .title.selected  {
     font-weight: bold;
     color: #41bdd7;

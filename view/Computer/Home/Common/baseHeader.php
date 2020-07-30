@@ -50,13 +50,13 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
         <div class="left nav">
             <ul>
                 <li>
-                    <a href="/" class="title <?php echo 'selected';?>"><?php echo dist("首页");?></a>
+                    <a href="/" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist("首页");?></a>
                 </li>
                 <li>
                     <a href="/" class="title about-us"><?php echo dist('关于'.$site_name);?></a>
                 </li>
                 <li>
-                    <a href="/" class="title product-center"><?php echo dist('产品中心');?></a>
+                    <a href="<?php echo url('productList');?>" class="title product-center <?php echo $controller == 'productlist' ? 'selected' : '';?>"><?php echo dist('产品中心');?></a>
                 </li>
                 <li>
                     <a href="/" class="title news-center"><?php echo dist('新闻中心');?></a>

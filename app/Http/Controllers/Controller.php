@@ -85,6 +85,9 @@ class Controller
     {
         \frame\Html::addCss('common');
         \frame\Html::addJs('common');
+
+        $info = \Router::getFunc();
+        $controller = strtolower($info['ClassPath']);
         
         //站点信息
         $siteService = \App::make('App/Services/SiteService');
@@ -116,6 +119,7 @@ class Controller
             \frame\Session::set('site', ['language_name' => $list[$code]['value'] ?? '', 'language_id' => $list[$code]['lan_id'] ?? 0]);
         }
         
+        $this->assign('controller', $controller);
         $this->assign('site_language', $site_language);
         $this->assign('language_list', $list);
         $this->assign('site', $siteInfo);
