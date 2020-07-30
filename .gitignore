@@ -1,2 +1,5 @@
 .env
-./public/file_center/*
+public/file_center/*
+composer.lock
+vendor
+storage

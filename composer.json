@@ -1,0 +1,6 @@
+{
+    "name": "om/om",
+    "require": {
+    	"maxmind-db/reader": "~1.0"
+    }
+}

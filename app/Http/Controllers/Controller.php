@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use MaxMind\Db\Reader;
+
 class Controller 
 {
     protected $tabs = [];
@@ -95,13 +97,23 @@ class Controller
         //设置默认语言
         $site_language = \frame\Session::get('site_language_name');
         if (empty($site_language)) {
-            $language = header('Accept-Language');
-            if (!empty($language) && strpos(strtolower($language ), 'zh') === false) {
-                \frame\Session::set('site', ['language_name' => $list['en']['value'] ?? '', 'language_id' => $list['en']['lan_id'] ?? 0]);
-            } else {
-                $defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
-                \frame\Session::set('site', ['language_name' => $defaultLanguage['value'] ?? '', 'language_id' => $defaultLanguage['lan_id'] ?? 0]);
+
+            $defaultLanguage = array_column($list, null,'is_default')[1] ?? [];
+            $code = $defaultLanguage['value'];
+
+            //获取ip地址区域
+            $ip = getIp();
+            $file = ROOT_PATH.'public/other/GeoLite2-Country.mmdb';
+            if (is_file($file)) {
+                $reader = new Reader($file);
+                $record = $reader->get($ip);
+                if (!empty($record)) {
+                    if (!empty($record['country']['iso_code']) && $record['country']['iso_code'] != 'CN')
+                        $code = 'en';
+                }
             }
+
+            \frame\Session::set('site', ['language_name' => $list[$code]['value'] ?? '', 'language_id' => $list[$code]['lan_id'] ?? 0]);
         }
         
         $this->assign('site_language', $site_language);

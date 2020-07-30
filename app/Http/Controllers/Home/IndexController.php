@@ -33,8 +33,13 @@ class IndexController extends Controller
 		//获取分类下商品
 		$productService = \App::make('App/Services/ProductService');
 
+		$where = [
+			'is_deleted' => 0, 
+			// 'lan_id'=>Session::get('site_language_id'),
+		];
 		foreach ($cateList as $key => $value) {
-			$cateList[$key]['product'] = $productService->getList(['is_deleted'=>0, 'cate_id'=>$value['cate_id']], 1, 20, [['is_hot', 'desc'], ['hit_count', 'desc']]);
+			$where['cate_id'] = $value['cate_id'];
+			$cateList[$key]['product'] = $productService->getList($where, 1, 20, [['is_hot', 'desc'], ['hit_count', 'desc']]);
 			if (empty($cateList[$key]['product'])) unset($cateList[$key]);
 		}
 		
