@@ -40,6 +40,10 @@
             </div>
             <span class="icon ant2-icon prev-stay left"></span>
             <span class="icon ant2-icon next-stay right"></span>
+            <div class="clear"></div>
+            <div class="text-center padding-top-20">
+                <a class="center font-20 color-blue" href="<?php echo url('productList', ['cate_id'=>$value['cate_id']]);?>"><?php echo dist('更多');?><?php echo dist($value['name']);?>+</a>
+            </div>
         </div>
     </div>
     <?php } ?>

@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><?php echo $_title ?? '';?></title>
+    <title><?php echo $_title ?? '';?><?php echo !empty($_title2) ? '-'.$_title2 : '';?></title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-title" content="<?php echo $_name ?? '';?>" />
+    <meta name="apple-mobile-web-app-title" content="<?php echo dist($_name ?? '');?>" />
     <meta name="keywords" content="<?php echo $_seo ?? '';?>" />
     <meta name="description" content="<?php echo $_description ?? '';?>" />
     <link rel="shortcut icon" href="image/favicon.ico" />

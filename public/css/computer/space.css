@@ -10,6 +10,10 @@
 	margin-top: 15px;
 }
 
+.margin-top-20 {
+	margin-top: 20px;
+}
+
 .margin-top-30 {
 	margin-top: 30px;
 }
@@ -36,6 +40,14 @@
 
 .margin-left-15 {
 	margin-left: 15px;
+}
+
+.padding-top-10 {
+	padding-top: 10px;
+}
+
+.padding-top-20 {
+	padding-top: 20px;
 }
 
 .padding-top-70 {
