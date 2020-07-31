@@ -136,4 +136,15 @@ class ProductService extends BaseService
 
         return $result;
     }
+
+    public function hitCountAdd($proId, $lanId)
+    {
+        $proId = (int) $proId;
+        $lanId = (int) $lanId;
+        if (empty($lanId) || empty($lanId)) return false;
+
+        return $this->baseModel->where('pro_id', $proId)
+                               ->where('lan_id', $lanId)
+                               ->increment('hit_count');
+    }
 }

@@ -8,7 +8,7 @@
         this.max = [0, 0];
         this.current = 0;
         this.interval = t;
-        this.opts = { speed: 600, delay: 600000, complete: t, keys: !t, dots: t, fluid: t };
+        this.opts = { speed: 600, delay: 3000, complete: t, keys: !t, dots: t, fluid: t };
         var n = this;
         this.init = function(t, n) {
             this.el = t.find('.slider-box');

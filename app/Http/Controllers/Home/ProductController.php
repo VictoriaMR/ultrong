@@ -32,11 +32,10 @@ class ProductController extends Controller
 
 		$info = $this->baseService->getInfo($proId, $lanId);
 		if (!empty($info)) {
+			$this->baseService->hitCountAdd($proId, $lanId);
 			$this->assign('_title2', $info['name']);
 			$this->assign('_description', $info['desc']);
 		}
-
-		// print_r($info);
 
 		$this->assign('cateList', $cateList);
 		$this->assign('info', $info);

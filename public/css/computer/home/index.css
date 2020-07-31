@@ -74,6 +74,7 @@
     width: 100vw;
     display: inline-block;
     max-height: 600px;
+    margin-top: -4px;
 }
 
 #slider-content .slider-box .slider a.block {
