@@ -261,6 +261,26 @@ Class Query
 		return $this->getQuery($sql, $this->_param);
 	}
 
+	public function increment($value, $num = 1) 
+	{
+		$this->analyzeWhere();
+		if (empty($this->_whereStr)) return false;
+
+		$sql = sprintf('UPDATE %s SET %s WHERE %s', $this->_table, $value.'='.$value.' + '.$num, $this->_whereStr);
+
+		return $this->getQuery($sql, $this->_param);
+	}
+
+	public function decrement($value, $num = 1) 
+	{
+		$this->analyzeWhere();
+		if (empty($this->_whereStr)) return false;
+
+		$sql = sprintf('UPDATE %s SET %s WHERE %s', $this->_table, $value.'='.$value.' - '.$num, $this->_whereStr);
+
+		return $this->getQuery($sql, $this->_param);
+	}
+
 	/**
 	 * @method 查询语句 sql + 预处理语句结果
 	 * @date   2020-04-11
