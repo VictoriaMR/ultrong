@@ -35,8 +35,8 @@
 						<?php if (!empty($info['image_list'])) { ?>
 						<ul>
 							<?php foreach ($info['image_list'] as $key => $value) { ?>
-							<li class="table <?php echo $key == 0 ? 'selected' : '';?>">
-								<a href="javascript:;" class="table-cell">
+							<li class="<?php echo $key == 0 ? 'selected' : '';?>">
+								<a href="javascript:;" class="block">
 									<img src="<?php echo $value['url'];?>" />
 								</a>
 							</li>
@@ -44,8 +44,8 @@
 						</ul>
 						<?php } ?>
 					</div>
-					<div class="left pic-right table">
-						<a href="javascript:;" class="table-cell">
+					<div class="left pic-right">
+						<a href="javascript:;" class="block text-center">
 							<img src="<?php echo $info['image_list'][0]['url'];?>">
 						</a>
 					</div>

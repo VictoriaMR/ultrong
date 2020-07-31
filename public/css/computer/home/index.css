@@ -9,16 +9,17 @@
 }
 
 .category-product .product-box ul {
-	display: inline-flex;
 	overflow: hidden;
-	min-width: 100%;
+	width: 100%;
+	position: relative;
+    white-space: nowrap;
+    font-size: 0;
 }
 
 .category-product .product-box li {
-	min-width: calc((100% - 38px) / 4);
-	max-width: calc((100% - 38px) / 4);
-	float: left;
+	width: calc((100% - 38px) / 4);
 	border: 1px solid #e7e8eb;
+	display: inline-block;
 	margin-right: 10px;
 	background-color: #fff;
 	position: relative;
@@ -34,10 +35,105 @@
 	height: 100%;
 }
 
+.category-product .product-box .product-title .square {
+	padding-bottom: 80%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+
 .category-product .ant2-icon.left {
 	left: 8px;
 }
 
 .category-product .ant2-icon.right {
 	right: 8px;
+}
+
+#slider-content {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#slider-content .slider-box {
+    position: relative;
+    white-space: nowrap;
+    font-size: 0;
+}
+
+#slider-content .slider-box div {
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+#slider-content .slider-box .slider {
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    display: inline-block;
+    max-height: 600px;
+}
+
+#slider-content .slider-box .slider a.block {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
+}
+
+#slider-content .dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 20px;
+    min-width: 350px;
+}
+
+#slider-content .dots-content li{
+    background: #fafafa;
+    width: 8px;
+    height: 8px;
+    margin: 5px;
+    float: left;
+    border-radius: 50%;
+    transition: .65s;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#slider-content .dots-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: table;
+    content: "";
+    clear: both;
+}
+
+#slider-content .dots .active {
+    width: 12px;
+    height: 12px;
+    margin-top: 3px;
+}
+
+#slider-content .arrows .prev {
+    left: 15px;
+    top: calc(50% - 16px);
+    height: 32px;
+    width: 16px;
+    position: absolute;
+}
+
+#slider-content .arrows .next {
+    right: 15px;
+    top: calc(50% - 16px);
+    height: 32px;
+    width: 16px;
+    position: absolute;
 }

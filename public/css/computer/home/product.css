@@ -64,9 +64,15 @@
 }
 
 #product-content .product-pic .pic-left li {
+	width: 100%;
 	height: 100%;
 	border: 2px solid #d9d9d9;
 	margin-bottom: 10px;
+}
+
+#product-content .product-pic .pic-left li img {
+	/*max-width: 100px;*/
+	/*max-height: 100px;*/
 }
 
 #product-content .product-pic .pic-left li.selected {
@@ -118,9 +124,10 @@
 
 .product-list li {
 	margin-right: 20px;
-	width: calc((100% - 40px) / 3);
+	width: calc((100% - 41px) / 3);
 	float: left;
 	margin-bottom: 20px;
+	text-align: center;
 }
 
 .product-list .product-img {

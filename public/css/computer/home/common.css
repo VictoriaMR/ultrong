@@ -29,7 +29,7 @@
 
 .language-selector .icon-curr{
     left: 8px;
-    top: 8px;
+    top: 11px;
 }
 
 .selector {
@@ -53,9 +53,7 @@
     height: 60px;
 }
 
-#header-content .logo-box {
-    width: 20%;
-    display: table;
+#header-content table tr {
     height: 60px;
 }
 
@@ -68,10 +66,6 @@
 
 #header-content .logo img {
     max-height: 60px;
-}
-
-#header-content .nav {
-    width: calc(100% - 20%);
 }
 
 #header-content .nav li {

@@ -20,7 +20,6 @@ class IndexController extends Controller
 	public function index()
 	{	
 		Html::addCss('index');
-		Html::addCss('swiper');
 		Html::addJs('swiper', true);
 		Html::addJs('index');
 		$bannerService = \App::make('App/Services/BannerService');

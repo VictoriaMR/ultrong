@@ -31,8 +31,10 @@
                             <img src="<?php echo $v['image'];?>" alt="<?php echo $v['name'];?>">
                         </a>
                         <a class="block product-title" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
-                            <div class="font-18 word-ellipsis-1"><?php echo $v['name'];?></div>
-                            <div class="font-14 margin-top-10 word-ellipsis-5"><?php echo $v['desc'];?></div>
+                            <div class="square">
+                                <div class="font-18 word-ellipsis-1"><?php echo $v['name'];?></div>
+                                <div class="font-14 margin-top-10 word-ellipsis-5"><?php echo $v['desc'];?></div>
+                            </div>
                         </a>
                     </li>
                     <?php } ?>
