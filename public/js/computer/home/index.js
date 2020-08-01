@@ -52,7 +52,7 @@ var INDEX = {
 		        stop(e);
 		        e.interval = setInterval(function() { 
 		            next(e);
-		        }, 60000);
+		        }, 6000);
 		    };
 
 		    function prev(e, restart) {
