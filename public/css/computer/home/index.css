@@ -3,9 +3,9 @@
 }
 
 #slider-content .slider {
-    margin-top: -4px;
     width: 100vw;
     margin-top: -5px;
+    text-align: center;
 }
 
 #slider-content .prev-stay {
