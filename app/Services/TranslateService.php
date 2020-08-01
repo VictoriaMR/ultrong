@@ -171,4 +171,12 @@ class TranslateService extends BaseService
 
         return true;
     }
+
+    public function updateCache($name, $type, $value)
+    {
+        if (empty($name) || empty($type) || empty($value)) return false;
+
+        $cacheKey = self::CACHE_KEY.strtoupper($type);
+        return Redis(1)->hset($cacheKey, $name, $value);
+    }
 }

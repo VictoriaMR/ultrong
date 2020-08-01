@@ -93,6 +93,10 @@ class Controller
         $siteService = \App::make('App/Services/SiteService');
         $siteInfo = $siteService->getInfo();
 
+        if (!empty($siteInfo['domain'])) {
+            $GLOBALS['ENV']['APP_DOMAIN'] = trim($siteInfo['domain'], '/').'/';
+        }
+
         $languageService = \App::make('App/Services/LanguageService');
         $list = $languageService->getListCache();
         $list = array_column($list, null, 'value');

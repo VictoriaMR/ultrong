@@ -1,6 +1,13 @@
 $(function(){
     $('#header-top .language').on('click', function(){
-        $(this).find('.selector').slideToggle(100);
+        var _thisobj = $(this);
+        $(this).find('.selector').slideToggle(100, function(){
+            if (_thisobj.find('.selector').is(':visible')) {
+                _thisobj.find('.icon').addClass('icon-angle-w-up').removeClass('icon-angle-w-down');
+            } else {
+                _thisobj.find('.icon').addClass('icon-angle-w-down').removeClass('icon-angle-w-up');
+            }
+        });
     });
     $('#header-top .language li').on('click', function(event){
     	event.stopPropagation();

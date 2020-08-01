@@ -22,15 +22,30 @@
 	            <div class="input-group-addon"><span>商品状态：</span></div>
 	            <div style="padding: 1px 0 1px 15px;border-left: 1px solid #ccc;">
 		            <?php if($info['status']){?>
-	                <div class="switch_botton status" data-status="1">
+	                <div class="switch_botton" data-status="1">
 	                	<div class="switch_status on"></div>
 	                </div>
 	                <?php } else {?>
-	                <div class="switch_botton status" data-status="0">
+	                <div class="switch_botton" data-status="0">
 	                	<div class="switch_status off"></div>
 	                </div>
 	                <?php }?>
 	                <input type="hidden" name="status" value="<?php echo $info['status'] ?? 0;?>">
+	            </div>
+	        </div>
+	        <div class="input-group margin-top-15">
+	            <div class="input-group-addon"><span>是否热门：</span></div>
+	            <div style="padding: 1px 0 1px 15px;border-left: 1px solid #ccc;">
+		            <?php if($info['is_hot']){?>
+	                <div class="switch_botton" data-status="1">
+	                	<div class="switch_status on"></div>
+	                </div>
+	                <?php } else {?>
+	                <div class="switch_botton" data-status="0">
+	                	<div class="switch_status off"></div>
+	                </div>
+	                <?php }?>
+	                <input type="hidden" name="is_hot" value="<?php echo $info['is_hot'] ?? 0;?>">
 	            </div>
 	        </div>
 	   		<?php } ?>

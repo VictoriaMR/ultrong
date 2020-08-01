@@ -1,9 +1,9 @@
 <?php $this->load('Common.baseHeader');?>
 <?php if (!empty($banner)) { ?>
-<div id="slider-content">
-    <ul class="slider-box">
+<div id="slider-content" class="relative">
+    <ul class="inline-block-box">
         <?php foreach ($banner['content'] as $key => $value) { ?>
-        <li class="slider">
+        <li class="slider inline-block" data-index="<?php echo $key;?>">
             <div style="background-color: <?php echo $value['background'] ?? '#000';?>;">
                 <a class="block" href="<?php echo $value['href'] ?? 'javascript:;';?>">
                     <img src="<?php echo $value['url'];?>">
@@ -12,6 +12,17 @@
         </li>
         <?php } ?>
     </ul>
+    <?php if (count($banner['content']) > 1) { ?>
+    <span class="icon ant2-icon prev-stay left"></span>
+    <span class="icon ant2-icon next-stay right"></span>
+    <div class="dots">
+        <ol class="dots-content">
+            <?php foreach ($banner['content'] as $key => $value) { ?>
+            <li class="dot <?php echo $key == 0 ? 'selected' : '';?>" data-index="<?php echo $key;?>"></li>
+            <?php } ?>
+        </ol>
+    </div>
+    <?php } ?>
 </div>
 <?php } ?>
 <?php if (!empty($cateList)) { ?>
@@ -24,9 +35,9 @@
         </div>
         <div class="bg-f5 category-product margin-top-10">
             <div class="product-box">
-                <ul>
+                <ul class="inline-block-box">
                     <?php foreach ($value['product'] as $k => $v) { ?>
-                    <li class="slider">
+                    <li class="slider inline-block">
                         <a class="square" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
                             <img src="<?php echo $v['image'];?>" alt="<?php echo $v['name'];?>">
                         </a>
@@ -40,8 +51,10 @@
                     <?php } ?>
                 </ul>
             </div>
+            <?php if (count($value['product']) > 4) { ?>
             <span class="icon ant2-icon prev-stay left"></span>
             <span class="icon ant2-icon next-stay right"></span>
+            <?php } ?>
             <div class="clear"></div>
             <div class="text-center padding-top-20">
                 <a class="center font-20 color-blue" href="<?php echo url('productList', ['cate_id'=>$value['cate_id']]);?>"><?php echo dist('更多');?><?php echo dist($value['name']);?>+</a>
@@ -54,13 +67,6 @@
 <script type="text/javascript">
 $(function(){
     INDEX.init();
-	//轮播图
-    $('#slider-content').slider({
-        dots: true,
-        fluid: true,
-        items: '.slider',
-        width: '100vw',
-    });
 });
 </script>
 <?php $this->load('Common.baseFooter');?>

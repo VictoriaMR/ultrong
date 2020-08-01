@@ -51,7 +51,7 @@ class ProfileController extends Controller
 
 		$userId = Session::get('admin_mem_id');
 
-		$result = $attachmentService->updateData($userId, $attachmentService::constant('TYPE_ADMIN_LOGIN_BACKGROUD'), $attchid);
+		$result = $attachmentService->updateData($userId, $attachmentService::constant('TYPE_ADMINER_AVATAR'), $attchid);
 
 		if ($result) {
 			Session::set('admin_avatar', $info['url']);

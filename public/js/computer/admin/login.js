@@ -25,14 +25,22 @@ var LOGIN = {
 				$('#login-error').removeClass('hidden').find('#login-error-msg').text(msg);
 				return false;
 			}
-
+			$(this).button('loading');
 			API.post(API_URL+'admin/login/login', $(this).parent('form').serializeArray(), function(res) {
 				if (res.code == 200) {
 					window.location.href = res.data.url;
 				} else {
 					$('#login-error').removeClass('hidden').find('#login-error-msg').text(res.message);
 				}
-			})
+			});
+			$(this).button('reset');
 		});
+
+		document.onkeydown = function(e){
+	        var ev = document.all ? window.event : e;
+	        if(ev.keyCode==13) {
+	            $('#login-btn').trigger('click');
+	        }
+	    }
 	}
 };

@@ -36,6 +36,7 @@ var LANGUAGE = {
 		$('#dealbox .switch_botton').on('click', function(){
 			var status = $(this).find('.switch_status').hasClass('on') ? 0 : 1;
 			switch_status($(this).find('.switch_status'), status);
+			_thisobj.parents('.form-control').find('input').val(status);
 		});
 		//修改
 		$('.modify').on('click', function(){

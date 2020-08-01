@@ -35,7 +35,7 @@
 .selector {
     position: absolute;
     width: 100%;
-    border: 1px solid #1E90FF;
+    border: 1px solid #41BDD7;
     background-color: #FFFFFF;
     color: #333333;
     z-index: 999;
@@ -45,7 +45,7 @@
 
 .selector li.selected,
 .selector li:hover {
-	background: #1E90FF;
+	background: #41BDD7;
 	color: #fff;
 }
 

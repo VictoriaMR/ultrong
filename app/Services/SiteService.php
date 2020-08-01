@@ -36,4 +36,9 @@ class SiteService extends BaseService
     {
         return Redis()->del(self::constant('CACHE_KEY'));
     }
+
+    public function deleteCache()
+    {
+        return Redis()->flushall();
+    }
 }

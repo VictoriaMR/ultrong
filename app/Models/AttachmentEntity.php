@@ -11,7 +11,8 @@ class AttachmentEntity extends Base
 
     //文件类型
     const TYPE_INDEX_BANNER = 1; //首页banner
-    const TYPE_PRODUCT = 2; //首页banner
+    const TYPE_PRODUCT = 2; //产品图片
+    const TYPE_ADMINER_AVATAR = 3; //管理员logo
 
     public function getListByType($type = 0)
     {

@@ -105,6 +105,7 @@ class ProductController extends Controller
 		$lanId = (int) ipost('lan_id', 0);
 		$cateId = (int) ipost('cate_id', 0);
 		$status = (int) ipost('status', 0);
+		$isHot = (int) ipost('is_hot', 0);
 		$name = ipost('name');
 		$image = ipost('image');
 		$no = ipost('no');
@@ -114,7 +115,7 @@ class ProductController extends Controller
 		if (empty($lanId))
 			return $this->result(10000, false, ['未选择语言']);
 
-		$data = ['status' => $status];
+		$data = ['status' => $status, 'is_hot' => $isHot];
 
 		if (!empty($name))
 			$data['name'] = $name;

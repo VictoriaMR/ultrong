@@ -15,7 +15,7 @@ class TransferController extends Controller
 	function __construct(TranslateService $service)
 	{
 		$this->baseService = $service;
-		$this->tabs = ['index'=>'翻译列表', 'interface'=>'翻译接口'];
+		$this->tabs = ['index'=>'翻译列表'];
 		parent::_initialize();
 	}
 
@@ -115,6 +115,25 @@ class TransferController extends Controller
 			return $this->result(200, $result, ['message' => '保存成功']);
 		else
 			return $this->result(10000, $result, ['message' => '保存失败']);
+	}
+
+	public function modify()
+	{
+		$tranId = (int) ipost('tran_id', 0);
+		$name = ipost('name', '');		
+		$value = ipost('value', '');
+		$type = ipost('type', '');
+
+		if (empty($tranId) || empty($value))
+			return $this->result(10000, false, ['message' => '参数不正确']);
+
+		$result = $this->baseService->updateDataById($tranId, ['value'=>$value]);
+		if ($result) {
+			$this->baseService->updateCache($name, $type, $name);
+			return $this->result(200, $result, ['message' => '保存成功']);
+		} else {
+			return $this->result(10000, $result, ['message' => '保存失败']);
+		}
 	}
 
 	public function modifyConfig()

@@ -23,7 +23,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
 <div id="header-top">
     <div class="container">
-        <a class="font-15 left" href="/"><?php echo $_name ?? '';?></a>
+        <a class="font-15 left" href="<?php echo url();?>"><?php echo $_name ?? '';?></a>
         <a class="right help" href="<?php echo url('help');?>"><?php echo dist('帮助');?></a>
         <a class="right language" href="javascript:;">
             <span><?php echo dist('语言');?></span>
@@ -49,7 +49,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                 <tr>
                     <td width="20%" valign="middle">
                         <div class="logo-box">
-                            <a class="block logo" href="/">
+                            <a class="block logo" href="<?php echo url();?>">
                                 <img src="<?php echo siteUrl('image/computer/logo.png');?>" alt="logo">
                             </a>
                         </div>
@@ -58,7 +58,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                         <div class="nav width-100">
                             <ul>
                                 <li>
-                                    <a href="/" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist("首页");?></a>
+                                    <a href="<?php echo url();?>" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist("首页");?></a>
                                 </li>
                                 <li>
                                     <a href="/" class="title about-us"><?php echo dist('关于'.$site_name);?></a>

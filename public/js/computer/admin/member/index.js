@@ -26,6 +26,36 @@ var ADMINMEMBER = {
 	    $('.modify').on('click', function(){
 	    	ADMINMEMBER.initShow($(this).parents('tr').data());
 	    });
+	    //编辑框状态按钮
+	    $('#dealbox .switch_botton').on('click', function(){
+			var status = $(this).find('.switch_status').hasClass('on') ? 0 : 1;
+			switch_status($(this).find('.switch_status'), status);
+			$(this).parents('.form-control').find('input').val(status);
+		});
+		//状态点击按钮
+		$('.status').on('click', function(){
+			var id = $(this).parents('tr').data('mem_id');
+			var status = $(this).find('.switch_status').hasClass('on') ? 0 : 1;
+			var res = API.post(ADMIN_URI+'adminMember/modify', {mem_id: id, status: status});
+			if(res.code == 200) {
+				successTips(res.message);
+				switch_status($(this).find('.switch_status'), status);
+			} else {
+				errorTips(res.message);
+			}
+		});
+		//is_super点击按钮
+		$('.is_super').on('click', function(){
+			var id = $(this).parents('tr').data('mem_id');
+			var status = $(this).find('.switch_status').hasClass('on') ? 0 : 1;
+			var res = API.post(ADMIN_URI+'adminMember/modify', {mem_id: id, is_super: status});
+			if(res.code == 200) {
+				successTips(res.message);
+				switch_status($(this).find('.switch_status'), status);
+			} else {
+				errorTips(res.message);
+			}
+		});
 	},
 	initShow:function (data)
 	{	

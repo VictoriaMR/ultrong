@@ -40,6 +40,7 @@
     <form class="form-horizontal">
     	<input type="hidden" class="form-control" name="tran_id" value="0">
     	<input type="hidden" class="form-control" name="type" value="">
+        <input type="hidden" class="form-control" name="name" value="">
         <button type="button" class="close" aria-hidden="true">&times;</button>
         <h3 style="margin-top: 0px;">编辑翻译</h3>
         <div class="input-group">
@@ -54,12 +55,12 @@
             <div class="input-group-addon"><span>翻译：</span></div>
             <textarea class="form-control" name="value" required="required" value=""></textarea>
         </div>
-        <div class="col-md-8 col-8 right" style="padding: 0;">
+        <div class="col-md-8 col-8 right hidden" style="padding: 0;">
         	<button type="button" class="btn btn-success btn-sm btn-block translate-saved" data-loading-text="<span class='glyphicon glyphicon-refresh'></span>">获取智能翻译</button>
         </div>
         <div class="clear"></div>
         <div class="margin-top-15">
-        	<button type="button" class="btn btn-primary btn-lg btn-block save" data-loading-text="<span class='glyphicon glyphicon-refresh'></span>">确认</button>
+        	<button type="button" class="btn btn-primary btn-lg btn-block save" data-loading-text="loading...">确认</button>
         </div>
     </form>
 </div>

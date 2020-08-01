@@ -1,3 +1,47 @@
+#slider-content .inline-block-box {
+    max-height: 600px;
+}
+
+#slider-content .slider {
+    margin-top: -4px;
+    width: 100vw;
+    margin-top: -5px;
+}
+
+#slider-content .prev-stay {
+    transition: left 0.5s;
+    -moz-transition: left 0.5s; /* Firefox 4 */
+    -webkit-transition: left 0.5s; /* Safari 和 Chrome */
+    -o-transition: left 0.5s; /* Opera */
+}
+
+#slider-content:hover .prev-stay {
+    background-position: -64px 0;
+    opacity: 1;
+    left: 8%;
+    transition: left 0.5s;
+    -moz-transition: left 0.5s; /* Firefox 4 */
+    -webkit-transition: left 0.5s; /* Safari 和 Chrome */
+    -o-transition: left 0.5s; /* Opera */
+}
+
+#slider-content .next-stay {
+    transition: right 0.5s;
+    -moz-transition: right 0.5s; /* Firefox 4 */
+    -webkit-transition: right 0.5s; /* Safari 和 Chrome */
+    -o-transition: right 0.5s; /* Opera */
+}
+
+#slider-content:hover .next-stay {
+    background-position: -64px -72px;
+    opacity: 1;
+    right: 8%;
+    transition: right 0.5s;
+    -moz-transition: right 0.5s; /* Firefox 4 */
+    -webkit-transition: right 0.5s; /* Safari 和 Chrome */
+    -o-transition: right 0.5s; /* Opera */
+}
+
 .category-product {
 	padding: 40px 0 20px 0;
 	position: relative;
@@ -8,21 +52,11 @@
 	margin: 0 auto;
 }
 
-.category-product .product-box ul {
-	overflow: hidden;
-	width: 100%;
-	position: relative;
-    white-space: nowrap;
-    font-size: 0;
-}
-
 .category-product .product-box li {
 	width: calc((100% - 38px) / 4);
 	border: 1px solid #e7e8eb;
-	display: inline-block;
 	margin-right: 10px;
 	background-color: #fff;
-	position: relative;
 }
 
 .category-product .product-box li:hover .product-title {
@@ -42,51 +76,29 @@
 	word-break: break-all;
 }
 
-.category-product .ant2-icon.left {
-	left: 8px;
+.ant2-icon.left {
+	left: 1%;
 }
 
-.category-product .ant2-icon.right {
-	right: 8px;
+.ant2-icon.right {
+	right: 1%;
 }
 
-#slider-content {
-    width: 100%;
-    position: relative;
+.inline-block-box {
     overflow: hidden;
-}
-
-#slider-content .slider-box {
+    width: 100%;
     position: relative;
     white-space: nowrap;
     font-size: 0;
 }
 
-#slider-content .slider-box div {
-    width: 100%;
-    height: 100%;
-    display: table;
-}
-
-#slider-content .slider-box .slider {
+.inline-block {
     position: relative;
     overflow: hidden;
-    width: 100vw;
     display: inline-block;
-    max-height: 600px;
-    margin-top: -4px;
 }
 
-#slider-content .slider-box .slider a.block {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    line-height: 0;
-}
-
-#slider-content .dots {
+.dots {
     position: absolute;
     bottom: 15px;
     left: 50%;
@@ -95,7 +107,7 @@
     min-width: 350px;
 }
 
-#slider-content .dots-content li{
+.dots-content li{
     background: #fafafa;
     width: 8px;
     height: 8px;
@@ -107,7 +119,7 @@
     overflow: hidden;
 }
 
-#slider-content .dots-content {
+.dots-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -117,24 +129,9 @@
     clear: both;
 }
 
-#slider-content .dots .active {
+.dots .selected {
     width: 12px;
     height: 12px;
     margin-top: 3px;
-}
-
-#slider-content .arrows .prev {
-    left: 15px;
-    top: calc(50% - 16px);
-    height: 32px;
-    width: 16px;
-    position: absolute;
-}
-
-#slider-content .arrows .next {
-    right: 15px;
-    top: calc(50% - 16px);
-    height: 32px;
-    width: 16px;
-    position: absolute;
+    background-color: #41BDD7;
 }

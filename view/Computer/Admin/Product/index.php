@@ -39,12 +39,15 @@
 			    </a>
 				<a class="info-content" href="<?php echo adminUrl('product/info', ['pro_id'=>$value['pro_id'], 'lan_id'=>$value['lan_id']]);?>">
 					<div>
-						<label>语言: </label>
-						<label><?php echo $value['language_name'];?></label>
+						<label style="margin-bottom: 0;">语言: </label>
+						<span><?php echo $value['language_name'];?></span>
 					</div>
 					<div>
-						<label>分类: </label>
-						<label><?php echo $value['cate_name'];?></label>
+						<label style="margin-bottom: 0;">分类: </label>
+						<span><?php echo $value['cate_name'];?></span>
+					</div>
+					<div class="word-ellipsis-1">
+						<span><?php echo $value['name'];?></span>
 					</div>
 				</a>
 				<span class="glyphicon glyphicon-trash delete-btn"></span>

@@ -16,7 +16,7 @@ class SiteController extends Controller
 	public function __construct(SiteService $service)
 	{
 		$this->baseService = $service;
-		$this->tabs = ['index'=>'站点信息管理', 'banner' => '首页banner图'];
+		$this->tabs = ['index'=>'站点信息管理', 'banner' => '首页banner图', 'cache' => '站点缓存'];
 		parent::_initialize();
 	}
 
@@ -33,6 +33,8 @@ class SiteController extends Controller
 					'description' => ipost('description', ''),
 					'title' => ipost('title', ''),
 					'address' => ipost('address', ''),
+					'domain' => ipost('domain', ''),
+					'phone' => ipost('phone', ''),
 				];
 
 				$result = $this->baseService->updateDataById($siteId, $data);
@@ -50,6 +52,8 @@ class SiteController extends Controller
 			'description' => 'SEO描述',
 			'title' => '网页Title',
 			'address' => '公司地址',
+			'domain' => '站点网址',
+			'phone' => '电话',
 		];
 
 		$this->assign('name', $name);
@@ -121,5 +125,20 @@ class SiteController extends Controller
 			return $this->result(200, $result, ['保存成功']);
 		else
 			return $this->result(10000, $result, ['保存失败']);
+	}
+
+	public function cache()
+	{
+		return view();
+	}
+
+	public function deleteCache()
+	{
+		$result = $this->baseService->deleteCache();
+
+		if ($result)
+			return $this->result(200, $result, ['删除成功']);
+		else
+			return $this->result(10000, $result, ['删除失败']);
 	}
 }

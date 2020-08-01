@@ -10,7 +10,7 @@
             <div class="col-md-4">
             	<div class="input-group">
 		            <div class="input-group-addon"><span>关键字：</span></div>
-		            <input type="text" class="form-control" name="keyword" required="required" maxlength="30" value="<?php echo $keyword;?>">
+		            <input type="text" class="form-control" name="keyword" maxlength="30" value="<?php echo $keyword;?>">
 		        </div>
             </div>
             <div class="col-md-2">
@@ -56,9 +56,9 @@
                 <td class="col-md-1 col-1">
                 <?php if ($value['mem_id'] != $self_id) { ?>
                     <?php if($value['is_super']){?>
-                        <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
+                        <div class="switch_botton is_super" data-status="1"><div class="switch_status on"></div></div>
                     <?php }else{?>
-                        <div class="switch_botton status" data-status="0"><div class="switch_status off"></div></div>
+                        <div class="switch_botton is_super" data-status="0"><div class="switch_status off"></div></div>
                     <?php }?>
                 <?php } ?>
                 </td>
@@ -101,14 +101,14 @@
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>状态：</span></div>
-            <div class="form-control" style="padding-top: 2px;">
+            <div class="form-control" style="padding-top: 2px; width: 210px;">
                 <div class="switch_botton" data-status="0"><div class="switch_status on"></div></div>
                 <input type="hidden" name="status" value="1">
             </div>
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>超级管理员：</span></div>
-            <div class="form-control" style="padding-top: 2px;">
+            <div class="form-control" style="padding-top: 2px; width: 169px">
                 <div class="switch_botton" data-status="0"><div class="switch_status off"></div></div>
                 <input type="hidden" name="is_super" value="0">
             </div>

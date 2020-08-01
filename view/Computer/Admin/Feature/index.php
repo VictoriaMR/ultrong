@@ -5,7 +5,7 @@
         <button class="btn btn-info subFeatureOpen" type="button"><span class="glyphicon glyphicon-list"></span>&nbsp;全部展开</button>
         <button class="btn btn-info subFeatureClose" type="button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp;全部折叠</button>
     </div>
-   	<table class="table  table-hover table-middle margin-top-15">
+   	<table class="table  table-hover table-middle margin-top-15" style="border-bottom: 1px solid #ddd;">
         <tr>
             <th class="col-md-1 col-1">ID</th>
             <th class="col-md-2 col-2">系统功能名称</th>
@@ -69,7 +69,7 @@
         </div>
          <div class="input-group">
             <div class="input-group-addon"><span>状态：</span></div>
-            <div class="form-control" style="padding-top: 2px;">
+            <div class="form-control" style="padding-top: 2px;width: 210px;">
                 <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
                 <input type="hidden" name="status" value="1">
             </div>

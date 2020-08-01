@@ -19,19 +19,21 @@ var TRANSFER = {
 	    		}
 	    	});
 	    	if (!check) return false;
+	    	$(this).button('loading');
 	    	TRANSFER.save();
+	    	$(this).button('reset');
 	    });
 	    //重构缓存
 	    $('.reload-cache').on('click', function(){
-	    	var $btn = $(this).button('loading');
+	    	$(this).button('loading');
 	    	API.post(ADMIN_URI+'transfer/reloadCache', {}, function(res){
-	    		$btn.button('reset');
 	    		if (res.code == 200) {
 	    			successTips(res.message);
 	    		} else {
 	    			errorTips(res.message);
 	    		}
 	    	});
+	    	$(this).button('reset');
 	    })
 	},
 	initShow:function (data)
@@ -42,15 +44,14 @@ var TRANSFER = {
 	},
 	save: function ()
 	{
-		if ($('#dealbox button.save').find('.fa-spinner').length > 0) return false;
-	    	$('#dealbox button.save').html($('#dealbox button.save').data('loading-text'));
-	    	API.post(ADMIN_URI , $('#dealbox form').serializeArray(), function(res){
-	    		$('#dealbox button.save').html('确认');
-	    		if (res.code == 200) {
-	    			window.location.reload();
-	    		} else {
-	    			POP.tips(res.message);
-	    		}
-	    	});
+    	API.post(ADMIN_URI+'transfer/modify', $('#dealbox form').serializeArray(), function(res){
+    		$('#dealbox button.save').html('确认');
+    		if (res.code == 200) {
+    			window.location.reload();
+    		} else {
+    			POP.tips(res.message);
+    		}
+    	});
+    	return true;
 	}
 };

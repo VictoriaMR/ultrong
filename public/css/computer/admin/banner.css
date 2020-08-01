@@ -16,9 +16,9 @@
 }
 
 .url-content label {
-    width: 40px;
+    width: 50px;
 }
 
 .url-content input {
-    width: calc(100% - 45px) !important;
+    width: calc(100% - 55px) !important;
 }

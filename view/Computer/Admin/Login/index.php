@@ -22,7 +22,7 @@
 		<div class="margin-bottom-20">
 			<input type="password" class="input" name="password" placeholder="请输入密码" autocomplete="off">
 		</div>
-		<button id="login-btn" type="button" class="btn btn-primary btn-lg btn-block warining">登录</button>
+		<button id="login-btn" type="button" class="btn btn-primary btn-lg btn-block" data-loading-text="Loading...">登录</button>
 	</form>
 </div>
 <script>

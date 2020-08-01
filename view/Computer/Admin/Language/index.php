@@ -66,14 +66,14 @@
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>状态：</span></div>
-            <div class="form-control" style="padding-top: 2px;">
+            <div class="form-control" style="padding-top: 2px;width: 210px;">
                 <div class="switch_botton" data-status="1"><div class="switch_status on"></div></div>
                 <input type="hidden" name="status" value="1">
             </div>
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>是否默认：</span></div>
-            <div class="form-control" style="padding-top: 2px;">
+            <div class="form-control" style="padding-top: 2px;width: 183px;">
                 <div class="switch_botton" data-status="0"><div class="switch_status off"></div></div>
                 <input type="hidden" name="is_default" value="0">
             </div>

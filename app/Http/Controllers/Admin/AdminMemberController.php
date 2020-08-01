@@ -96,10 +96,10 @@ class AdminMemberController extends Controller
 			'mobile' => $mobile,
 			'status' => $status,
 			'is_super' => $isSuper,
+			'password' => $password,
 		];
 
 		if (empty($memId)) {
-			$data['password'] = $password;
 			$memId = $this->baseService->create($data);
 			if ($memId) $result = true;
 		} else {
@@ -110,5 +110,30 @@ class AdminMemberController extends Controller
 			return $this->result(200, $memId, ['message' => '保存成功']);
 		else
 			return $this->result(10000, $memId, ['message' => '保存失败']);
+	}
+
+	public function modify()
+	{
+		$memId = (int) ipost('mem_id', 0);
+		$status = ipost('status');
+		$isSuper = ipost('is_super');
+
+		$data = [];
+
+		if (!is_null($status))
+			$data['status'] = $status;
+
+		if (!is_null($isSuper))
+			$data['is_super'] = $isSuper;
+
+		if (empty($memId) || empty($data))
+			return $this->result(10000, false, ['参数不正确']);
+
+		$result = $this->baseService->updateDataById($memId, $data);
+
+		if ($result) 
+			return $this->result(200, $memId, ['message' => '设置成功']);
+		else
+			return $this->result(10000, $memId, ['message' => '设置失败']);
 	}
 }
