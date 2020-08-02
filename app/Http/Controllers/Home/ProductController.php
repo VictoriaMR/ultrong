@@ -42,11 +42,11 @@ class ProductController extends Controller
 			'is_deleted' => 0,
 		];
 
-		if (!empty($info['cate_id'])) {
-			$where['cate_id'] = $info['cate_id'];
+		if (!empty($info['lan_id'])) {
 			$where['lan_id'] = $info['lan_id'];
 		}
-		$recommend = $this->baseService->getList($where, 1, 4, [['hit_count', 'desc']]);
+		$where[] = ['pro_id', '<>', $proId];
+		$recommend = $this->baseService->getList($where, 1, 4, [['is_hot', 'desc'], ['hit_count', 'desc']]);
 
 		$this->assign('cateList', $cateList);
 		$this->assign('info', $info);
