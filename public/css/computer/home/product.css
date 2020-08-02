@@ -9,7 +9,7 @@
 #product-content .product-box {
 	background: #fff;
     box-shadow: 0 0 3px 2px #d3d3d3;
-    padding: 20px 30px 50px;
+    padding: 20px 30px 10px 30px;
 }
 
 #product-content .nav-box ul {
@@ -130,6 +130,10 @@
 	text-align: center;
 }
 
+.recommend-content.product-list li {
+	width: calc((100% - 61px) / 4);
+}
+
 .product-list .product-img {
 	border: 2px solid #e1e1e1;
 	width: calc(100% - 4px);
@@ -150,4 +154,19 @@
 	padding: 0 10px;
 	font-size: 16px;
 	text-align: center;
+}
+
+.contact {
+	padding: 20px 0;
+}
+
+.contact .tel {
+	padding-left: 48px;
+	background: url('/image/computer/icon/telbj.jpg') no-repeat left center;
+}
+
+.contact .phone {
+    font-size: 20px;
+    font-family: arial;
+    color: #ee0000;
 }

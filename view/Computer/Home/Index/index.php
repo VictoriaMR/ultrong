@@ -26,7 +26,7 @@
 </div>
 <?php } ?>
 <?php if (!empty($cateList)) { ?>
-<div class="container">
+<div class="container index-page">
     <?php foreach ($cateList as $key => $value) {?>
     <div class="category-item margin-top-30">
         <div class="text-center">

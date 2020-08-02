@@ -58,11 +58,23 @@
 						<div><?php echo dist('产品简介');?>:</div>
 						<div class="font-16 color-9 desc"><?php echo $info['desc'];?></div>
 					</div>
+					<?php if (!empty($site['phone'])) { ?>
+					<div class="dashed"></div>
+					<div class="contact">
+						<div class="tel">
+							<p><?php echo dist('全国服务热线');?></p>
+							<p class="phone"><?php echo $site['phone'];?></p>
+						</div>
+					</div>
+					<div class="margin-top-20">
+						<a class="btn btn-blue" href="javascript:;"><?php echo dist('联系我们');?></a>
+					</div>
+					<?php } ?>
 				</div>
 				<div class="clear"></div>
 				<div class="product-detail margin-top-20">
                     <ul>
-                        <li class="selected">产品描述</li>
+                        <li class="selected"><?php echo dist('产品描述');?></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -70,6 +82,27 @@
                 	<?php echo $info['content'];?>
                 </div>
 			</div>
+			<?php if (!empty($recommend)) { ?>
+			<div class="product-detail margin-top-20">
+                <ul>
+                    <li class="selected"><?php echo dist('相关推荐');?></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="recommend-content product-list padding-top-10">
+            	<ul>
+					<?php foreach ($recommend as $key => $value) {?>
+					<li <?php if (($key+1) % 4 == 0) { ?>style="margin-right: 0;"<?php } ?>>
+						<a class="square product-img" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>">
+							<img src="<?php echo $value['image'];?>" alt="<?php echo $v['name'];?>">
+						</a>
+						<a class="word-ellipsis-1 product-title" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>"><?php echo $value['name'];?></a>
+					</li>
+					<?php } ?>
+            	</ul>
+            	<div class="clear"></div>
+            </div>
+        	<?php } ?>
 			<?php } else { ?>
 			<div class="text-center">
 				<img src="<?php echo siteUrl('image/computer/empty.png');?>" />

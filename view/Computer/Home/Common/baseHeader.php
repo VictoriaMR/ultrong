@@ -58,7 +58,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                         <div class="nav width-100">
                             <ul>
                                 <li>
-                                    <a href="<?php echo url();?>" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist("首页");?></a>
+                                    <a href="<?php echo url();?>" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist('首页');?></a>
                                 </li>
                                 <li>
                                     <a href="/" class="title about-us"><?php echo dist('关于'.$site_name);?></a>

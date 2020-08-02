@@ -7,7 +7,7 @@
 #header-top {
     width: 100vw;
     height: 32px;
-    background-color: #303B41;
+    background-color: #1f263a;
 }
 
 #header-top a {
@@ -123,4 +123,44 @@
     #header-content .nav li {
         width: calc(100% / 5) !important;
     }
+}
+
+#footer {
+    width: 100vw;
+    background-color: #1f263a;
+    padding: 30px 0;
+}
+
+#footer .menu ul {
+    font-size: 0;
+}
+
+#footer .menu li {
+    font-size: 16px;
+    display: inline-block;
+     padding: 10px 0;
+    border-bottom: 2px solid #41bdd7;
+}
+
+#footer .menu a {
+    color: #fff;
+    display: block;
+}
+
+#footer .menu a span {
+    display: inline-block;
+}
+
+#footer .menu a:hover {
+    color:  #41bdd7;
+}
+
+#footer .separate {
+    padding: 0 15px 0 10px;
+}
+
+#footer .site-content {
+    padding: 15px 0;
+    color: #fff;
+    border-bottom: 1px solid #282f42;
 }

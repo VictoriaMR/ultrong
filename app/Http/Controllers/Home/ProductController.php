@@ -37,8 +37,20 @@ class ProductController extends Controller
 			$this->assign('_description', $info['desc']);
 		}
 
+		//相关推荐
+		$where = [
+			'is_deleted' => 0,
+		];
+
+		if (!empty($info['cate_id'])) {
+			$where['cate_id'] = $info['cate_id'];
+			$where['lan_id'] = $info['lan_id'];
+		}
+		$recommend = $this->baseService->getList($where, 1, 4, [['hit_count', 'desc']]);
+
 		$this->assign('cateList', $cateList);
 		$this->assign('info', $info);
+		$this->assign('recommend', $recommend);
 
 		return view();
 	}

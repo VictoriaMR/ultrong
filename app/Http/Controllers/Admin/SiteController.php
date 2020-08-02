@@ -35,6 +35,7 @@ class SiteController extends Controller
 					'address' => ipost('address', ''),
 					'domain' => ipost('domain', ''),
 					'phone' => ipost('phone', ''),
+					'email' => ipost('email', ''),
 				];
 
 				$result = $this->baseService->updateDataById($siteId, $data);
@@ -54,6 +55,7 @@ class SiteController extends Controller
 			'address' => '公司地址',
 			'domain' => '站点网址',
 			'phone' => '电话',
+			'email' => 'Email',
 		];
 
 		$this->assign('name', $name);

@@ -23,10 +23,10 @@ class SiteService extends BaseService
      */
     public function getInfo($where = [])
     {
-    	$info = Redis()->get(self::constant('CACHE_KEY'));
+    	// $info = Redis()->get(self::constant('CACHE_KEY'));
     	if (empty($info)) {
     		$info = $this->baseModel->find();
-    		Redis()->set(self::constant('CACHE_KEY'), $info, -1);
+    		// Redis()->set(self::constant('CACHE_KEY'), $info, -1);
     	}
 
     	return $info;
