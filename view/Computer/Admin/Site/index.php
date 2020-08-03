@@ -1,6 +1,4 @@
 <?php $this->load('Common.baseHeader');?>
-<style type="text/css">
-</style>
 <div class="container-fluid">
 	<form class="form-horizontal" style="max-width: 500px;" method="post" action="<?php echo adminUrl('site');?>">
 		<input type="hidden" name="site_id" value="<?php echo $siteInfo['site_id'] ?? 0;?>">

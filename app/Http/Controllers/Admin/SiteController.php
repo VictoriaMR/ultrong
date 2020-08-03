@@ -16,7 +16,7 @@ class SiteController extends Controller
 	public function __construct(SiteService $service)
 	{
 		$this->baseService = $service;
-		$this->tabs = ['index'=>'站点信息管理', 'banner' => '首页banner图', 'cache' => '站点缓存'];
+		$this->tabs = ['index'=>'站点信息管理', 'banner' => '首页banner图', 'siteInfo'=>'站点配置', 'cache' => '站点缓存'];
 		parent::_initialize();
 	}
 
@@ -142,5 +142,12 @@ class SiteController extends Controller
 			return $this->result(200, $result, ['删除成功']);
 		else
 			return $this->result(10000, $result, ['删除失败']);
+	}
+
+	public function siteInfo()
+	{
+		Html::addCss('siteinfo');
+		Html::addJs('site/siteinfo');
+		return view();
 	}
 }

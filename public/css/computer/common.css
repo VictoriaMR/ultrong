@@ -211,6 +211,10 @@ body {
     display: none;
 }
 
+.flex {
+    display: flex;
+}
+
 .input {
     height: 40px;
     width: 100%;

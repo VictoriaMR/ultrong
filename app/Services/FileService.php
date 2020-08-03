@@ -6,7 +6,7 @@ use App\Services\Base as BaseService;
 
 class FileService extends BaseService
 {
-    const FILE_TYPE = ['temp', 'avatar', 'product', 'banner'];
+    const FILE_TYPE = ['temp', 'avatar', 'product', 'banner', 'file'];
     const FILE_COMPERSS = ['jpg', 'jpeg', 'png'];
     const MAX_OFFSET = 1200;
 
@@ -17,7 +17,7 @@ class FileService extends BaseService
      * @param string $module 图片业务类别（可不传）,比如头像 avatar 商品 product
      * @return mix 失败返回 false
      */
-    public function upload($file, $cate = 'temp', $prev='')
+    public function upload($file, $cate = 'temp', $prev='', $ext = '')
     {
         if (!in_array($cate, self::FILE_TYPE)) return false;
 
@@ -28,54 +28,66 @@ class FileService extends BaseService
         if (!in_array($extension, self::constant('FILE_COMPERSS')))
             return false;
 
-        $hash = hash_file('md5', $tmpFile); //生成文件hash值
+        if ($cate == 'file') {
+            if (!empty($ext))
+                $extension = $ext;
 
-        $attachmentService = \App::make('App\Services\AttachmentService');
-
-        $returnData = [];
-        if ($attachmentService->isExitsHash($hash)) { 
-            //文件已存在
-            $returnData = $attachmentService->getAttachmentByHash($hash);
-        } else {
-
-            $insert = [
-                'name' => $hash,
-                'type' => $extension,
-                'cate' => $cate,
-                'source_name' => substr($tmpname[0], strrpos($tmpname[0], '/') + 1),
-                'size' => $file['size'] ?? filesize($file['name']),
-            ];
-
-            //保存文件地址
-            $saveUrl = $cate;
-
-            if (!empty($prev))
-            	$saveUrl .= '/'.$prev;
-
-            //中间路径
-            $insert['path'] = $saveUrl;
-
-            $saveUrl .= '/'.$hash.'.'.$extension;
-
-            $saveUrl = ROOT_PATH.'public/file_center/'.$saveUrl;
-
-            $savePath = pathinfo($saveUrl, PATHINFO_DIRNAME);
-
-            //创建目录
-            if (!is_dir($savePath)) {
-                mkdir($savePath, 0777, true);
-            }
-
+            $saveUrl = ROOT_PATH.'public/image/'.$prev.'.'.$extension;
             $result = move_uploaded_file($tmpFile, $saveUrl);
-
             if ($result) {
-                //新增文件记录
-                $attachmentId = $attachmentService->addAttactment($insert);
-                if (!$attachmentId) return false;
-                $insert['attach_id'] = $attachmentId;
-                $insert['url'] = str_replace(ROOT_PATH.'public/', Env('APP_DOMAIN'), $saveUrl);
+                $returnData = [
+                    'url' => str_replace(ROOT_PATH.'public/', Env('APP_DOMAIN'), $saveUrl).'?v='.time(),
+                ];
             }
-            $returnData = $insert;
+        } else {
+            $hash = hash_file('md5', $tmpFile); //生成文件hash值
+            $attachmentService = \App::make('App\Services\AttachmentService');
+
+            $returnData = [];
+            if ($attachmentService->isExitsHash($hash)) { 
+                //文件已存在
+                $returnData = $attachmentService->getAttachmentByHash($hash);
+            } else {
+
+                $insert = [
+                    'name' => $hash,
+                    'type' => $extension,
+                    'cate' => $cate,
+                    'source_name' => substr($tmpname[0], strrpos($tmpname[0], '/') + 1),
+                    'size' => $file['size'] ?? filesize($file['name']),
+                ];
+
+                //保存文件地址
+                $saveUrl = $cate;
+
+                if (!empty($prev))
+                	$saveUrl .= '/'.$prev;
+
+                //中间路径
+                $insert['path'] = $saveUrl;
+
+                $saveUrl .= '/'.$hash.'.'.$extension;
+
+                $saveUrl = ROOT_PATH.'public/file_center/'.$saveUrl;
+
+                $savePath = pathinfo($saveUrl, PATHINFO_DIRNAME);
+
+                //创建目录
+                if (!is_dir($savePath)) {
+                    mkdir($savePath, 0777, true);
+                }
+
+                $result = move_uploaded_file($tmpFile, $saveUrl);
+
+                if ($result) {
+                    //新增文件记录
+                    $attachmentId = $attachmentService->addAttactment($insert);
+                    if (!$attachmentId) return false;
+                    $insert['attach_id'] = $attachmentId;
+                    $insert['url'] = str_replace(ROOT_PATH.'public/', Env('APP_DOMAIN'), $saveUrl);
+                }
+                $returnData = $insert;
+            }
         }
 
         return $returnData;

@@ -15,27 +15,13 @@ class UploadController extends Controller
 		$this->baseService = $service;
 	}
 
-	public function index2()
-	{
-		$site = ipost('site', '');
-		$file = ifile('file', []);
-
-		if (empty($site) || empty($file))
-			return $this->result(10000, false, ['message'=>'上传文件参数不正确!']);
-
-		$result = $this->baseService->upload($file, $site);
-
-		if (empty($result))
-			return $this->result(10000, $result, ['message'=>'上传失败!']);
-
-		return $this->result(200, $result, ['message'=>'上传成功!']);
-	}
-
 	public function index()
 	{
 		$file = ifile('file'); //长传文件
         $site = ipost('site', 'product'); //类型
         $action = input('action');
+        $path = input('path');
+        $type = input('type');
         $page = input('start', 1);
         $size = input('size', 20);
 
@@ -58,7 +44,7 @@ class UploadController extends Controller
                 break;
         }
 
-        $result = $this->baseService->upload($file, $site);
+        $result = $this->baseService->upload($file, $site, $path, $type);
 
         if (!empty($action)) {
 
