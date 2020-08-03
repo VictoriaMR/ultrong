@@ -9,9 +9,9 @@ class BannerService extends BaseService
 {
     const CACHE_KEY = 'BANNER_INFO_CACHE_';
 
-	public function __construct(Banner $site)
+	public function __construct(Banner $model)
     {
-        $this->baseModel = $site;
+        $this->baseModel = $model;
     }
 
     public function updateData($lanId, $type, $data) 

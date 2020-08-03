@@ -18,4 +18,21 @@ $(function(){
             	window.location.reload();
         }); 
     });
+    //滚动按钮
+    var viewH = $(window).height();  //可见高度
+    $(document).scroll(function() {
+        var scroH = $(document).scrollTop();  //滚动高度
+        if (scroH > viewH) {
+            $('.goto-top').removeClass('pop-down');
+            $('.goto-top').addClass('pop-up');
+            $('.goto-top').show();
+        } else {
+            $('.goto-top').removeClass('pop-up');
+            $('.goto-top').hide();
+        }
+    });
+
+    $('.goto-top').on('click', function(){
+        $('html, body').animate({scrollTop: 0}, 300);
+    });
 });

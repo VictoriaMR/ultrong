@@ -164,3 +164,48 @@
     color: #fff;
     border-bottom: 1px solid #282f42;
 }
+
+.goto-top {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    width: 50px;
+    height: 50px;
+    right: 100px;
+}
+
+.goto-top .icon {
+    box-shadow:0px 0px 6px rgba(0,0,0,0.16);
+    border-radius: 50%;
+}
+
+.pop-up {
+    -webkit-animation: popup .3s;
+    animation: popup .3s;
+}
+
+@keyframes popup
+{
+    from { transform: translate3d(0, -80px, 0);     }
+    to   { transform: translate3d(0, 0, 0); }
+}
+
+ /* Firefox */
+@-webkit-keyframes popup
+{
+    from { transform: translate3d(0, -80px, 0);     }
+    to   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes popdown
+{
+    from { transform: translate3d(0, 0, 0);     }
+    to   { transform: translate3d(0, 80px, 0); }
+}
+
+ /* Firefox */
+@-webkit-keyframes popdown
+{
+    from { transform: translate3d(0, 0, 0);     }
+    to   { transform: translate3d(0, 80px, 0); }
+}

@@ -66,5 +66,8 @@
 			</table>
 		</div>
 	</div>
+	<div class="goto-top">
+		<i class="icon icon-50 icon-to-top"></i>
+	</div>
 </body>
 </html>
