@@ -1,3 +1,22 @@
+.btn {
+    display: block;
+    height: 40px;
+    border-radius: 4px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    width: 140px;
+}
+
+.btn-blue {
+    background-color: #0a396d;
+    color: #fff;
+}
+
+.btn-blue:hover {
+    background-color: #33a3baf5;
+    color: #fff !important;
+}
 
 .hidden,
 .hide {
@@ -35,7 +54,7 @@
 .selector {
     position: absolute;
     width: 100%;
-    border: 1px solid #41BDD7;
+    border: 1px solid #0a396d;
     background-color: #FFFFFF;
     color: #333333;
     z-index: 999;
@@ -45,7 +64,7 @@
 
 .selector li.selected,
 .selector li:hover {
-	background: #41BDD7;
+	background: #0a396d;
 	color: #fff;
 }
 
@@ -81,18 +100,18 @@
 }
 
 #header-content .nav li .title:hover {
-    background-color: #41BDD7;
+    background-color: #0a396d;
     color: #fff;
 }
 
 #header-content .nav li .title.selected {
-    background-color: #41BDD7;
+    background-color: #0a396d;
     color: #fff;
 }
 
 #header-content .nav .title.selected  {
     font-weight: bold;
-    color: #41bdd7;
+    color: #0a396d;
 }
 
 @media screen and (max-width: 900px) {
@@ -139,7 +158,7 @@
     font-size: 16px;
     display: inline-block;
      padding: 10px 0;
-    border-bottom: 2px solid #41bdd7;
+    border-bottom: 2px solid #0a396d;
 }
 
 #footer .menu a {
@@ -152,7 +171,7 @@
 }
 
 #footer .menu a:hover {
-    color:  #41bdd7;
+    color:  #0a396d;
 }
 
 #footer .separate {

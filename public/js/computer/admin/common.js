@@ -119,8 +119,8 @@ function confirm(text, callback)
                     '<p>One fine body&hellip;</p>'+
                   '</div>'+
                   '<div class="modal-footer">'+
-                    '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>'+
-                    '<button type="button" class="btn btn-primary confirm-btn">确定</button>'+
+                    '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>'+
+                    '<button type="button" class="btn btn-primary btn-sm confirm-btn">确定</button>'+
                   '</div>'+
                 '</div>'+
               '</div>'+

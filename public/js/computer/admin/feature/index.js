@@ -3,11 +3,13 @@ var FEATURE = {
 	{
 		var _this = this;
 		$('#dealbox').offsetCenter();
-		$('.modify').on('click', function(){
+		$('.modify').on('click', function(event){
+			event.stopPropagation();
 			_this.initShow($(this).parents('tr').data());
 		});
 		//弹窗保存
-		$('#dealbox button.save').on('click', function(){
+		$('#dealbox button.save').on('click', function(event){
+			event.stopPropagation();
 	    	var check = true;
 	    	$(this).parents('form').find('[required=required]').each(function(){
 	    		var val = $(this).val();
@@ -20,10 +22,12 @@ var FEATURE = {
 	    		}
 	    	});
 	    	if (!check) return false;
+	    	$(this).button('loading');
 	    	_this.save();
+	    	$(this).button('reset');
 	    });
 	    //状态
-	    $('table .switch_botton.status .switch_status').on('click', function() {
+	    $('table .switch_botton.status .switch_status').on('click', function(event) {
 	    	var _thisobj = $(this);
 	    	var con_id = _thisobj.parents('tr').data('con_id');
 	    	var status = _thisobj.hasClass('on') ? 0 : 1;
@@ -36,6 +40,7 @@ var FEATURE = {
     				errorTips(res.message);
     			}
     		});
+    		event.stopPropagation();
 	    });
 	    //编辑框开关切换
 	    $('#dealbox .switch_status').on('click', function(){
@@ -45,7 +50,8 @@ var FEATURE = {
 	    	_thisobj.parents('.form-control').find('input').val(status);
 	    });
 	    //删除
-	    $('.delete').on('click', function(){
+	    $('.delete-btn').on('click', function(event){
+	    	event.stopPropagation();
 	    	var _thisobj = $(this);
 	    	confirm('确定删除吗?', function(){
 	    		var con_id = _thisobj.parents('tr').data('con_id');
@@ -60,8 +66,25 @@ var FEATURE = {
 	    	});
 	    });
 	    //新增
-	    $('.addroot').on('click', function(){
+	    $('.addroot').on('click', function(event){
+	    	event.stopPropagation();
 	    	_this.initShow($(this).data());
+	    });
+	    //点击全部展开/收起
+	    $('.all-open').on('click', function(){
+	    	$('tr').show();
+	    });
+	    $('.all-close').on('click', function(){
+	    	$('tr.son').hide();
+	    });
+	    $('tr.parent').on('click', function(){
+	    	if ($(this).next().hasClass('son')) {
+	    		if ($(this).next().is(':visible')) {
+	    			$(this).nextUntil('.parent').hide();
+	    		} else {
+	    			$(this).nextUntil('.parent').show();
+	    		}
+	    	}
 	    });
 	},
 	initShow:function (data)
@@ -91,8 +114,6 @@ var FEATURE = {
 	},
 	save: function ()
 	{
-		if ($('#dealbox button.save').find('span').length > 0) return false;
-    	$('#dealbox button.save').html($('#dealbox button.save').data('loading-text'));
     	API.post(ADMIN_URI + 'feature/modify', $('#dealbox form').serializeArray(), function(res){
     		$('#dealbox button.save').html('确认');
     		if (res.code == 200) {

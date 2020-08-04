@@ -59,4 +59,41 @@ class ArticleCategoryService extends BaseService
     	}
     	return $returnData;
     }
+
+    public function cleanCache()
+    {
+        return Redis()->del(self::CACHE_KEY);
+    }
+
+
+    /**
+     * @method 检查是否为父类
+     * @author LiaoMingRong
+     * @date   2020-07-21
+     * @return boolean 
+     */
+    public function isParent($cateId)
+    {
+        $cateId = (int) $cateId;
+        if (empty($cateId)) return false;
+
+        return $this->baseModel->where('cate_id', $cateId)
+                               ->where('parent_id', 0)
+                               ->count() > 0;
+    }
+
+    /**
+     * @method 根据父ID删除
+     * @author LiaoMingRong
+     * @date   2020-07-21
+     * @return boolean
+     */
+    public function deleteByParentId($parentId)
+    {
+        $parentId = (int) $parentId;
+        if (empty($parentId)) return false;
+
+        return $this->baseModel->where('parent_id', $parentId)
+                               ->delete();
+    }
 }

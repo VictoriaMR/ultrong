@@ -37,7 +37,7 @@ class Controller
     }
 
     /**
-     * @method 变量复制
+     * @method 变量赋值
      * @author LiaoMingRong
      * @date   2020-07-15
      */

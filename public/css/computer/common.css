@@ -139,26 +139,6 @@ body {
     text-align: center
 }
 
-.btn {
-    display: block;
-    height: 40px;
-    border-radius: 4px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 16px;
-    width: 140px;
-}
-
-.btn-blue {
-    background-color: #41bdd7;
-    color: #fff;
-}
-
-.btn-blue:hover {
-    background-color: #33a3baf5;
-    color: #fff !important;
-}
-
 .block {
     display: block;
 }
@@ -195,7 +175,7 @@ body {
 }
 
 .color-blue {
-    color: #41bdd7;
+    color: #0a396d;
 }
 
 .ellipsis-1 {

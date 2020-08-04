@@ -112,7 +112,7 @@ class FeatureController extends Controller
 			$this->baseService->deleteByParentId($conId);
 		}
 
-		$result = $this->baseService->deleteDataById($conId);
+		$result = $this->baseService->deleteById($conId);
 
 		if ($result)
 			return $this->result(200, $result, ['message' => '删除成功']);
