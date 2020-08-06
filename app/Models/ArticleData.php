@@ -11,4 +11,15 @@ class ArticleData extends BaseModel
 { 
 	//表名
     public $table = 'article_data';
+
+    public function getInfo($artId, $lanId)
+    {
+        $artId = (int) $artId;
+        $lanId = (int) $lanId;
+        if (empty($lanId) || empty($lanId)) return [];
+
+        return $this->where('art_id', $artId)
+                    ->where('lan_id', $lanId)
+                    ->find();
+    }
 }

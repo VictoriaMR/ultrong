@@ -11,4 +11,19 @@ class Article extends BaseModel
 {
 	//表名
     public $table = 'article';
+
+    /**
+     * @method 获取列表
+     * @author Victoria
+     * @date   2020-06-10
+     * @return array
+     */
+    public function getList($where = [], $page, $size, $orderBy = [])
+    {
+        return $this->where($where)
+                    ->offset(($page - 1) * $size)
+                    ->limit($size)
+                    ->orderBy($orderBy)
+                    ->get();
+    }
 }

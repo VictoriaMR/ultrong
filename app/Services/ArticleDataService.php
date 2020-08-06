@@ -3,30 +3,30 @@
 namespace App\Services;
 
 use App\Services\Base as BaseService;
-use App\Models\ProductData;
+use App\Models\ArticleData;
 
 /**
  * 
  */
-class ProductDataService extends BaseService
+class ArticleDataService extends BaseService
 {
-	public function __construct(ProductData $model)
+	public function __construct(ArticleData $model)
     {
         $this->baseModel = $model;
     }
 
-    public function updateProductData($proId, $lanId, $data)
+    public function updateArticleData($artId, $lanId, $data)
     {
-        $proId = (int) $proId;
+        $artId = (int) $artId;
         $lanId = (int) $lanId;
-        if (empty($proId) || empty($lanId) || empty($data)) return false;
+        if (empty($artId) || empty($lanId) || empty($data)) return false;
 
-        if ($this->isExist($proId, $lanId)) {
-            $result = $this->baseModel->where('pro_id', $proId)
+        if ($this->isExist($artId, $lanId)) {
+            $result = $this->baseModel->where('art_id', $artId)
                                       ->where('lan_id', $lanId)
                                       ->update($data);
         } else {
-            $data['pro_id'] = $proId;
+            $data['art_id'] = $artId;
             $data['lan_id'] = $lanId;
             $result = $this->baseModel->insert($data);
         }
@@ -39,15 +39,15 @@ class ProductDataService extends BaseService
      * @date   2020-04-25
      * @return boolean  
      */
-    public function isExist($proId, $lanId)
+    public function isExist($artId, $lanId)
     {
-        return $this->baseModel->where('pro_id', $proId)
+        return $this->baseModel->where('art_id', $artId)
                                ->where('lan_id', $lanId)
                                ->count() > 0;
     }
 
-    public function getInfo($proId, $lanId)
+    public function getInfo($artId, $lanId)
     {
-        return $this->baseModel->getInfo($proId, $lanId);
+        return $this->baseModel->getInfo($artId, $lanId);
     }
 }

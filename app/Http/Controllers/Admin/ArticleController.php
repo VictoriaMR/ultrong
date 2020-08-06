@@ -3,40 +3,36 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\ProductService;
-use App\Services\ProductDataService;
+use App\Services\ArticleService;
+use App\Services\ArticleDataService;
 use frame\Html;
 
 /**
  * 
  */
-class ProductController extends Controller
+class ArticleController extends Controller
 {
-	
-	function __construct(ProductService $service, ProductDataService $dataService)
+	public function __construct(ArticleService $service, ArticleDataService $dataService)
 	{
 		$this->baseService = $service;
 		$this->dataService = $dataService;
-		$this->tabs = ['index'=>'SPU列表', 'info' => 'SPU详情'];
+		$this->tabs = ['index'=>'文章列表', 'info' => '文章详情'];
 		parent::_initialize();
-		Html::addCss('product');
 	}
 
 	public function index()
 	{
-		Html::addJs('product/index');
-
 		$page = iget('page', 1);
 		$size = iget('size', 30);
-		$spuId = iget('spu_id', '');
+		$artId = iget('art_id', '');
 		$keyword = iget('keyword', '');
 		$cateId = iget('cate_id', '');
 		$lanId = iget('lan_id', '');
 
 		$where = [];
 
-		if (!empty($spuId))
-			$where['pro_id'] = (int) $spuId;
+		if (!empty($artId))
+			$where['art_id'] = (int) $artId;
 		if (!empty($lanId))
 			$where['lan_id'] = (int) $lanId;
 		if (!empty($cateId))
@@ -51,7 +47,7 @@ class ProductController extends Controller
 		}
 
 		//分类列表
-		$categoryService = \App::make('App/Services/CategoryService');
+		$categoryService = \App::make('App/Services/ArticleCategoryService');
 		$cateList = $categoryService->getList();
 		//语言列表
 		$languageService = \App::make('App/Services/LanguageService');
@@ -64,7 +60,7 @@ class ProductController extends Controller
 		$this->assign('total', $total);
 		$this->assign('list', $list ?? []);
 		$this->assign('size', $size);
-		$this->assign('spu_id', $spuId);
+		$this->assign('art_id', $artId);
 		$this->assign('keyword', $keyword);
 		$this->assign('cate_id', $cateId);
 		$this->assign('lan_id', $lanId);
@@ -75,33 +71,33 @@ class ProductController extends Controller
 
 	public function info()
 	{
-		Html::addJs('product/info');
+		Html::addJs('article/info');
 		Html::addJs('ueditor/ueditor.config', true);
 		Html::addJs('ueditor/ueditor.all', true);
 		Html::addJs('ueditor/lang/zh-cn/zh-cn', true);
 
-		$proId = (int) iget('pro_id', 0);
+		$artId = (int) iget('art_id', 0);
 		$lanId = (int) iget('lan_id', 0);
 
 		//分类列表
-		$categoryService = \App::make('App/Services/CategoryService');
+		$categoryService = \App::make('App/Services/ArticleCategoryService');
 		$cateList = $categoryService->getList();
 		//语言列表
 		$languageService = \App::make('App/Services/LanguageService');
 		$lanList = $languageService->getList();
 
-		$info = $this->baseService->getInfo($proId, $lanId);
+		$info = $this->baseService->getInfo($artId, $lanId);
 
 		$this->assign('cateList', $cateList);
 		$this->assign('lanList', $lanList);
 		$this->assign('info', $info);
-		// dd($info);
+
 		return view();
 	}
 
 	public function save()
 	{
-		$proId = (int) ipost('pro_id', 0);
+		$artId = (int) ipost('art_id', 0);
 		$lanId = (int) ipost('lan_id', 0);
 		$cateId = (int) ipost('cate_id', 0);
 		$status = (int) ipost('status', 0);
@@ -135,47 +131,30 @@ class ProductController extends Controller
 		if (empty($data))
 			return $this->result(10000, false, ['参数不正确']);
 
-		if (empty($proId)) {
+		if (empty($artId)) {
 			$data['lan_id'] = $lanId;
 			$data['create_at'] = time();
-			$proId = $this->baseService->insertGetId($data);
-			if ($proId)
+			$artId = $this->baseService->insertGetId($data);
+			if ($artId)
 				$result = true;
 		} else {
-			$result = $this->baseService->updateData($proId, $lanId, $data);
+			$result = $this->baseService->updateData($artId, $lanId, $data);
 		}
 
 		if ($result && !empty($content)) {
-			$result = $this->dataService->updateProductData($proId, $lanId, ['content' => $content]);
+			$result = $this->dataService->updateProductData($artId, $lanId, ['content' => $content]);
 		}
 
 		if (!empty($image)) {
 			$attchService = \App::make('App/Services/AttachmentService');
-			$attchService->addNotExist($proId, $attchService::constant('TYPE_PRODUCT'), $image);
+			$attchService->addNotExist($artId, $attchService::constant('TYPE_PRODUCT'), $image);
 		}
 
 		if ($result) {
-			$this->baseService->clearCache($proId, $lanId);
-			return $this->result(200, ['url' => adminUrl('product/info', ['pro_id' => $proId, 'lan_id' => $lanId])], ['保存成功']);
+			$this->baseService->clearCache($artId, $lanId);
+			return $this->result(200, ['url' => adminUrl('article/info', ['art_id' => $artId, 'lan_id' => $lanId])], ['保存成功']);
 		} else {
 			return $this->result(10000, $result, ['保存失败']);
-		}
-	}
-
-	public function delete()
-	{
-		$proId = (int) ipost('pro_id', 0);
-		$lanId = (int) ipost('lan_id', 0);
-
-		if (empty($proId) || empty($lanId))
-			return $this->result(10000, false, ['参数不正确']);
-
-		$result = $this->baseService->delete($proId, $lanId);
-
-		if ($result) {
-			return $this->result(200, $result, ['删除成功']);
-		} else {
-			return $this->result(10000, $result, ['删除失败']);
 		}
 	}
 }

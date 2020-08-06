@@ -1,7 +1,7 @@
 <?php $this->load('Common.baseHeader');?>
 
 <div id="login-bg">
-	<img src="<?php echo siteUrl('image/computer/admin_login_bg.jpg');?>">
+	<img src="<?php echo siteUrl('image/computer/admin_login_bg.png');?>">
 </div>
 
 <div class="login-box">
