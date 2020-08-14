@@ -18,16 +18,22 @@ class Redis
         if (!self::$_instance instanceof self) {
             self::$_instance = new self();
 
-            self::$_link = new \Redis();
+            try {
+                self::$_link = new \Redis();
+                self::connect();
+            } catch (Exception $e) {
+                self::$_link = null;
+            }
 
-            self::connect();
         }
 
-        if (!self::$_link->ping()) {
-            self::connect();
+        if (!is_null(self::$_link)) {
+            if (!self::$_link->ping()) {
+                self::connect();
+            }
+            self::$_db = $db;
+            self::$_link->select($db);//选择数据库
         }
-        self::$_db = $db;
-        self::$_link->select($db);//选择数据库
 
         return self::$_instance;
     }
@@ -48,6 +54,7 @@ class Redis
 
     public function get($key)
     {
+        if (is_null(self::$_link)) return false;
         $data = self::$_link->get($key);
         $temp = json_decode($data, true);
         if (is_array($temp))
@@ -58,6 +65,7 @@ class Redis
 
     public function set($key, $value, $ext=null) 
     {
+        if (is_null(self::$_link)) return false;
         self::$_instance->selectDbByFunc('set');
         if (empty($key)) return false;
         $ext = (int)($ext ?? self::DEFAULT_EXT_TIME);
@@ -73,6 +81,7 @@ class Redis
 
     public function __call($func, $arg)
     {
+        if (is_null(self::$_link)) return false;
         self::$_instance->selectDbByFunc($func);
         return self::$_link->$func(...$arg);
     }
