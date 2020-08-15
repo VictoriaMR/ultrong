@@ -139,6 +139,18 @@ body {
     text-align: center
 }
 
+.btn {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: #41bdd7;
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
 .block {
     display: block;
 }

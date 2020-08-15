@@ -12,7 +12,7 @@
         </li>
         <?php } ?>
     </ul>
-    <?php if (count($banner['content']) > 1) { ?>
+    <?php if (count($banner['content'] ?? []) > 1) { ?>
     <span class="icon ant2-icon prev-stay left"></span>
     <span class="icon ant2-icon next-stay right"></span>
     <div class="dots">

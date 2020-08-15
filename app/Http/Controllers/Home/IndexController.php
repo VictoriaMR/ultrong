@@ -56,16 +56,42 @@ class IndexController extends Controller
 	{
 		$id = (int) iget('lan_id', '');
 		if (empty($id)) 
-			return $this->result(10000, false, ['message' => '参数不正确!']);
+			return $this->result(10000, false, ['message' => dist('参数不正确')]);
 
 		$languageService = \App::make('App/Services/LanguageService');
 		$list = $languageService->getList();
 		$list = array_column($list, null, 'lan_id');
 		if (empty($list[$id]))
-			return $this->result(10000, false, ['message' => '数据有误, 语言未配置!']);
+			return $this->result(10000, false, ['message' => dist('数据有误, 语言未配置')]);
 
 		Session::set('site', ['language_name' => $list[$id]['value'] ?? '', 'language_id' => $list[$id]['lan_id'] ?? 0]);
 
-		return $this->result(200, true, ['message' => '设置成功!']);
+		return $this->result(200, true, ['message' => dist('设置成功')]);
+	}
+
+	public function contact()
+	{
+		$data = [
+			'name' => dist('姓名'),
+			'tel' => dist('电话'),
+			'qq' => dist('QQ'),
+			'address' => dist('地址'),
+			'content' => dist('需求'),
+		];
+
+		$tempData = [];
+		foreach ($data as $key => $value) {
+			if (empty(ipost($key)))
+				$this->result(10000, false, $value.dist('不能为空'));
+			$tempData[] = $key.' ('.$value.'): '.ipost($key);
+		}
+
+		$message = \App::make('App/Services/MessageService');
+		// dd(implode(PHP_EOL, $tempData));
+		$result = $message->sendMessage(ipUserId(), 500000001, implode(PHP_EOL, $tempData));
+		if ($result)
+			return $this->result(200, $result, ['message' => dist('发送成功')]);
+		else
+			return $this->result(10000, $result, ['message' => dist('发送失败')]);
 	}
 }

@@ -2,7 +2,7 @@
 		<div class="container">
 			<table border="0" width="100%">
 				<tr>
-					<td width="62%">
+					<td width="62%" valign="top">
 						<div class="menu">
 							<ul>
 								<li>
@@ -61,7 +61,20 @@
 							<?php } ?>
 						</div>
 					</td>
-					<td width="38%"></td>
+					<td width="38%" valign="top">
+						<div class="contact margin-left-20">
+							<h2><?php echo dist('在线留言');?></h2>
+							<form>
+						        <input type="text" name="name" placeholder="<?php echo dist('姓名');?>&nbsp;:&nbsp;" class="input" maxlength="100" required="required" data-name="<?php echo dist('姓名');?>">
+						        <input type="text" name="tel" placeholder="<?php echo dist('电话');?>&nbsp;:&nbsp;" class="input" maxlength="100" required="required" data-name="<?php echo dist('电话');?>">
+						        <input type="text" name="qq" placeholder="<?php echo dist('QQ');?>&nbsp;:&nbsp;" class="input" maxlength="100" required="required" data-name="<?php echo dist('QQ');?>">
+						        <input type="text" name="address" placeholder="<?php echo dist('地址');?>&nbsp;:&nbsp;" class="input" maxlength="250" required="required" data-name="<?php echo dist('地址');?>">
+						        <textarea name="content" class="textarea" placeholder="<?php echo dist('需求');?>&nbsp;:&nbsp;" maxlength="250" required="required" data-name="<?php echo dist('需求');?>"></textarea>
+						        <div class="clear"></div>
+						        <button type="button" class="btn right" id="submit"><?php echo dist('立即提交');?></button>
+							</form>
+						</div>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -69,5 +82,13 @@
 	<div class="goto-top">
 		<i class="icon icon-50 icon-to-top"></i>
 	</div>
+	<script type="text/javascript">
+	$(function(){
+		FOOTER.init({
+			contact_url: "<?php echo url('index/contact');?>",
+			empty_text: "<?php echo dist('不能为空');?>",
+		});
+	});
+	</script>
 </body>
 </html>

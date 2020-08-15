@@ -22,10 +22,10 @@ class MessageService extends BaseService
      * @date   2020-08-14
      * @return [type]     [description]
      */
-    public function sendMessage($from, $content, $to=0, $type=0)
+    public function sendMessage($from, $to, $content, $type=0)
     {
     	$from = (int) $from;
-    	if (empty($from) || empty($content)) return false;
+    	if (empty($from) || empty($to) || empty($content)) return false;
     	$groupKey = $this->createGroup($from, $type, $to);
     	if ($groupKey === false) return false;
 
@@ -144,9 +144,7 @@ class MessageService extends BaseService
     protected function createGroupKey($from, $to=0, $type=0)
     {
     	$array = [$from, $to];
-    	print_r($array);
     	sort($array);
-    	print_r($array);
     	$key = implode('_', $array).'_'.$type;
     	if ($type == 1) {
     		$key .= '_'.$this->getSalt(8).'_'.time();

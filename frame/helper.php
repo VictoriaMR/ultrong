@@ -50,6 +50,11 @@ function getIp()
     return ($ip);
 }
 
+function ipUserId()
+{
+    return (int) strtr(getIp(), ['.' => '', ':' => '']);
+}
+
 function isAjax()
 {
     return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
@@ -268,9 +273,4 @@ function dist($name = '')
 function paginator()
 {
     return \frame\Paginator::getInstance($db);
-}
-
-function Router()
-{
-    
 }

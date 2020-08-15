@@ -203,6 +203,42 @@
     animation: popup .3s;
 }
 
+#footer .contact h2 {
+    font-size: 18px;
+    color: #fff;
+    padding-left: 123px;
+    background: url(/image/computer/fed.png) no-repeat left center;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: calc(100% - 22px);
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #29314a;
+    padding: 0 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    background: none;
+    color: #a9a9a9;
+}
+
+.textarea {
+    width: calc(100% - 22px);
+    height: 58px;
+    border: 1px solid #29314a;
+    padding: 0 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    background: none;
+    color: #a9a9a9;
+}
+
+.input:focus,
+.textarea:focus {
+    border-color: #41bdd7;
+}
+
 @keyframes popup
 {
     from { transform: translate3d(0, -80px, 0);     }

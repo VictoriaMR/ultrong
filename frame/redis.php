@@ -21,7 +21,7 @@ class Redis
             try {
                 self::$_link = new \Redis();
                 self::connect();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 self::$_link = null;
             }
 
@@ -40,6 +40,7 @@ class Redis
 
     private static function connect() 
     {
+        // if (is_null(self::$_link)) return false;
         self::$_link->connect(Env('REDIS_HOST', '127.0.0.1'), Env('REDIS_PORT', '6379'), self::DEFAULT_CONNECT_TIME);
         if (!empty(Env('REDIS_PASSWORD'))) {
             self::$_link->auth(Env('REDIS_PASSWORD'));
