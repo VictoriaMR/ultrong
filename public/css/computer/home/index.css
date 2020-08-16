@@ -8,6 +8,10 @@
     text-align: center;
 }
 
+#slider-content .slider img {
+    width: 100%;
+}
+
 #slider-content .prev-stay {
     transition: left 0.5s;
     -moz-transition: left 0.5s; /* Firefox 4 */

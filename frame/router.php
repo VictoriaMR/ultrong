@@ -68,6 +68,11 @@ class Router
 				$_GET['pro_id'] = $data[0] ?? 0;
 				$_GET['lan_id'] = $data[1] ?? 0;
 				break;
+			case 'article':
+				$_GET['cate_id'] = $data[0] ?? 0;
+				$_GET['list_id'] = $data[1] ?? 0;
+				$_GET['page'] = $data[2] ?? 1;
+				break;
 			case 'productlist':
 				$_GET['cate_id'] = $data[0] ?? 0;
 				$_GET['page'] = $data[1] ?? 1;

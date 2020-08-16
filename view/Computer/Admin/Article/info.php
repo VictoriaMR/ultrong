@@ -73,15 +73,14 @@
 		<div class="input-group margin-top-15">
             <div class="input-group-addon"><span>文章图片：</span></div>
             <div class="form-control article-image-content" style="max-width: 1050px; height: auto;">
-				<ul data-length="10" data-site="article" data-sort="1" data-delete="1">
+				<ul data-length="1" data-site="article" data-sort="1" data-delete="1">
 					<?php if (!empty($info['image_list'])) { ?>
 					<?php foreach ($info['image_list'] as $key => $value) {?>
 					<li class="upload-item" data-attach_id="<?php echo $value['attach_id'];?>">
 						<img src="<?php echo $value['url'];?>">
 					</li>
 					<?php } ?>
-					<?php } ?>
-					<?php if(count($info['image_list'] ?? []) < 10) { ?>
+					<?php } else{ ?>
 					<li class="upload-item"></li>
 					<?php } ?>
 				</ul>
@@ -103,8 +102,12 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	if ($('#editor').length > 0)
-		UE.getEditor('editor');
+	if ($('#editor').length > 0) {
+		var ue = UE.getEditor('editor');
+		ue.ready(function() {
+		    ue.execCommand('serverparam', 'site', 'article');
+		});
+	}
     ARTICLE.init();
 });
 </script>

@@ -3,7 +3,7 @@ var ARTICLE = {
 	{
 		var _this = this;
 		UPLOAD.init({
-			obj: $('.product-image-content .upload-item'),
+			obj: $('.upload-item'),
 			success: function(res){
 				if(res.code == 200) {
 					$('.avatar').find('img').attr('src', res.data.url);
@@ -28,7 +28,7 @@ var ARTICLE = {
 	    		}
 	    	});
 	    	if (!check) return false;
-			$(this).button('loading');
+			// $(this).button('loading');
 			_this.initImage();
 			_this.save($(this).parents('form').serializeArray());
 		});

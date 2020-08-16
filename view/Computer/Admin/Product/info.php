@@ -107,8 +107,12 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	if ($('#editor').length > 0)
-		UE.getEditor('editor');
+	if ($('#editor').length > 0) {
+		var ue = UE.getEditor('editor');
+		ue.ready(function() {
+		    ue.execCommand('serverparam', 'site', 'product');
+		});
+	}
     PRODUCT.init();
 });
 </script>

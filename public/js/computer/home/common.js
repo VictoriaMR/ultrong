@@ -37,6 +37,13 @@ var HEADER = {
         $('.goto-top').on('click', function(){
             $('html, body').animate({scrollTop: 0}, 300);
         });
+
+        //头部导航子显示
+        $('#header-content .nav .title').parent().on('mouseover', function(){
+            $(this).find('.nav-son').slideDown(200);
+        }).on('mouseleave', function(){
+           $(this).find('.nav-son').slideUp(200);
+        })
     }
 };
 

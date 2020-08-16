@@ -60,25 +60,21 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                                 <li>
                                     <a href="<?php echo url();?>" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist('首页');?></a>
                                 </li>
+                                <?php foreach ($nav_list as $key => $value) { ?>
                                 <li>
-                                    <a href="/" class="title about-us"><?php echo dist('关于'.$site_name);?></a>
+                                    <a href="<?php echo $value['url'];?>" class="title <?php echo $controller == $value['name_en'] ? 'selected' : '';?>"><?php echo $value['name'];?></a>
+                                    <?php if (!empty($value['son'])) { ?>
+                                    <ul class="nav-son">
+                                    <?php foreach ($value['son'] as $k => $v) { ?>
+                                    <li>
+                                        <a href="<?php echo $v['url'];?>" class="block"><?php echo $v['name'];?></a>
+                                    </li>
+                                    <?php } ?>
+                                    </ul>
+                                    <?php } ?>
                                 </li>
-                                <li>
-                                    <a href="<?php echo url('productList');?>" class="title product-center <?php echo $controller == 'productlist' || $controller == 'product' ? 'selected' : '';?>"><?php echo dist('产品中心');?></a>
-                                </li>
-                                <li>
-                                    <a href="/" class="title news-center"><?php echo dist('新闻中心');?></a>
-                                </li>
-                                <li>
-                                    <a href="/" class="title server-support"><?php echo dist('服务支持');?></a>
-                                </li>
-                                <li>
-                                    <a href="/" class="title server-deal"><?php echo dist('解决方案');?></a>
-                                </li>
-                                <li>
-                                    <a href="/" class="title contact-us"><?php echo dist('联系我们');?></a>
-                                </li>
-                                <li>
+                                <?php } ?>
+                                <li class="relative">
                                     <a href="javascript:;" class="title">
                                         <span><?php echo dist('搜索');?></span>
                                         <span class="icon search-icon"></span>
@@ -92,3 +88,8 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
         </table>
     </div>
 </div>
+<script type="text/javascript">
+$(function(){
+    HEADER.init();
+})
+</script>

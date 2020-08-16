@@ -55,7 +55,6 @@ class Controller
     {
         if (IS_AJAX) return false;
         $info = \Router::getFunc();
-
         $controllerService = \App::make('App\Services\Admin\ControllerService');
         $data = $controllerService->getInfoByNameEn(strtolower($info['ClassPath']));
         if (!empty($data['name'])) 
@@ -88,6 +87,8 @@ class Controller
 
         $info = \Router::getFunc();
         $controller = strtolower($info['ClassPath']);
+        if (!empty(iget('cate_id')))
+            $controller .= '_'.iget('cate_id');
         
         //站点信息
         $siteService = \App::make('App/Services/SiteService');
@@ -122,10 +123,64 @@ class Controller
 
             \frame\Session::set('site', ['language_name' => $list[$code]['value'] ?? '', 'language_id' => $list[$code]['lan_id'] ?? 0]);
         }
+
+        //头部导航列表
+        $articleCategoryService = \App::make('App/Services/ArticleCategoryService');
+        $articleService = \App::make('App/Services/ArticleService');
+        $cateService = \App::make('App/Services/CategoryService');
+        
+        $articleList = $articleCategoryService->getList();
+        $tempData = [];
+        if (!empty($articleList)) {
+            foreach ($articleList as $key => $value) {
+                if (empty($value['son'])) {
+                    $value['son'] = $articleService->getListFormat(['cate_id' => $value['cate_id'], 'lan_id' => \frame\Session::get('site_language_id')]);
+                } else {
+                    foreach ($value['son'] as $k => $v) {
+                        $value['son'][$k]['name'] = dist($v['name']);
+                    }
+                }
+                foreach ($value['son'] as $k => $v) {
+                    $value['son'][$k]['url'] = url('article', ['cate_id'=>$value['cate_id'], 'list_id'=>$v['cate_id']]);
+                }
+
+                $tempData[] = [
+                    'name' => dist($value['name']),
+                    'name_en' => 'article_'.$value['cate_id'],
+                    'url' => url('article', ['cate_id'=>$value['cate_id']]),
+                    'son' => $value['son'],
+                ];
+                if ($key == 0) {
+                    //获取产品分类
+                    $son = $cateService->getList(['status'=>1]);
+                    foreach ($son as $k => $v) {
+                        $son[$k]['url'] = url('productlist', ['cate_id' => $v['cate_id']]);
+                    }
+                    $tempData[] = [
+                        'name' => dist('产品中心'),
+                        'name_en' => 'productlist',
+                        'url' => url('productList'),
+                        'son' => $son,
+                    ];
+                }
+            }
+        } else {
+            $son = $cateService->getList(['status'=>1]);
+            foreach ($son as $k => $v) {
+                $son[$k]['url'] = url('productlist', ['cate_id' => $v['cate_id']]);
+            }
+            $tempData[] = [
+                'name' => dist('产品中心'),
+                'name_en' => 'productlist',
+                'url' => url('productList'),
+                'son' => $son,
+            ];
+        }
         
         $this->assign('controller', $controller);
         $this->assign('site_language', $site_language);
         $this->assign('language_list', $list);
+        $this->assign('nav_list', $tempData);
         $this->assign('site', $siteInfo);
         $this->assign('_title', dist($siteInfo['title']));
         $this->assign('_name', dist($siteInfo['name']));

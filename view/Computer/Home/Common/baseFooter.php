@@ -11,41 +11,16 @@
 										<span class="separate">|</span>
 									</a>
 								</li>
+								<?php foreach ($nav_list as $key => $value) { ?>
 								<li>
-									<a href="/">
-                                    	<span><?php echo dist('关于'.$site_name);?></span>
+									<a href="<?php echo $value['url'];?>">
+                                    	<span><?php echo $value['name'];?></span>
+                                    	<?php if ($key < count($nav_list) -1) { ?>
 										<span class="separate">|</span>
+										<?php } ?>
 									</a>
                                 </li>
-                                <li>
-									<a href="<?php echo url('productList');?>">
-                                    	<span><?php echo dist('产品中心');?></span>
-										<span class="separate">|</span>
-									</a>
-                                </li>
-                                <li>
-									<a href="/">
-                                    	<span><?php echo dist('新闻中心');?></span>
-										<span class="separate">|</span>
-									</a>
-                                </li>
-                                <li>
-									<a href="/">
-                                    	<span><?php echo dist('服务支持');?></span>
-										<span class="separate">|</span>
-									</a>
-                                </li>
-                                <li>
-									<a href="/">
-                                    	<span><?php echo dist('解决方案');?></span>
-										<span class="separate">|</span>
-									</a>
-                                </li>
-                                <li>
-									<a href="/">
-                                    	<span><?php echo dist('联系我们');?></span>
-									</a>
-                                </li>
+								<?php } ?>
 							</ul>
 						</div>
 						<div class="site-content">

@@ -21,8 +21,6 @@
      */
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
 
-    console.log(URL);
-
     var API_URI = window.API_URI;
 
     /**

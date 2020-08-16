@@ -24,7 +24,7 @@ class IndexController extends Controller
 		$bannerService = \App::make('App/Services/BannerService');
 		$banner = $bannerService->getInfo(Session::get('site_language_id'), isMobile() ? 1 : 0);
 
-		//展示分类
+		//展示产品分类
 		$cateService = \App::make('App/Services/CategoryService');
 		$cateList = $cateService->getList(['status'=>1, 'is_index'=>1]);
 

@@ -2,15 +2,15 @@
 	min-width: 100px;
 }
 
-.product-page .product-image-content .upload-item {
+.upload-item {
 	height: 100px;
 	width: 100px;
 	background: #eee;
 	margin-bottom: 10px;
-    float: left;
     margin-right: 15px;
     text-align: center;
-    line-height: 100px;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .product-content{
@@ -36,7 +36,7 @@
 	cursor: pointer;
 }
 
-.product-content ul li .image-item {
+.image-item {
 	display: block;
 	height: 250px;
 	display: table-cell;
@@ -46,7 +46,7 @@
 	border-bottom: 1px solid #ccc;
 }
 
-.product-content .info-content{
+.info-content{
 	padding: 5px 10px 0 10px;
 	display: block;
 	color: #333;

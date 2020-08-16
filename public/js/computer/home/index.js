@@ -3,6 +3,7 @@ var INDEX = {
 	{
 		//banner
 		$('#slider-content ul').each(function(){
+			if ($(this).find('li').length < 2) return false;
 			var _this = $(this);
 			_this.obj = $(this);
 	        _this.width;
@@ -90,8 +91,10 @@ var INDEX = {
 		    	e.obj.parent().find('.dot[data-index="'+index+'"]').addClass('selected').siblings().removeClass('selected');
 		    }
 		});
+
 		//分类产品轮播图
 		$('.product-box ul').each(function(){
+			if ($(this).find('li').length < 2) return false;
 			var _this = $(this);
 			_this.obj = $(this);
 	        _this.width;

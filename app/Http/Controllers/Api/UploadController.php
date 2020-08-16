@@ -18,7 +18,7 @@ class UploadController extends Controller
 	public function index()
 	{
 		$file = ifile('file'); //长传文件
-        $site = ipost('site', 'product'); //类型
+        $site = input('site', 'product'); //类型
         $action = input('action');
         $path = input('path');
         $type = input('type');
@@ -31,7 +31,7 @@ class UploadController extends Controller
                 break;
             case 'listimage':
                 $attachmemtService = \App::make('App/Services/AttachmentService');
-                $list = $attachmemtService->getFileList($attachmemtService::constant('TYPE_PRODUCT'), $page, $size);
+                $list = $attachmemtService->getFileList($attachmemtService::constant('TYPE_'.strtoupper($site)), $page, $size);
                 $temp = [
                     'state' => 'SUCCESS',
                     'start' => $page,

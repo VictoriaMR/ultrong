@@ -18,6 +18,7 @@ class ArticleController extends Controller
 		$this->dataService = $dataService;
 		$this->tabs = ['index'=>'文章列表', 'info' => '文章详情'];
 		parent::_initialize();
+		Html::addCss('article');
 	}
 
 	public function index()
@@ -142,12 +143,12 @@ class ArticleController extends Controller
 		}
 
 		if ($result && !empty($content)) {
-			$result = $this->dataService->updateProductData($artId, $lanId, ['content' => $content]);
+			$result = $this->dataService->updateArticleData($artId, $lanId, ['content' => $content]);
 		}
 
 		if (!empty($image)) {
 			$attchService = \App::make('App/Services/AttachmentService');
-			$attchService->addNotExist($artId, $attchService::constant('TYPE_PRODUCT'), $image);
+			$attchService->addNotExist($artId, $attchService::constant('TYPE_ARTICLE'), $image);
 		}
 
 		if ($result) {

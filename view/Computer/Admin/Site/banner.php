@@ -35,8 +35,13 @@
 				<?php if (count($info['content'] ?? []) < 6) { ?>
 				<li>
 					<div class="upload-item"></div>
-					<div class="margin-top-3">
-						<input type="text" class="form-control" name="href[]" />
+					<div class="margin-top-3 form-inline url-content">
+						<label>链接: </label>
+						<input type="text" class="form-control width-100" name="href[]" value="" />
+					</div>
+					<div class="margin-top-3 form-inline url-content">
+						<label>背景色: </label>
+						<input type="text" class="form-control width-100" name="background[]" value="" />
 					</div>
 				</li>
 				<?php } ?>

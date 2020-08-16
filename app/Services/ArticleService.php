@@ -47,13 +47,28 @@ class ArticleService extends BaseService
         return $list;
     }
 
+    public function updateData($artId, $lanId, $data)
+    {
+        $artId = (int) $artId;
+        $lanId = (int) $lanId;
+        if (empty($artId) || empty($lanId) || empty($data)) return false;
+        return $this->baseModel->where('art_id', $artId)
+                               ->where('lan_id', $lanId)
+                               ->update($data);
+    }
+
+    public function getListFormat($where = [])
+    {
+        return $this->baseModel->where($where)->select(['art_id', 'cate_id', 'name'])->get();
+    }
+
     public function getInfo($artId, $lanId)
     {
         $artId = (int) $artId;
         $lanId = (int) $lanId;
         if (empty($lanId) || empty($lanId)) return [];
 
-        $cacheKey = 'ARTICLE_INFO_CACHE_'.$proId.'_'.$lanId;
+        $cacheKey = 'ARTICLE_INFO_CACHE_'.$artId.'_'.$lanId;
 
         $info = Redis()->get($cacheKey);
 
@@ -82,9 +97,9 @@ class ArticleService extends BaseService
         return $info;
     }
 
-    public function clearCache($proId, $lanId)
+    public function clearCache($artId, $lanId)
     {
-        $cacheKey = 'ARTICLE_INFO_CACHE_'.$proId.'_'.$lanId;
+        $cacheKey = 'ARTICLE_INFO_CACHE_'.$artId.'_'.$lanId;
 
         return Redis()->del($cacheKey);
     }

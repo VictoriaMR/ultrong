@@ -91,6 +91,29 @@
     width: calc(100% / 8);
     text-align: center;
     float: left;
+    position: relative;
+}
+
+#header-content .nav-son {
+    display: none;
+    width: 100%;
+    background: #fff;
+    position: absolute;
+}
+
+#header-content .nav-son li {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: #fff;
+    color: #333;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#header-content .nav-son li a {
+    border-bottom: 1px solid #ddd;
 }
 
 #header-content .nav li .title {
@@ -98,7 +121,7 @@
     line-height: 60px;
     font-size: 16px;
 }
-
+#header-content .nav-son li a:hover,
 #header-content .nav li .title:hover {
     background-color: #0a396d;
     color: #fff;
