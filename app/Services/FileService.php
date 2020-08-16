@@ -7,7 +7,7 @@ use App\Services\Base as BaseService;
 class FileService extends BaseService
 {
     const FILE_TYPE = ['temp', 'avatar', 'product', 'banner', 'file', 'article'];
-    const FILE_COMPERSS = ['jpg', 'jpeg', 'png'];
+    const FILE_COMPERSS = ['jpg', 'jpeg', 'png', 'ico'];
     const MAX_OFFSET = 1200;
 
     /**
@@ -20,7 +20,6 @@ class FileService extends BaseService
     public function upload($file, $cate = 'temp', $prev='', $ext = '')
     {
         if (!in_array($cate, self::FILE_TYPE)) return false;
-
         $tmpname = explode('.', $file['name']);
         $extension = $tmpname[1] ?? ''; //后缀
         $tmpFile = $file['tmp_name']; //上传文件路径
