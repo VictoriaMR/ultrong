@@ -110,7 +110,7 @@ body {
 #left-one .feature p {
     position: absolute;
     top: 10px;
-    left: 45px;
+    left: 40px;
     height: 20px;
     line-height: 20px;
 }
@@ -118,7 +118,7 @@ body {
 #content #left-two {
     float: left;
     margin: 0px;
-    width: 144.5px;
+    width: 144px;
     height: 100%;
     background-color: #e5e6e7;
 }
