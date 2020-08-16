@@ -74,7 +74,7 @@ var INDEX = {
             	var lastobj = e.obj.find('.slider:last');
             	var index = selectobj.next().data('index');
             	dotInit(e, index);
-		        e.obj.find('.slider').animate({left: -e.width}, 500, function() {
+		        e.obj.find('.slider').stop(true, true).animate({left: -e.width}, 500, function() {
 		        	lastobj.after(selectobj)
 		            e.obj.find('.slider').css({left: 0});
 		            if (restart) start(_this);
@@ -150,7 +150,7 @@ var INDEX = {
 		    function next(e, restart) {
 		    	var selectobj = e.obj.find('.slider').eq(0);
             	var lastobj = e.obj.find('.slider:last');
-		        e.obj.find('.slider').animate({left: -e.width}, 500, function() {
+		        e.obj.find('.slider').stop(true, true).animate({left: -e.width}, 500, function() {
 		        	lastobj.after(selectobj)
 		            e.obj.find('.slider').css({left: 0});
 		            if (restart) start(_this);
