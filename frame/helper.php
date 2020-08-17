@@ -7,7 +7,6 @@
 //是否是手机
 function isMobile()
 {
-    return false;
     if (!empty($_SESSION['site_type'])) return $_SESSION['site_type'];
 
 	if (isset($_SERVER['HTTP_VIA']) && stristr($_SERVER['HTTP_VIA'], "wap")) {

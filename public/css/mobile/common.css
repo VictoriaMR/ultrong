@@ -1,0 +1,42 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl,
+dt, dd, ul, ol, li, pre, form, fieldset, legend, button, 
+input, textarea, th, td {
+	margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 100px;
+}
+body, input, textarea, select, button, td, th, p, div, span, ul, li, .normal {
+    font-family: 'Open Sans', sans-serif, '宋体';
+    font-size: 0.12rem;
+    color: #333333;
+    font-weight: normal;
+}
+ol, ul, li { 
+    list-style:none; 
+}
+a {
+    text-decoration: none;
+    color: #333333;
+}
+input, {
+    color: #333333;
+}
+textarea:focus {
+    outline: none;
+}
+img {
+    border: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+button, input, select, textarea {
+    font-size: 100%;
+    -webkit-appearance: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
