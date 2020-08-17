@@ -101,6 +101,7 @@ var CHAT = {
         $('.chat').on('click', '.close-hide', function(){
             $(this).parents('.chat-content').slideUp(100, function(){
                 $('.chat .chat_button_bar').show();
+                _this.stop();
             });
         });
         //发送按钮
