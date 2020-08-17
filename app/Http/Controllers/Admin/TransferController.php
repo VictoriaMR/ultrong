@@ -70,8 +70,6 @@ class TransferController extends Controller
 			$list = $this->baseService->getInterfaceList($where, $page, $size);
 		}
 
-		$list = $this->baseService->getPaginationList($total, $list ?? [], $page, $size);
-
 		$pageBar = paginator()->make($size, $total);
 
 		$this->assign('list', $list);

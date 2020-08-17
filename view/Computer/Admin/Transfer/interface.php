@@ -13,8 +13,8 @@
             <th class="col-md-1 col-1">检查</th>
             <th class="col-md-3 col-3">操作</th>
         </tr>
-        <?php if (!empty($list['list'])) { ?>
-        <?php foreach ($list['list'] as $key => $value){ ?>
+        <?php if (!empty($list)) { ?>
+        <?php foreach ($list as $key => $value){ ?>
             <tr data-tc_id="<?php echo $value['tc_id'];?>"
             	data-name="<?php echo $value['name'];?>"
             	data-app_id="<?php echo $value['app_id'];?>"

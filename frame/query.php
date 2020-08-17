@@ -39,9 +39,12 @@ Class Query
 	{
 		if (empty($column)) return $this;
 
+		//简单处理 where条件
 		if (is_array($column)) {
+			$check = false;
 			foreach ($column as $key => $value) {
 				if (is_array($value)) {
+					$check = true;
 					$count = count($value);
 					if ($count == 1) {
 						$this->_where[] = [$key, '=', $value];
@@ -50,10 +53,14 @@ Class Query
 					} else {
 						$this->_where[] = [$value[0], $value[1], $value[2]];
 					}
-				} else {
+				} else if (count($column) < 3){
+					$check = true;
 					$this->_where[] = [$key, '=', $value];
 				}
 			}
+			if (!$check) {
+				$this->_where[] = $column;
+			} 
 		} else {
 			if ($value === null) {
 				$value = $operator;
@@ -130,6 +137,14 @@ Class Query
 		return $this->getResult();
 	}
 
+	public function sum($name = '')
+	{
+		$name = !empty($name) ? $name : 'count';
+		$this->_columns = ['COUNT(*) as '.$name];
+		$result = $this->get();
+		return count($result);
+	}
+
 	public function value($name)
 	{
 		$this->select($name);
@@ -145,7 +160,7 @@ Class Query
 	{
 		$this->_offset = 0;
 		$this->_limit = 1;
-		return $this->getResult()[0] ?? [];
+		return $this->get()[0] ?? [];
 	}
 
 	public function count()
@@ -154,7 +169,7 @@ Class Query
 		$this->_offset = 0;
 		$this->_limit = 1;
 
-		$result = $this->getResult();
+		$result = $this->get();
 
 		return $result[0]['count'] ?? 0;
 	}
