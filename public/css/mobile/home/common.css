@@ -1,0 +1,52 @@
+.header-top {
+    width: 100%;
+    height: .56rem;
+    border-bottom: .02rem solid #0a396d;
+    text-align: center;
+    z-index: 999;
+}
+.table {
+	display: table;
+	height: 100%;
+}
+.table-cell {
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
+	line-height: 0;
+}
+.header-top .logo {
+	height: 0.56rem;
+}
+
+.header-top .search {
+	margin-top: 0.09rem;
+	width: 1.2rem;
+	height: 0.38rem;
+    border-radius: 5rem;
+    border: 0.01rem solid #F6F6F6;
+    background-color: #D6D6D6;
+    margin-right: 0.08rem;
+    margin-left: 0.08rem;
+    position: relative;
+}
+
+.header-top .search .title {
+	height: 0.38rem;
+	line-height: 0.38rem;
+	display: block;
+}
+
+.header-top .search .icon-search {
+	left: 0.15rem;
+	top: 0.09rem;
+	position: absolute;
+}
+
+.header-top .top-right {
+	margin-right: 0.08rem;
+}
+
+.header-top .mean {
+	margin-top: 0.115rem;
+}

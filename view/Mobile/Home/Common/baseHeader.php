@@ -20,3 +20,19 @@
 <script type="text/javascript">
 var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
+<div class="header-top fixed">
+    <div class="table left">
+        <div class="table-cell logo">
+            <img src="<?php echo siteUrl('image/mobile/logo.png');?>">
+        </div>
+    </div>
+    <div class="right top-right">
+        <a class="block mean right" href="javascript:;">
+            <i class="iconfont icon-nav font-30"></i>
+        </a>
+        <a class="block search right" href="<?php echo url('index/search');?>">
+            <span class="iconfont icon-search font-16"></span>
+            <span class="font-16 title"><?php echo dist('搜索');?></span>
+        </a>
+    </div>
+</div>
