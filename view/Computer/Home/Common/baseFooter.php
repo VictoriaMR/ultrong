@@ -24,7 +24,7 @@
 							</ul>
 						</div>
 						<div class="site-content">
-							<p>&copy;2020-<?php echo date('Y', strtotime('+1 year', strtotime(date('Y-m-d', time()))));?>&nbsp;<?php echo dist($site['name']);?>&reg;&nbsp;<?php echo dist('版权所有');?></p>
+							<p>&copy;2020-<?php echo date('Y', strtotime('+1 year', strtotime(date('Y-m-d', time()))));?>&nbsp;<?php echo $site['name'];?>&reg;&nbsp;<?php echo dist('版权所有');?></p>
 							<?php if (!empty($site['phone'])) { ?>
 							<p><?php echo dist('业务咨询');?> :&nbsp;<?php echo $site['phone'];?></p>
 							<?php } ?>
