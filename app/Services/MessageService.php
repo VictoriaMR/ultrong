@@ -178,6 +178,11 @@ class MessageService extends BaseService
     	return $this->memberModel->where('group_key', $key)->where('user_id', $userId)->count() > 0;
     }
 
+    public function getToUserId()
+    {
+        return 500000002;
+    }
+
     public function getListByGroupkey($groupKey, $userId, $lastId = 0)
     {
         if (empty($groupKey) || empty($userId)) return [];
@@ -205,7 +210,7 @@ class MessageService extends BaseService
             }
             $value['user_avatar'] = !empty($info['avatar']) ? $info['avatar'] : $memberService->getDefaultAvatar($value['user_id']);
             $value['is_self'] = $value['user_id'] == $userId ? 1 : 0;
-            if ($value['create_at'] - $lastTime > 300) {
+            if ($value['create_at'] - $lastTime > 600) {
                 $lastTime = $value['create_at'];
                 $value['create_at'] = date('Y-m-d H:i', $value['create_at']);
             } else {

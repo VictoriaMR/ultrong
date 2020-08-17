@@ -87,8 +87,8 @@ class IndexController extends Controller
 		}
 
 		$message = \App::make('App/Services/MessageService');
-		// dd(implode(PHP_EOL, $tempData));
-		$result = $message->sendMessage(ipUserId(), 500000001, implode(PHP_EOL, $tempData));
+		$toUserId = $message->getToUserId();
+		$result = $message->sendMessage(ipUserId(), $toUserId, implode('<br />', $tempData));
 		if ($result)
 			return $this->result(200, $result, ['message' => dist('发送成功')]);
 		else
@@ -98,7 +98,8 @@ class IndexController extends Controller
 	public function createContact()
 	{
 		$message = \App::make('App/Services/MessageService');
-		$key = $message->createGroup(ipUserId(), 0, 500000002);
+		$toUserId = $message->getToUserId();
+		$key = $message->createGroup(ipUserId(), 0, $toUserId);
 		if ($key)
 			return $this->result(200, $key, ['message' => dist('创建成功')]);
 		else

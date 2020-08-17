@@ -75,6 +75,8 @@ var FOOTER = {
             API.post(data.contact_url, $(this).parent('form').serializeArray(), function(res) {
                 POP.tips(res.message);
                 _thisobj.parent('form').find('[required="required"]').val('');
+                if ($('.chat .chat-content').is(':visible'))
+                    CHAT.get();
             });
         });
     }
@@ -111,6 +113,13 @@ var CHAT = {
             }
             CHAT.send(val);
         });
+        //绑定发送enter键
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                $('.chat .chat-button .btn').trigger('click');
+            }
+        }
     },
     //获取信息
     start:function()
@@ -182,6 +191,6 @@ var CHAT = {
     },
     initBottom: function()
     {
-        $('#chat-text-content').animate({scrollTop: $('#chat-text-content').height()}, 100);
+        $('#chat-text-content').animate({scrollTop: $('#chat-text-content').height()+200}, 100);
     }
 };
