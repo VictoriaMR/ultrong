@@ -6,7 +6,7 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="apple-mobile-web-app-title" content="<?php echo dist($_name ?? '');?>" />
+    <meta name="apple-mobile-web-app-title" content="<?php echo $_name ?? '';?>" />
     <meta name="keywords" content="<?php echo $_seo ?? '';?>" />
     <meta name="description" content="<?php echo $_description ?? '';?>" />
     <link rel="shortcut icon" href="image/favicon.ico" />
