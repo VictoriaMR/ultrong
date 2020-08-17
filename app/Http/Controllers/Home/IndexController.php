@@ -94,4 +94,39 @@ class IndexController extends Controller
 		else
 			return $this->result(10000, $result, ['message' => dist('发送失败')]);
 	}
+
+	public function createContact()
+	{
+		$message = \App::make('App/Services/MessageService');
+		$key = $message->createGroup(ipUserId(), 0, 500000002);
+		if ($key)
+			return $this->result(200, $key, ['message' => dist('创建成功')]);
+		else
+			return $this->result(10000, $key, ['message' => dist('创建失败')]);
+	}
+
+	public function contactList()
+	{
+		$groupKey = ipost('group_key');
+		$lastId = ipost('last_id', 0);
+		if (empty($groupKey)) return $this->result(10000, false, ['message' => dist('参数错误')]);
+
+		$message = \App::make('App/Services/MessageService');
+		$list = $message->getListByGroupkey($groupKey, ipUserId(), $lastId);
+
+		return $this->result(200, $list);
+	}
+
+	public function sendContact()
+	{
+		$groupKey = ipost('group_key');
+		$content = ipost('content');
+		if (empty($groupKey) || empty($content)) return $this->result(10000, false, ['message' => dist('参数错误')]);
+		$message = \App::make('App/Services/MessageService');
+		$res = $message->sendMessageByKey($groupKey, $content, ipUserId());
+		if ($res)
+			return $this->result(200, $res, ['message' => dist('发送成功')]);
+		else
+			return $this->result(10000, $res, ['message' => dist('发送失败')]);
+	}
 }

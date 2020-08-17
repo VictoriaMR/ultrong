@@ -57,11 +57,42 @@
 	<div class="goto-top">
 		<i class="icon icon-50 icon-to-top"></i>
 	</div>
+	<div class="chat">
+		<div class="chat_button_bar">
+			<div class="favicon">💬</div>
+			<div class="title"><?php echo dist('联系我们');?></div>
+		</div>
+		<div class="chat-content hidden">
+			<div class="content-title">
+				<span><?php echo dist('客服');?></span>
+				<span class="right block close-hide" style="padding: 0 10px;">-</span>
+			</div>
+			<div id="chat-text-content">
+				<p class="text-center">
+					<span class="title"><?php echo dist('欢迎您的咨询, 期待为您服务');?></span>
+				</p>
+			</div>
+			<div class="chat-button">
+				<div class="left">
+					<input type="input" class="input" name="chat" />
+				</div>
+				<div class="right" style="margin-right: 5px;">
+					<button class="btn"><?php echo dist('发送');?></button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 	$(function(){
 		FOOTER.init({
 			contact_url: "<?php echo url('index/contact');?>",
 			empty_text: "<?php echo dist('不能为空');?>",
+		});
+		CHAT.init({
+			contact_url: "<?php echo url('index/sendContact');?>",
+			empty_text: "<?php echo dist('不能为空');?>",
+			create_url: "<?php echo url('index/createContact');?>",
+			list_url: "<?php echo url('index/contactList');?>"
 		});
 	});
 	</script>

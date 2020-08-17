@@ -11,6 +11,8 @@ use frame\Session;
  */
 class MemberService extends BaseService
 {	
+	const INFO_CACHE_TIMEOUT = 3600 *24;
+
 	public function __construct(Member $model)
     {
         $this->baseModel = $model;
@@ -283,16 +285,28 @@ class MemberService extends BaseService
     public function getInfoCache($userId)
     {
         $cacheKey = $this->getInfoCacheKey($userId);
-
-        if ($info = Cache::get($cacheKey)) {
+        $info = Redis()->get($cacheKey);
+        if (!empty($info)) {
             return $info;
         } else {
             $info = $this->getInfo($userId);
-
-            Cache::put($cacheKey, $info, self::constant('INFO_CACHE_TIMEOUT'));
+            if (!empty($info)) {
+            	if (!empty($info['avatar'])) {
+            		$info['avatar'] = $this->getDefaultAvatar($userId);
+            	}
+            }
+            Redis()->set($cacheKey, $info, self::INFO_CACHE_TIMEOUT);
 
             return $info;
         }
+    }
+
+    public function getDefaultAvatar($userId)
+    {
+    	if (substr($userId, 0, 1) == 5)
+    		return siteUrl('image/computer/admin_login_bg.png');
+    	else
+    		return siteUrl('image/computer/male.jpg');
     }
 
     /**

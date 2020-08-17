@@ -62,7 +62,7 @@ class LogService extends BaseService
     	$list = $this->baseModel->where($where)
     							->offset(($page - 1) * $size)
                     			->limit($size)
-                    			->orderBy([['create_at','desc']])
+                    			->orderBy('create_at', 'desc')
                     			->get();
 
         foreach ($list as $key => $value) {

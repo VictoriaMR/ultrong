@@ -70,4 +70,9 @@ class Member extends BaseModel
 
         return $result;
     }
+
+    public function getInfo($userId)
+    {
+        return $this->where('mem_id', (int)$userId)->find();
+    }
 }

@@ -131,6 +131,11 @@ class MessageService extends BaseService
 			];
 		}
 		$result = $this->memberModel->insert($insert);
+        if (empty($type) && substr($toUser, 0, 1) == 5) {
+            // 发送初始化聊天术语
+            $content = '您好, 欢迎您的咨询, 请问有什么需要帮助的吗';
+            $this->sendMessageByKey($groupKey, dist($content), $toUser);
+        }
 		if (!$result) return false;
 		return $groupKey;
     }
@@ -171,5 +176,45 @@ class MessageService extends BaseService
     	if (empty($key) || empty($userId)) return false;
 
     	return $this->memberModel->where('group_key', $key)->where('user_id', $userId)->count() > 0;
+    }
+
+    public function getListByGroupkey($groupKey, $userId, $lastId = 0)
+    {
+        if (empty($groupKey) || empty($userId)) return [];
+        if (!$this->isExistMember($groupKey, $userId)) return [];
+
+        $list = $this->baseModel->where('group_key', $groupKey)
+                                ->where('message_id', '>', (int) $lastId)
+                                ->orderBy('create_at', 'asc')
+                                ->get();
+
+        if (empty($list)) return $list;
+
+        $memberService = \App::make('App/Services/MemberService');
+        $adminMemberService = \App::make('App/Services/Admin/MemberService');
+        $lastTime = $this->baseModel->loadData($lastId);
+        $lastTime = $lastTime['create_at'] ?? 0;
+        foreach ($list as $key => $value) {
+            $info = [];
+            if (!empty($value['user_id'])) {
+                if (substr($value['user_id'], 0, 1) == 5) {
+                    $info = $adminMemberService->getInfoCache($value['user_id']);
+                } else {
+                    $info = $memberService->getInfoCache($value['user_id']);
+                }
+            }
+            $value['user_avatar'] = !empty($info['avatar']) ? $info['avatar'] : $memberService->getDefaultAvatar($value['user_id']);
+            $value['is_self'] = $value['user_id'] == $userId ? 1 : 0;
+            if ($value['create_at'] - $lastTime > 300) {
+                $lastTime = $value['create_at'];
+                $value['create_at'] = date('Y-m-d H:i', $value['create_at']);
+            } else {
+                $value['create_at'] = '';
+            }
+
+            $list[$key] = $value;
+        }
+
+        return $list;
     }
 }
