@@ -21,13 +21,13 @@
 var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
 <div class="header-top fixed">
-    <div class="table left">
-        <div class="table-cell logo">
+    <div class="table left margin-left-10">
+        <a href="<?php echo url('');?>" class="table-cell logo">
             <img src="<?php echo siteUrl('image/mobile/logo.png');?>">
-        </div>
+        </a>
     </div>
     <div class="right top-right">
-        <a class="block mean right" href="javascript:;">
+        <a class="block mean right close" id="top-mean" href="javascript:;">
             <i class="iconfont icon-nav font-30"></i>
         </a>
         <a class="block search right" href="<?php echo url('index/search');?>">
@@ -36,3 +36,30 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
         </a>
     </div>
 </div>
+<!-- 导航栏 -->
+<div class="menu-box hidden">
+    <div class="menu-sy-mask"></div>
+    <div class="menu-content bg-white"></div>
+</div>
+<style type="text/css">
+.menu-box .menu-sy-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #000000;
+    left: 0;
+    top: .58rem;
+    z-index: 16000006;
+    opacity: 0.65;
+}
+.menu-box .menu-content {
+    width: 75%;
+    right: 0;
+    top: .58rem;
+    position: fixed;
+    height: calc(100% - 0.58rem);
+    z-index: 16000007;
+    overflow: auto;
+    right: -75%;
+}
+</style>

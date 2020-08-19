@@ -147,6 +147,10 @@ table {
     display: block;
 }
 
+.bg-white {
+    background-color: #fff;
+}
+
 .bg-f4 {
     background-color: #f4f4f4;
 }
