@@ -24,9 +24,9 @@ class ShowController extends Controller
 		//访客总数
 		$total = $this->baseService->getTotal();
 		//本月访客人数
-		$monthTotal = $this->baseService->getTotal(['create_at', '>', strtotime(date("Y-m-d H:i:s", mktime(0, 0, 0, date('m', time()), 1, date('Y', time()))))]);
+		$monthTotal = $this->baseService->getTotal(['create_at'=>['>', strtotime(date("Y-m-d H:i:s", mktime(0, 0, 0, date('m', time()), 1, date('Y', time()))))]]);
 		//今日访客人数
-		$dateTotal = $this->baseService->getTotal(['create_at', '>', strtotime(date('Y-m-d', time()))]);
+		$dateTotal = $this->baseService->getTotal(['create_at'=>['>', strtotime(date('Y-m-d', time()))]]);
 
 		//访客人数按月统计
 		$monthList = $this->baseService->monthList();

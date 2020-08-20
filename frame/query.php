@@ -43,20 +43,7 @@ Class Query
 		if (is_array($column)) {
 			foreach ($column as $key => $value) {
 				if (is_array($value)) {
-					$count = count($value);
-					if (is_numeric($key)) {
-						if ($count < 3) {
-							$this->_where[] = [$value[0], '=', $value[1] ?? null];
-						} else {
-							$this->_where[] = [$value[0], $value[1], $value[2]];
-						}
-					} else {
-						if ($count < 2) {
-							$this->_where[] = [$key, '=', $value[0]];
-						} else {
-							$this->_where[] = [$key, $value[0], $value[1]];
-						}
-					}
+					$this->_where[] = [$key, $value[0], $value[1]];
 				} else {
 					$this->_where[] = [$key, '=', $value];
 				}
