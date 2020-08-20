@@ -41,6 +41,9 @@ class VerifyToken
 
         switch ($request['Class']) {
             case 'Admin':
+                if (isMobile()) {
+                    exit('请使用电脑端访问!');
+                }
                 if (!Session::login('admin')) {
                     if (IS_AJAX) {
                         $controller = \App::make('App\Http\Controllers\Controller');
