@@ -189,7 +189,7 @@
     border-top-left-radius: 0.05rem;
     border-top-right-radius: 0.05rem;
     position: relative;
-    width: 100%;
+    width: 100vw;
     z-index: 999999;
     background: #ffff;
 }
