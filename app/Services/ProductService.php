@@ -35,7 +35,7 @@ class ProductService extends BaseService
             $cateList = array_column($cateList, null, 'cate_id');
             //语言列表
             $lanList = $languageService->getList();
-            $lanList = array_column($lanList, null, 'cate_id');
+            $lanList = array_column($lanList, null, 'lan_id');
             foreach ($list as $key => $value) {
                 $value['cate_name'] = $cateList[$value['cate_id']]['name'] ?? '';
                 $value['language_name'] = $lanList[$value['lan_id']]['name'] ?? '';

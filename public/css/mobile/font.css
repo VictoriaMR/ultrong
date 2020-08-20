@@ -6,6 +6,10 @@
     font-weight: 700;
 }
 
+.font-0 {
+	font-size: 0;
+}
+
 .font-12 {
 	font-size: .12rem;
 }

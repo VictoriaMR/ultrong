@@ -68,8 +68,8 @@ class App
         }
 
         if ($info['Class'] == 'Admin') {
-            Html::addCss('bootstrap', true);
-            Html::addJs(['modal', 'button']);
+            Html::addCss(['bootstrap', 'datepicker'], true);
+            Html::addJs(['modal', 'button', 'datetimepicker', 'datepicker_cn']);
         } else if ($info['Class'] == 'Home') {
             Html::addJs('syalert');
         }

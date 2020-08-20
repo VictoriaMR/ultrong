@@ -36,6 +36,9 @@ class SiteController extends Controller
 					'domain' => ipost('domain', ''),
 					'phone' => ipost('phone', ''),
 					'email' => ipost('email', ''),
+					'ipc' => ipost('ipc', ''),
+					'gray_start_at' => !empty(ipost('start_at', '')) ? strtotime(ipost('start_at', '').' 00:00:00') : 0,
+					'gray_end_at' => !empty(ipost('end_at', '')) ? strtotime(ipost('end_at', '').' 23:59:59') : 0,
 				];
 
 				$result = $this->baseService->updateDataById($siteId, $data);
@@ -56,6 +59,7 @@ class SiteController extends Controller
 			'domain' => '站点网址',
 			'phone' => '电话',
 			'email' => 'Email',
+			'ipc' => '备案号',
 		];
 
 		$this->assign('name', $name);

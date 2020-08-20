@@ -1,24 +1,37 @@
+.btn {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: #41bdd7;
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.input {
+    width: calc(100% - 22px);
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #29314a;
+    padding: 0 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    background: none;
+    color: #a9a9a9;
+}
 .header-top {
     width: 100%;
     height: .56rem;
     border-bottom: .02rem solid #0a396d;
     text-align: center;
     z-index: 999;
-}
-.table {
-	display: table;
-	height: 100%;
-}
-.table-cell {
-	display: table-cell;
-	vertical-align: middle;
-	height: 100%;
-	line-height: 0;
+    background-color: #fff;
+    overflow: hidden;
 }
 .header-top .logo {
 	height: 0.56rem;
 }
-
 .header-top .search {
 	margin-top: 0.09rem;
 	width: 1.2rem;
@@ -26,27 +39,234 @@
     border-radius: 5rem;
     border: 0.01rem solid #F6F6F6;
     background-color: #D6D6D6;
-    margin-right: 0.08rem;
-    margin-left: 0.08rem;
+    margin-right: 0.10rem;
+    margin-left: 0.10rem;
     position: relative;
 }
-
 .header-top .search .title {
 	height: 0.38rem;
 	line-height: 0.38rem;
 	display: block;
 }
-
 .header-top .search .icon-search {
 	left: 0.15rem;
 	top: 0.09rem;
 	position: absolute;
 }
-
-.header-top .top-right {
-	margin-right: 0.08rem;
-}
-
 .header-top .mean {
 	margin-top: 0.115rem;
+}
+.menu-box .menu-sy-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #000000;
+    left: 0;
+    top: .58rem;
+    z-index: 16000006;
+    opacity: 0.65;
+}
+.menu-box .menu-content {
+    width: 75%;
+    right: 0;
+    top: .58rem;
+    position: fixed;
+    height: calc(100% - 0.58rem);
+    z-index: 16000007;
+    overflow: auto;
+    right: -75%;
+}
+.menu-box .menu-content .item-box {
+    width: 100%;
+    border-bottom: .01rem solid #E7E7E7;
+}
+.menu-box .menu-content .item {
+    height: .48rem;
+    line-height: .48rem;
+    padding-left: .15rem;
+    padding-right: 0.10rem;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: calc(100% - .15rem - 0.10rem);
+    border-bottom: .01rem solid #E7E7E7;
+    text-overflow: ellipsis;
+}
+.menu-box .menu-content .item .icon-more {
+    position: absolute;
+    right: 0.08rem;
+    top: 0;
+}
+.menu-box .menu-content .category-box {
+    position: absolute;
+    width: 100%;
+    left: 100%;
+    top: 0;
+    height: 100%;
+    z-index: 9999;
+    background: #FFFFFF;
+}
+.menu-box .menu-content .nav-category ul>li {
+    height: .48rem;
+    line-height: .48rem;
+    padding-left: .32rem;
+    border-bottom: .01rem solid #E7E7E7;
+    display: block;
+    position: relative;
+}
+.menu-box .menu-content .view-all {
+    font-size: 0.12rem;
+    font-weight: 400;
+    color: #999999;
+    float: right;
+}
+#footer {
+    border-top: 0.01rem solid #0a396d;
+    padding-bottom: 0.15rem;
+}
+.footer-nav {
+    padding: 0.1rem;
+    background-color: #0a396d;
+}
+.footer-nav ul li {
+    width: calc(100% / 4);
+    border-right: 0.01rem solid #fff;
+    float: left;
+    text-align: center;
+    height: 0.22rem;
+    line-height: 0.22rem;
+    margin: 0.1rem 0;
+}
+.footer-nav ul li:last-child {
+    border-right: none;
+}
+.chat {
+    position: fixed;
+    z-index: 99999;
+    bottom: 0.15rem;
+    right: 0.15rem;
+    overflow: hidden;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 0.05rem;
+    box-shadow: 0px 0px 0.03rem 0.02rem rgba(0,0,0,0.1);
+}
+.chat .chat_button_bar {
+    min-width: 0.50rem;
+    max-width: 3rem;
+    height: 0.30rem;
+    border-top-left-radius: 0.05rem;
+    border-top-right-radius: 0.05rem;
+    color: #ffffff;
+    background: #7dc10b;
+}
+.chat .favicon {
+    float: left;
+    padding-top: 0.08rem;
+    border-top-left-radius: 0.05rem;
+    border-bottom-left-radius: 0.05rem;
+    font-size: 0.16rem;
+    height: 0.22rem;
+    vertical-align: text-top;
+    text-align: center;
+    width: 0.36rem;
+    background: #6fb300;
+    color: #ffffff;
+    font-family: zopim, "Segoe UI Symbol", "Arial Unicode MS", "Lucida Sans Unicode", sans-serif;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+.chat .chat_button_bar .title {
+    padding: 0 0.20rem;
+    display: block;
+    float: left;
+    line-height: 0.30rem;
+}
+.chat .chat-content {
+    border-top-left-radius: 0.05rem;
+    border-top-right-radius: 0.05rem;
+    position: relative;
+    width: 100%;
+    z-index: 999999;
+    background: #ffff;
+}
+.chat .content-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    z-index: 10;
+    height: 0.24rem;
+    line-height: 0.24rem;
+    color: #f8fcf3;
+    background: #7dc10b;
+    border-top-left-radius: 0.05rem;
+    border-top-right-radius: 0.05rem;
+}
+#chat-text-content {
+    padding: 0.34rem 0.10rem 0.10rem 0.10rem;
+    height: calc(100% - 0.34rem - 0.60rem);
+    overflow-y: auto;
+    border-top-left-radius: 0.05rem;
+    border-top-right-radius: 0.05rem;
+}
+#chat-text-content .title {
+    margin: 0 auto;
+    background: #EFF3F6;
+    border-radius: 0.04rem;
+    padding: 0.03rem 0.05rem;
+    font-size: 0.12rem;
+}
+#chat-text-content p {
+    margin-bottom: 0.05rem;
+}
+#chat-text-content .avatar {
+    height: 0.30rem;
+    width: 0.30rem;
+    line-height: 0.30rem;
+    text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.01rem solid #ccc;
+}
+#chat-text-content .avatar.left {
+    margin-right: 0.05rem;
+}
+#chat-text-content .avatar.right {
+    margin-left: 0.05rem;
+}
+#chat-text-content .content {
+    max-width: calc(100% - 0.55rem);
+    word-break: break-all;
+    padding: 0.05rem 0.08rem;
+    background: #EFF3F6;
+    border-radius: 0.04rem;
+    line-height: 0.22rem;
+}
+#chat-text-content .content.right {
+    background: #7dc10b;
+    color: #fff;
+}
+.chat .chat-button {
+    position: absolute;
+    width: calc(100% - 0.18rem);
+    bottom: 0;
+    height: 0.32rem;
+    padding: 0.09rem;
+    border-top: 0.01rem solid #e7e7e7;
+}
+.chat .chat-button .btn {
+    height: 0.32rem;
+    line-height: 0.32rem;
+    width: 1rem;
+    border-radius: 0.04rem;
+    background-color: #7dc10b;
+}
+.chat .input {
+    border-color: #7dc10b;
 }

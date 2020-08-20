@@ -41,32 +41,31 @@ Class Query
 
 		//简单处理 where条件
 		if (is_array($column)) {
-			$check = false;
 			foreach ($column as $key => $value) {
 				if (is_array($value)) {
-					$check = true;
 					$count = count($value);
-					if ($count == 1) {
-						$this->_where[] = [$key, '=', $value];
-					} elseif ($count == 2) {
-						$this->_where[] = [$value[0], '=', $value[1]];
+					if (is_numeric($key)) {
+						if ($count < 3) {
+							$this->_where[] = [$value[0], '=', $value[1] ?? null];
+						} else {
+							$this->_where[] = [$value[0], $value[1], $value[2]];
+						}
 					} else {
-						$this->_where[] = [$value[0], $value[1], $value[2]];
+						if ($count < 2) {
+							$this->_where[] = [$key, '=', $value[0]];
+						} else {
+							$this->_where[] = [$key, $value[0], $value[1]];
+						}
 					}
-				} else if (count($column) < 3){
-					$check = true;
+				} else {
 					$this->_where[] = [$key, '=', $value];
 				}
 			}
-			if (!$check) {
-				$this->_where[] = $column;
-			} 
 		} else {
 			if ($value === null) {
 				$value = $operator;
 				$operator = '=';
 			}
-
 			$this->_where[] = [$column, $operator, $value];
 		}
 

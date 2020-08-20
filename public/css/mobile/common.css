@@ -251,3 +251,30 @@ table {
 .width-100 {
     width: 100%;
 }
+.table {
+    display: table;
+    height: 100%;
+}
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    line-height: 0;
+}
+.word-ellipsis-1, 
+.word-ellipsis-2 {
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.word-ellipsis-1{
+    -webkit-line-clamp: 1;
+}
+
+.word-ellipsis-2 {
+    -webkit-line-clamp: 2;
+}

@@ -18,6 +18,19 @@
     <?php }?>
 </head>
 <body>
+<?php if ($site['gray_start_at'] <= time() && $site['gray_end_at'] >= time()) { ?>
+<style type="text/css">
+html {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+</style>
+<?php } ?>
 <script type="text/javascript">
 var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
@@ -60,12 +73,12 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                                 <li>
                                     <a href="<?php echo url();?>" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist('首页');?></a>
                                 </li>
-                                <?php foreach ($nav_list as $key => $value) { ?>
+                                <?php foreach ($nav_list as $value) { ?>
                                 <li>
                                     <a href="<?php echo $value['url'];?>" class="title <?php echo $controller == $value['name_en'] ? 'selected' : '';?>"><?php echo $value['name'];?></a>
                                     <?php if (!empty($value['son'])) { ?>
                                     <ul class="nav-son">
-                                    <?php foreach ($value['son'] as $k => $v) { ?>
+                                    <?php foreach ($value['son'] as $v) { ?>
                                     <li>
                                         <a href="<?php echo $v['url'];?>" class="block"><?php echo $v['name'];?></a>
                                     </li>

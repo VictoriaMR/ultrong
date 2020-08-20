@@ -1,5 +1,5 @@
 <?php $this->load('Common.baseHeader');?>
-<?php if (!empty($banner)) { ?>
+<?php if (!empty($banner['content'])) { ?>
 <div id="slider-content" class="relative">
     <ul class="inline-block-box">
         <?php foreach ($banner['content'] as $key => $value) { ?>
