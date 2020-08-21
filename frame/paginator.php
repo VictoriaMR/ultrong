@@ -18,7 +18,7 @@ class Paginator
     // 显示顺序模版 默认bootstrip风格, {total} 总记录条数, {listRows} 每页显示条数
     // {currentPage} 当前页码, {totalPages} 总计多少页, {first} 首页按钮, {prev} 前一页按钮, {paging} 当前分页序列信息, {next} 下一页,{ last} 尾页
         'template' => [
-            'global' => '<nav><ul class="pagination"><li  class="disabled"><span>总数 {total} 条, 共 {listRows} 页, 第 {currentPage} 页</span></li>{first}{prev}{paging}{next}{last}</ul></nav>',
+            'global' => '<nav><ul class="pagination"><li  class="disabled"><span>总数 {total} 条, 每页 {listRows} 条, 第 {currentPage} 页</span></li>{first}{prev}{paging}{next}{last}</ul></nav>',
             'first' => [ // 可以区分是否可用分别定义模版， 如果直接定义模版，表示不区分可用状态
                 'enabled' => '<li><a href="{url}">{text}</a></li>',
                 'disabled' => '<li  class="disabled"><span>{text}</span></li>', // 定义为具体模版， 或者false表示不显示
@@ -300,9 +300,9 @@ class Paginator
             return "javascript:".$this->isAjax."(".$page.")";
         } else {
             if($page>1){
-                return url($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
+                return adminUrl($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
             } else {
-                return url($this->urlParam['controller'],$this->urlParam['param']);
+                return adminUrl($this->urlParam['controller'],$this->urlParam['param']);
             }
         }
     }

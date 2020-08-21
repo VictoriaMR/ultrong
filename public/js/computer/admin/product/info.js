@@ -48,8 +48,6 @@ var PRODUCT = {
 			if (id)
 				img.push(id);
 		});
-
-		console.log(img)
 		$('input[name="image"]').val(img.join(','));
 	},
 	save: function(data)
