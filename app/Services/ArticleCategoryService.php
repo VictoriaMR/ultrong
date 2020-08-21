@@ -8,6 +8,7 @@ use App\Models\ArticleCategory;
 class ArticleCategoryService extends BaseService
 {
 	const CACHE_KEY = 'ARTICLE_CATEGORY_LIST_CACHE';
+    const CACHE_INFO_KEY = 'ARTICLE_CATEGORY_CACHE_INFO';
 
 	protected static $constantMap = [
         'base' => ArticleCategory::class,
@@ -62,7 +63,9 @@ class ArticleCategoryService extends BaseService
 
     public function cleanCache()
     {
-        return Redis()->del(self::CACHE_KEY);
+        Redis()->del(self::CACHE_KEY);
+        Redis()->del(self::CACHE_INFO_KEY);
+        return true;
     }
 
 
@@ -95,5 +98,17 @@ class ArticleCategoryService extends BaseService
 
         return $this->baseModel->where('parent_id', $parentId)
                                ->delete();
+    }
+
+    public function getInfoCache($cateId)
+    {
+        $cateId = (int) $cateId;
+        if (empty($cateId)) return [];
+        $info = Redis()->hGet(self::constant('CACHE_INFO_KEY'), $cateId);
+        if (empty($info)) {
+            $info = $this->baseModel->loadData($cateId);
+            Redis()->hSet(self::constant('CACHE_INFO_KEY'), $cateId, $info);
+        }
+        return $info;
     }
 }

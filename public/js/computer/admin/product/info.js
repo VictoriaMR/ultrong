@@ -44,11 +44,12 @@ var PRODUCT = {
 	{
 		var img = [];
 		$('.upload-item').each(function(){
-			var id = $(this).data('attach_id');
+			var id = $(this).attr('data-attach_id');
 			if (id)
 				img.push(id);
 		});
 
+		console.log(img)
 		$('input[name="image"]').val(img.join(','));
 	},
 	save: function(data)

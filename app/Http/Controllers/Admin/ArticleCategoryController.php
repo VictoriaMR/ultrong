@@ -89,8 +89,10 @@ class ArticleCategoryController extends Controller
 
 		$result = $this->baseService->deleteById($cateId);
 
-		if ($result)
+		if ($result) {
+			$this->baseService->cleanCache();
 			return $this->result(200, $result, ['message' => '删除成功']);
+		}
 		else
 			return $this->result(10000, $result, ['message' => '删除失败']);
 	}

@@ -53,8 +53,8 @@ var CATEGORY = {
 	    	event.stopPropagation();
 	    	var _thisobj = $(this);
 	    	confirm('确定删除吗?', function(){
-	    		var con_id = _thisobj.parents('tr').data('con_id');
-	    		API.post(ADMIN_URI+'articleCategory/delete', { con_id: con_id}, function(res) {
+	    		var cate_id = _thisobj.parents('tr').data('cate_id');
+	    		API.post(ADMIN_URI+'articleCategory/delete', { cate_id: cate_id}, function(res) {
 	    			if (res.code == 200) {
 	    				successTips(res.message);
 	    				window.location.reload();

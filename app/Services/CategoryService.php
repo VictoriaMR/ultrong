@@ -67,7 +67,7 @@ class CategoryService extends BaseService
 	{
 		$cateId = (int) $cateId;
 		if (empty($cateId)) return [];
-		$info = Redis()->hGet(self::CACHE_INFO_KEY, $cateId);
+		$info = Redis()->hGet(self::constant('CACHE_INFO_KEY'), $cateId);
 		if (empty($info)) {
 			$info = $this->baseModel->loadData($cateId);
 			Redis()->hSet(self::constant('CACHE_INFO_KEY'), $cateId, $info);

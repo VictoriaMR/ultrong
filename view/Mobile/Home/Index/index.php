@@ -4,7 +4,7 @@
 	<div class="image-slider">
 		<ul class="font-0">
 			<?php foreach ($banner['content'] as $value) { ?>
-			<li>
+			<li <?php if (!empty($value['background'])){?>style="background-color: <?php echo $value['background'];?>;" <?php } ?>>
 				<a class="block" href="<?php echo !empty($value['href']) ? $value['href'] : 'javascript:;';?>">
 					<img src="<?php echo $value['url'];?>">
 				</a>

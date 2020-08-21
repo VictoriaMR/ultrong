@@ -4,7 +4,7 @@
     <ul class="inline-block-box">
         <?php foreach ($banner['content'] as $key => $value) { ?>
         <li class="slider inline-block" data-index="<?php echo $key;?>">
-            <div style="background-color: <?php echo $value['background'] ?? '#000';?>;">
+            <div <?php if (!empty($value['background'])){?>style="background-color: <?php echo $value['background'];?>;" <?php } ?>>
                 <a class="block" href="<?php echo $value['href'] ?? 'javascript:;';?>">
                     <img src="<?php echo $value['url'];?>">
                 </a>

@@ -152,17 +152,17 @@ class Router
 	{
 		$url = trim(trim($url), '/');
 		if (empty($url)) return Env('APP_DOMAIN');
-
+		$url = strtolower($url);
 		switch ($url) {
 			//产品列表
-			case 'productList':
+			case 'productlist':
 				$cid = $param['cate_id'] ?? 0;
 				$url = '';
 				if (!empty($cid)) {
 					$categoryService = \App::make('App\Services\CategoryService');
 					$info = $categoryService->getInfoCache($cid);
 					$url = self::specialChar($info['name_en'] ?? '');
-					$url .= '-l-'.$param['cate_id'].'.html';
+					$url .= '-pl-'.$param['cate_id'].'.html';
 				}
 				break;
 			//产品详情
@@ -180,7 +180,7 @@ class Router
 					}
 					$url .= $info['name_en'] ?? '';
 					$url = self::specialChar($url);
-					$url .= '-p-'.$param['pro_id'].'-'.$param['lan_id'].'.html';
+					$url .= '-p-'.$proId.'-'.$lanId.'.html';
 				}
 				break;
 			//文章详情
@@ -188,10 +188,18 @@ class Router
 				$artId = $param['art_id'] ?? 0;
 				$lanId = $param['lan_id'] ?? 0;
 				$url = '';
-				if (!empty($proId) && !empty($lanId)) {
-					$articleCategoryService = \App::make('App/Services/ArticleCategoryService');
+				if (!empty($artId) && !empty($lanId)) {
         			$articleService = \App::make('App/Services/ArticleService');
-        			$temp = $articleService->getInfoCache($artId, $lanId);
+        			$info = $articleService->getInfoCache($artId, $lanId);
+        			dd($info);
+        			if (!empty($info['cate_id'])) {
+						$articleCategoryService = \App::make('App/Services/ArticleCategoryService');
+						$temp = $articleCategoryService->getInfoCache($info['cate_id']);
+						$url .= ($temp['name_en'] ?? '').'-';
+					}
+					$url .= $info['name_en'] ?? '';
+					$url = self::specialChar($url);
+					$url .= '-a-'.$artId.'-'.$lanId.'.html';
 				}
 				break;
 		}
