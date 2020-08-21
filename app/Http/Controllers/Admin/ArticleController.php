@@ -104,6 +104,7 @@ class ArticleController extends Controller
 		$status = (int) ipost('status', 0);
 		$isHot = (int) ipost('is_hot', 0);
 		$name = ipost('name');
+		$name_en = ipost('name_en');
 		$image = ipost('image');
 		$no = ipost('no');
 		$desc = ipost('desc');
@@ -116,6 +117,9 @@ class ArticleController extends Controller
 
 		if (!empty($name))
 			$data['name'] = $name;
+
+		if (!empty($name_en))
+			$data['name_en'] = $name_en;
 
 		if (!empty($no))
 			$data['no'] = $no;

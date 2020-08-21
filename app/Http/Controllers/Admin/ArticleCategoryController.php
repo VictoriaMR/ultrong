@@ -38,6 +38,7 @@ class ArticleCategoryController extends Controller
 		$cateId = (int) ipost('cate_id');
 		$parentId = (int) ipost('parent_id', 0);
 		$name = ipost('name', '');
+		$name_en = ipost('name_en', '');
 		$status = ipost('status', null);
 		$data = [];
 
@@ -47,6 +48,8 @@ class ArticleCategoryController extends Controller
 
 		if (!empty($name))
 			$data['name'] = $name;
+		if (!empty($name_en))
+			$data['name_en'] = $name_en;
 
 		if (empty($data))
 			return $this->result(10000, false, ['message'=>'参数不正确']);

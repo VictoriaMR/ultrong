@@ -51,3 +51,8 @@
 	display: block;
 	color: #333;
 }
+
+.image {
+	max-height: 60px;
+	max-width: 60px;
+}

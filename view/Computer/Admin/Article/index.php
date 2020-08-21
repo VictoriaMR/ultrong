@@ -43,7 +43,11 @@
 			<?php foreach ($list as $key => $value) { ?>
 			<tr>
 				<td><?php echo $value['art_id'];?></td>
-				<td><?php echo $value['image'];?></td>
+				<td>
+					<?php if (!empty($value['image'])){ ?>
+					<img class="image" src="<?php echo $value['image'];?>">
+					<?php } ?>
+				</td>
 				<td><?php echo $value['name'];?></td>
 				<td><?php echo $value['desc'];?></td>
 				<td>

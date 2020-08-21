@@ -59,7 +59,7 @@ class ArticleService extends BaseService
 
     public function getListFormat($where = [])
     {
-        return $this->baseModel->where($where)->select(['art_id', 'cate_id', 'name'])->get();
+        return $this->baseModel->where($where)->select(['art_id', 'lan_id', 'cate_id', 'name'])->get();
     }
 
     public function getInfo($artId, $lanId)
@@ -89,7 +89,7 @@ class ArticleService extends BaseService
         return $info;
     }
 
-    public function getInfoCacha($artId, $lanId)
+    public function getInfoCache($artId, $lanId)
     {
         $artId = (int) $artId;
         $lanId = (int) $lanId;
@@ -100,24 +100,7 @@ class ArticleService extends BaseService
         $info = Redis()->get($cacheKey);
 
         if (empty($info)) {
-            $info = $this->baseModel->where('art_id', $artId)
-                                    ->where('lan_id', $lanId)
-                                    ->find();
-
-            if (!empty($info)) {
-                //商品详情
-                $data = $this->dataModel->getInfo($artId, $lanId);
-
-                $info = array_merge($info, $data);
-
-                //文章图片
-                if (!empty($info['image'])) {
-                    $attchService = \App::make('App/Services/AttachmentService');
-                    $imageList = $attchService->getAttachmentListById($info['image']);
-                }
-                $info['image_list'] = $imageList ?? [];
-
-            }
+            $info = $this->getInfo($artId, $lanId);
             Redis()->set($cacheKey, $info, -1);
         }
 

@@ -9,6 +9,10 @@
 	        </div>
 	        <?php if (!empty($info)) { ?>
 	        <div class="input-group margin-top-15">
+	            <div class="input-group-addon"><span>url显示(英文)：</span></div>
+	            <textarea type="text" class="form-control" name="name_en" required="required" maxlength="150"><?php echo $info['name_en'] ?? '';?></textarea>
+	        </div>
+	        <div class="input-group margin-top-15">
 	            <div class="input-group-addon"><span>文章描述：</span></div>
 	            <textarea type="text" class="form-control" name="desc" required="required" maxlength="150"><?php echo $info['desc'] ?? '';?></textarea>
 	        </div>

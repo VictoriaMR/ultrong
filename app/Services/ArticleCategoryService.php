@@ -104,11 +104,28 @@ class ArticleCategoryService extends BaseService
     {
         $cateId = (int) $cateId;
         if (empty($cateId)) return [];
-        $info = Redis()->hGet(self::constant('CACHE_INFO_KEY'), $cateId);
+        $info = Redis()->hGet(self::CACHE_INFO_KEY, $cateId);
         if (empty($info)) {
             $info = $this->baseModel->loadData($cateId);
-            Redis()->hSet(self::constant('CACHE_INFO_KEY'), $cateId, $info);
+            Redis()->hSet(self::CACHE_INFO_KEY, $cateId, $info);
         }
         return $info;
+    }
+
+    public function getCategoryName($cateId)
+    {
+        $cateId = (int) $cateId;
+        if (empty($cateId)) return '';
+        $info = $this->getInfoCache($cateId);
+        $str = '';
+        if (!empty($info)) {
+            if (!empty($info['parent_id'])) {
+                $temp = $this->getInfoCache($info['parent_id']);
+                $str .= $temp['name_en'].'-';
+            }
+            $str .= $info['name_en'];
+        }
+
+        return $str;
     }
 }

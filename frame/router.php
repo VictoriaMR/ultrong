@@ -157,12 +157,14 @@ class Router
 			//产品列表
 			case 'productlist':
 				$cid = $param['cate_id'] ?? 0;
-				$url = '';
 				if (!empty($cid)) {
+					$url = '';
 					$categoryService = \App::make('App\Services\CategoryService');
 					$info = $categoryService->getInfoCache($cid);
 					$url = self::specialChar($info['name_en'] ?? '');
 					$url .= '-pl-'.$param['cate_id'].'.html';
+				} else {
+					$url .= '-pl.html';
 				}
 				break;
 			//产品详情
@@ -194,12 +196,24 @@ class Router
         			// dd($info);
         			if (!empty($info['cate_id'])) {
 						$articleCategoryService = \App::make('App/Services/ArticleCategoryService');
-						$temp = $articleCategoryService->getInfoCache($info['cate_id']);
-						$url .= ($temp['name_en'] ?? '').'-';
+						$temp = $articleCategoryService->getCategoryName($info['cate_id']);
+						$url .= $temp.'-';
 					}
 					$url .= $info['name_en'] ?? '';
 					$url = self::specialChar($url);
 					$url .= '-a-'.$artId.'-'.$lanId.'.html';
+				}
+				break;
+			//文章列表
+			case 'articlelist':
+				$cateId = $param['cate_id'] ?? 0;
+				$url = '';
+				if (!empty($cateId)) {
+					$articleCategoryService = \App::make('App/Services/ArticleCategoryService');
+					$temp = $articleCategoryService->getCategoryName($cateId);
+					$url .= $temp.'-';
+					$url = self::specialChar($url);
+					$url .= '-al-'.$cateId.'.html';
 				}
 				break;
 			default: 

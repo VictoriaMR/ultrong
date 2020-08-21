@@ -130,36 +130,40 @@ class Controller
         $cateService = \App::make('App/Services/CategoryService');
         
         $articleList = $articleCategoryService->getList();
-        // dd($articleList);
         $tempData = [];
+        // dd($articleList);
         if (!empty($articleList)) {
             foreach ($articleList as $key => $value) {
+                //获取挂靠在分类下的文章
                 if (empty($value['son'])) {
                     $value['son'] = $articleService->getListFormat(['cate_id' => $value['cate_id'], 'lan_id' => \frame\Session::get('site_language_id')]);
-                } else {
-                    foreach ($value['son'] as $k => $v) {
-                        $value['son'][$k]['name'] = dist($v['name']);
+                    if (!empty($value['son'])) {
+                        foreach ($value['son'] as $sk => $sv) {
+                            $value['son'][$sk]['url'] = url('article', ['art_id'=>$sv['art_id'], 'lan_id'=>$sv['lan_id']]);
+                        }
+                        $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
                     }
+                } else {
+                    //取对应子分类
+                    foreach ($value['son'] as $sk => $sv) {
+                        $value['son'][$sk]['name'] = dist($sv['name']);
+                        $value['son'][$sk]['url'] = url('articleList', ['cate_id'=>$sv['cate_id']]);
+                    }
+                    $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
                 }
-                foreach ($value['son'] as $k => $v) {
-                    $value['son'][$k]['url'] = url('article', ['cate_id'=>$value['cate_id'], 'list_id'=>$v['cate_id']]);
-                }
-
                 $tempData[] = [
                     'name' => dist($value['name']),
-                    'name_en' => 'article_'.$value['cate_id'],
-                    'url' => url('article', ['cate_id'=>$value['cate_id']]),
+                    'url' => $value['url'],
                     'son' => $value['son'],
                 ];
                 if ($key == 0) {
                     //获取产品分类
                     $son = $cateService->getList(['status'=>1]);
                     foreach ($son as $k => $v) {
-                        $son[$k]['url'] = url('productlist', ['cate_id' => $v['cate_id']]);
+                        $son[$k]['url'] = url('productList', ['cate_id' => $v['cate_id']]);
                     }
                     $tempData[] = [
                         'name' => dist('产品中心'),
-                        'name_en' => 'productlist',
                         'url' => url('productList'),
                         'son' => $son,
                     ];
@@ -168,16 +172,14 @@ class Controller
         } else {
             $son = $cateService->getList(['status'=>1]);
             foreach ($son as $k => $v) {
-                $son[$k]['url'] = url('productlist', ['cate_id' => $v['cate_id']]);
+                $son[$k]['url'] = url('productList', ['cate_id' => $v['cate_id']]);
             }
             $tempData[] = [
                 'name' => dist('产品中心'),
-                'name_en' => 'productlist',
                 'url' => url('productList'),
                 'son' => $son,
             ];
         }
-        
         $this->assign('controller', $controller);
         $this->assign('site_language', $site_language);
         $this->assign('language_list', $list);
