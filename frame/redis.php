@@ -84,8 +84,10 @@ class Redis
     {
         if (is_null(self::$_link)) return false;
         self::$_instance->selectDbByFunc($func);
-        foreach ($arg as $key => $value) {
-            if (is_array($value)) $arg[$key] = json_encode($value, JSON_UNESCAPED_UNICODE);
+        if (!in_array($func, ['hmset'])) {
+            foreach ($arg as $key => $value) {
+                if (is_array($value)) $arg[$key] = json_encode($value, JSON_UNESCAPED_UNICODE);
+            }   
         }
         $info = self::$_link->$func(...$arg);
         if (!isJson($info)) return $info;
