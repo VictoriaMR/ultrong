@@ -202,6 +202,11 @@ class Router
 					$url .= '-a-'.$artId.'-'.$lanId.'.html';
 				}
 				break;
+			default: 
+				if (!empty($param)) {
+			        $url .= '?'. http_build_query($param);
+			    }
+				break;
 		}
 
 		return Env('APP_DOMAIN').$url;

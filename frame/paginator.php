@@ -300,9 +300,9 @@ class Paginator
             return "javascript:".$this->isAjax."(".$page.")";
         } else {
             if($page>1){
-                return adminUrl($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
+                return url($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
             } else {
-                return adminUrl($this->urlParam['controller'],$this->urlParam['param']);
+                return url($this->urlParam['controller'],$this->urlParam['param']);
             }
         }
     }
