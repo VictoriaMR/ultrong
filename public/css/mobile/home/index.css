@@ -13,6 +13,7 @@
     overflow: hidden;
     -webkit-transform: translateX(300%);
     transform: translateX(300%);
+    line-height: 0;
 }
 .image-slider ol {
 	position: absolute;

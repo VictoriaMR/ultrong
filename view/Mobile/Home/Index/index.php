@@ -12,11 +12,13 @@
 			<?php } ?>
 		</ul>
 		<div class="clear"></div>
+		<?php if (count($banner['content']) > 1) { ?>
 		<ol>
             <?php foreach ($banner['content'] as $key => $value) { ?>
             <li <?php if($key == 0){ echo 'class="active"'; }?>></li>
             <?php }?>
         </ol>
+    	<?php } ?>
 	</div>
 	<?php } ?>
 	<?php if (!empty($cateList)) { ?>

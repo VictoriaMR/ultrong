@@ -107,7 +107,10 @@ function slider_init(e){
     }else{
         $this=$('.image-slider');
     }
-    if ($this.find('ul li').length < 2) return false;
+    if ($this.find('ul li').length < 2){
+        $this.find('ul li').css({'-webkit-transform': 'translateX(0%)', 'transform': 'translateX(0%)'});
+        return false;
+    }
     $this.unbind();
     var height = $this.height();
     $this.css({height: height}).find('ul li').css({position: 'absolute', height: height, top: 0, left: 0});

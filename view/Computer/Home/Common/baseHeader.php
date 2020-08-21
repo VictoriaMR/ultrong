@@ -56,7 +56,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
     </div>
 </div>
 <div id="header-content">
-    <div class="container">
+    <div class="container bg-white">
         <table border="0" width="100%">
             <tbody>
                 <tr>
