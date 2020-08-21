@@ -33,3 +33,39 @@
 .icon-nav:before { content: "\e608"; }
 .icon-tabs1:before { content: "\e604"; }
 .icon-angleup:before { content: "\e609"; }
+
+/*
+ * 货币图标
+ */
+.icon-curr {
+    height: 11px;
+    width: 16px;
+    position: absolute;
+    background: url(/image/computer/currency.png) no-repeat;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.icon-curr-en {
+    background-position: 0px 1px;
+}
+
+.icon-curr-cn {
+    background-position: 0px -18px;
+}
+
+.icon-curr-cad {
+    background-position: 0px -35px;
+}
+
+.icon-curr-gbp {
+    background-position: 0px -55px;
+}
+
+.icon-curr-aud {
+    background-position: 0px -75px;
+}
+
+.icon-curr-deu {
+    background-position: 0px -95px;
+}

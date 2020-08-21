@@ -34,19 +34,42 @@ html {
 var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
 </script>
 <div class="header-top fixed">
-    <div class="container">
-        <div class="table left">
+    <div class="container flex">
+        <div class="left flex">
+            <a class="block item mean close margin-right-5 padding-top-8" id="top-mean" href="javascript:;">
+                <i class="iconfont icon-nav font-24 color-blue"></i>
+                <span class="word-ellipsis-1 color-blue"><?php echo dist('菜单');?></span>
+            </a>
+            <a class="block item padding-top-8" href="javascript:;">
+                <span>&nbsp;</span>
+            </a>
+        </div>
+        <div class="table flex-1 logo-table">
             <a href="<?php echo url('');?>" class="table-cell logo">
                 <img src="<?php echo siteUrl('image/mobile/logo.png');?>">
             </a>
         </div>
-        <div class="right top-right">
-            <a class="block mean right close" id="top-mean" href="javascript:;">
-                <i class="iconfont icon-nav font-30 color-blue"></i>
+        <div class="right top-right flex">
+            <a class="block item search padding-top-8 margin-right-5" href="<?php echo url('index/search');?>">
+                <i class="iconfont icon-search font-24 color-blue"></i>
+                <span class="word-ellipsis-1 color-blue"><?php echo dist('搜索');?></span>
             </a>
-            <a class="block search right" href="<?php echo url('index/search');?>">
-                <span class="iconfont icon-search font-16 color-white"></span>
-                <span class="font-16 title color-white"><?php echo dist('搜索');?></span>
+            <a class="block item language padding-top-8 relative" href="javascript:;">
+                <i class="iconfont icon-lang font-24 color-blue"></i>
+                <span class="color-blue word-ellipsis-1"><?php echo dist('语言');?></span>
+                <?php if (!empty($language_list)) { ?>
+                <div class="drop-mean hidden bg-white relative">
+                    <ul class="language-selector selector">
+                        <?php foreach ($language_list as $key => $value) { ?>
+                        <li class="<?php echo $site_language == $value['value'] ? 'selected': '';?>" data-id="<?php echo $value['lan_id'];?>">
+                            <span class="icon-curr icon-curr-<?php echo $value['value'];?>"></span>
+                            <span><?php echo $value['name'];?></span>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <?php } ?>
             </a>
         </div>
         <div class="clear"></div>

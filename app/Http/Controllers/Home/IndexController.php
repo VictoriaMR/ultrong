@@ -70,7 +70,7 @@ class IndexController extends Controller
 		$list = array_column($list, null, 'lan_id');
 		if (empty($list[$id]))
 			return $this->result(10000, false, ['message' => dist('数据有误, 语言未配置')]);
-
+		
 		Session::set('site', ['language_name' => $list[$id]['value'] ?? '', 'language_id' => $list[$id]['lan_id'] ?? 0]);
 
 		return $this->result(200, true, ['message' => dist('设置成功')]);

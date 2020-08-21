@@ -75,7 +75,7 @@ class ProductService extends BaseService
                                ->count() > 0;
     }
 
-    public function getInfo($proId, $lanId)
+    public function getInfoCache($proId, $lanId)
     {
         $proId = (int) $proId;
         $lanId = (int) $lanId;
@@ -86,27 +86,34 @@ class ProductService extends BaseService
         $info = Redis()->get($cacheKey);
 
         if (empty($info)) {
-            $info = $this->baseModel->where('pro_id', $proId)
-                                    ->where('lan_id', $lanId)
-                                    ->find();
-
-            if (!empty($info)) {
-                //商品详情
-                $data = $this->dataModel->getInfo($proId, $lanId);
-
-                $info = array_merge($info, $data);
-
-                //商品图片
-                if (!empty($info['image'])) {
-                    $attchService = \App::make('App/Services/AttachmentService');
-                    $imageList = $attchService->getAttachmentListById($info['image']);
-                }
-                $info['image_list'] = $imageList ?? [];
-
-                Redis()->set($cacheKey, $info, -1);
-            }
+            $info = $this->getInfo($proId, $lanId);
+            Redis()->set($cacheKey, $info, -1);
         }
 
+        return $info;
+    }
+
+    public function getInfo($proId, $lanId)
+    {
+        $proId = (int) $proId;
+        $lanId = (int) $lanId;
+        if (empty($lanId) || empty($lanId)) return [];
+        $info = $this->baseModel->where('pro_id', $proId)
+                                    ->where('lan_id', $lanId)
+                                    ->find();
+        if (!empty($info)) {
+            //商品详情
+            $data = $this->dataModel->getInfo($proId, $lanId);
+
+            $info = array_merge($info, $data);
+
+            //商品图片
+            if (!empty($info['image'])) {
+                $attchService = \App::make('App/Services/AttachmentService');
+                $imageList = $attchService->getAttachmentListById($info['image']);
+            }
+            $info['image_list'] = $imageList ?? [];
+        }
         return $info;
     }
 

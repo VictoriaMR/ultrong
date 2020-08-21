@@ -1,22 +1,22 @@
 .btn {
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
+    width: 1.20rem;
+    height: 0.40rem;
+    line-height: 0.40rem;
     background: #41bdd7;
     color: #fff;
     border: none;
-    font-size: 15px;
+    font-size: 0.15rem;
     margin-bottom: 0;
     cursor: pointer;
 }
 .input {
-    width: calc(100% - 22px);
-    height: 30px;
-    line-height: 30px;
-    border: 1px solid #29314a;
-    padding: 0 10px;
-    border-radius: 6px;
-    margin-bottom: 5px;
+    width: calc(100% - 0.22rem);
+    height: 0.30rem;
+    line-height: 0.30rem;
+    border: 0.01rem solid #29314a;
+    padding: 0 0.10rem;
+    border-radius: 0.06rem;
+    margin-bottom: 0.05rem;
     background: none;
     color: #a9a9a9;
 }
@@ -27,34 +27,15 @@
     text-align: center;
     z-index: 999;
     background-color: #fff;
-    overflow: hidden;
+}
+.header-top .item {
+    min-width: 0.4rem;
+}
+.header-top .logo-table {
+    width: calc(100% - 0.4rem*4 - 0.05rem*2);
 }
 .header-top .logo {
 	height: 0.56rem;
-}
-.header-top .search {
-	margin-top: 0.09rem;
-	width: 1.2rem;
-	height: 0.38rem;
-    border-radius: 5rem;
-    border: 0.01rem solid #F6F6F6;
-    background-color: #D6D6D6;
-    margin-right: 0.10rem;
-    margin-left: 0.10rem;
-    position: relative;
-}
-.header-top .search .title {
-	height: 0.38rem;
-	line-height: 0.38rem;
-	display: block;
-}
-.header-top .search .icon-search {
-	left: 0.15rem;
-	top: 0.09rem;
-	position: absolute;
-}
-.header-top .mean {
-	margin-top: 0.115rem;
 }
 .menu-box .menu-sy-mask {
     width: 100%;
@@ -74,7 +55,7 @@
     height: calc(100% - 0.58rem);
     z-index: 16000007;
     overflow: auto;
-    right: -75%;
+    left: -100%;
 }
 .menu-box .menu-content .item-box {
     width: 100%;
@@ -149,7 +130,7 @@
     cursor: pointer;
     background: #fff;
     border-radius: 0.05rem;
-    box-shadow: 0px 0px 0.03rem 0.02rem rgba(0,0,0,0.1);
+    box-shadow: 0 0 0.03rem 0.02rem rgba(0,0,0,0.1);
 }
 .chat .chat_button_bar {
     min-width: 0.50rem;
@@ -212,6 +193,7 @@
     padding: 0.34rem 0.10rem 0.10rem 0.10rem;
     height: calc(100% - 0.34rem - 0.60rem);
     overflow-y: auto;
+    overflow-x: hidden;
     border-top-left-radius: 0.05rem;
     border-top-right-radius: 0.05rem;
 }
@@ -235,10 +217,10 @@
     border: 0.01rem solid #ccc;
 }
 #chat-text-content .avatar.left {
-    margin-right: 0.05rem;
+    margin-right: 0.1rem;
 }
 #chat-text-content .avatar.right {
-    margin-left: 0.05rem;
+    margin-left: 0.1rem;
 }
 #chat-text-content .content {
     max-width: calc(100% - 0.55rem);
@@ -247,6 +229,23 @@
     background: #EFF3F6;
     border-radius: 0.04rem;
     line-height: 0.22rem;
+    position: relative;
+}
+#chat-text-content .content::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border: 0.08rem solid;
+    position: absolute;
+    top: 0.08rem;
+}
+#chat-text-content .content.left::before {
+    left: -0.16rem;
+    border-color:  transparent #EFF3F6 transparent transparent;
+}
+#chat-text-content .content.right::before {
+    right: -0.16rem;
+    border-color:  transparent transparent transparent #7dc10b;
 }
 #chat-text-content .content.right {
     background: #7dc10b;
@@ -269,4 +268,52 @@
 }
 .chat .input {
     border-color: #7dc10b;
+}
+.drop-mean {
+    padding: 0.1rem;
+    margin-top: 0.08rem;
+    box-shadow: 0 0 0.03rem 0.01rem #dedede;
+}
+.drop-mean:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border: 0.08rem solid;
+    position: absolute;
+    top: -0.16rem;
+    right: 0.1rem;
+    border-color:  transparent transparent #fff transparent;
+}
+
+.language .drop-mean {
+    position: absolute;
+    right: 0;
+}
+.selector {
+    width: 100%;
+    border: 0.01rem solid #0a396d;
+    background-color: #FFFFFF;
+    color: #333333;
+    z-index: 999;
+    cursor: pointer;
+    min-width: 1rem;
+}
+.selector li {
+    line-height: 0.35rem;
+    padding-left: 0.32rem;
+    position: relative;
+    text-align: left;
+}
+.selector li.selected, 
+.selector li:hover {
+    background: #0a396d;
+    color: #fff;
+}
+.selector li:hover span,
+.selector li.selected span {
+    color: #fff;
+}
+.selector .icon-curr {
+    left: 0.08rem;
+    top: 0.12rem;
 }

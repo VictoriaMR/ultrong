@@ -52,7 +52,7 @@ class FileService extends BaseService
                     'name' => $hash,
                     'type' => $extension,
                     'cate' => $cate,
-                    'source_name' => substr($tmpname[0], strrpos($tmpname[0], '/') + 1),
+                    'source_name' => $this->utf8_unicode(substr($tmpname[0], strrpos($tmpname[0], '/') + 1)),
                     'size' => $file['size'] ?? filesize($file['name']),
                 ];
 
@@ -90,6 +90,19 @@ class FileService extends BaseService
         }
 
         return $returnData;
+    }
+
+    //在代码中隐藏utf8格式的字符串
+    protected function utf8_unicode($str) 
+    {
+        $encode = mb_detect_encoding($str, array('CP936', 'ASCII','GB2312','GBK','UTF-8','BIG5'));
+        if ($encode == 'UTF-8') {
+            return $str;
+        } elseif ($encode == 'CP936') {
+            return iconv('utf-8', 'latin1//IGNORE', $str);
+        } else {
+            return mb_convert_encoding($str, 'UTF-8', $encode);
+        }
     }
 
     /**

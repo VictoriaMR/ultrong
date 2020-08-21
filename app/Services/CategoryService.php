@@ -11,6 +11,7 @@ use App\Models\Category;
 class CategoryService extends BaseService
 {
 	const CACHE_KEY = 'PRODUCT_CATEGORY_CACHE_LIST';
+	const CACHE_INFO_KEY = 'PRODUCT_CATEGORY_CACHE_INFO';
 
 	public function __construct(Category $model)
     {
@@ -28,9 +29,13 @@ class CategoryService extends BaseService
 		return $list;
 	}
 
-	public function clearCache()
+	public function clearCache($cateId = 0)
 	{
-		return Redis()->del(self::constant('CACHE_KEY'));
+		if (empty($cateId))
+			Redis()->del(self::constant('CACHE_KEY'));
+		else
+			Redis()->hDel(self::constant('CACHE_INFO_KEY'), $cateId);
+		return true;
 	}
 
 	public function create($data)
@@ -56,5 +61,17 @@ class CategoryService extends BaseService
 		$productService = \App::make('App/Services/ProductService');
 
 		return $productService->where('cate_id', $cateId)->count() > 0;
+	}
+
+	public function getInfoCache($cateId)
+	{
+		$cateId = (int) $cateId;
+		if (empty($cateId)) return [];
+		$info = Redis()->hGet(self::CACHE_INFO_KEY, $cateId);
+		if (empty($info)) {
+			$info = $this->baseModel->loadData($cateId);
+			Redis()->hSet(self::constant('CACHE_INFO_KEY'), $cateId, $info);
+		}
+		return $info;
 	}
 }

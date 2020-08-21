@@ -172,6 +172,9 @@ function ifile($name = '', $default = null)
 
 function url($url = '', $param = []) 
 {
+
+    return \Router::bindUrl($url, $param);
+
     if (!empty($url)) {
         $url = trim($url, '/');
         if (\Router::getFunc('Class') == 'Home') {
@@ -272,4 +275,10 @@ function dist($name = '')
 function paginator()
 {
     return \frame\Paginator::getInstance($db);
+}
+
+function isJson($string) 
+{ 
+    json_decode($string); 
+    return (json_last_error() == JSON_ERROR_NONE);
 }

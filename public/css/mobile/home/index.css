@@ -52,6 +52,6 @@
 .product-list li .product-img {
     width: calc((100vw - 0.47rem) / 2);
     height: calc((100vw - 0.47rem) / 2);
-    border: 1px solid #dedede;
-    box-shadow: 0 0 3px 1px #dedede;
+    border: 0.01rem solid #dedede;
+    box-shadow: 0 0 0.03rem 0.01rem #dedede;
 }

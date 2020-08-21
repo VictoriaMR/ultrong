@@ -68,6 +68,33 @@ class ArticleService extends BaseService
         $lanId = (int) $lanId;
         if (empty($lanId) || empty($lanId)) return [];
 
+        $info = $this->baseModel->where('art_id', $artId)
+                                ->where('lan_id', $lanId)
+                                ->find();
+
+        if (!empty($info)) {
+            //商品详情
+            $data = $this->dataModel->getInfo($artId, $lanId);
+
+            $info = array_merge($info, $data);
+
+            //文章图片
+            if (!empty($info['image'])) {
+                $attchService = \App::make('App/Services/AttachmentService');
+                $imageList = $attchService->getAttachmentListById($info['image']);
+            }
+            $info['image_list'] = $imageList ?? [];
+        }
+
+        return $info;
+    }
+
+    public function getInfoCacha($artId, $lanId)
+    {
+        $artId = (int) $artId;
+        $lanId = (int) $lanId;
+        if (empty($lanId) || empty($lanId)) return [];
+
         $cacheKey = 'ARTICLE_INFO_CACHE_'.$artId.'_'.$lanId;
 
         $info = Redis()->get($cacheKey);
@@ -90,8 +117,8 @@ class ArticleService extends BaseService
                 }
                 $info['image_list'] = $imageList ?? [];
 
-                Redis()->set($cacheKey, $info, -1);
             }
+            Redis()->set($cacheKey, $info, -1);
         }
 
         return $info;

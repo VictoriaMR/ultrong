@@ -8,6 +8,7 @@ $(document).ready(function(){
         if (scroH > nowH) {
             if (scroH > viewH && !up) {
                 $('.header-top').stop(true).animate({top: '-'+viewH+'px'}, 300);
+                $('.header-top').find('.drop-mean').fadeOut(200);
                 up = true;
                 down = false;
             }
@@ -27,14 +28,14 @@ $(document).ready(function(){
         if (_this.hasClass('close')) {
             $('.menu-box').fadeIn(200);
             _this.find('.iconfont').removeClass('icon-nav').addClass('icon-category');
-            $('.menu-content').animate({'right': '0'}, 250, function(){
+            $('.menu-content').animate({'left': '0'}, 250, function(){
                 _this.removeClass('close').addClass('open');
                 _this.removeClass('disabled');
             });
             BODY.stopscoll();
         } else {
             _this.find('.iconfont').removeClass('icon-category').addClass('icon-nav');
-            $('.menu-content').animate({'right': '-75%'}, 250, function(){
+            $('.menu-content').animate({'left': '-100%'}, 250, function(){
                 $('.menu-box').fadeOut(200);
                     _this.removeClass('open').addClass('close');
                     _this.removeClass('disabled');
@@ -57,6 +58,23 @@ $(document).ready(function(){
             $('.category-box').hide();
         });
     });
+    //语言点击
+    $('.header-top .language').on('click', function(){
+        if ($(this).find('.drop-mean').is(':visible')) {
+            $(this).find('.drop-mean').fadeOut(200);
+        } else {
+            $(this).find('.drop-mean').fadeIn(200);
+        }
+    });
+    $('.header-top .language li').on('click', function(event){
+        event.stopPropagation();
+        if ($(this).hasClass('selected')) return false;
+        var id = $(this).data('id');
+        API.get(HOME_URI+'Index/setSiteLanguage', {'lan_id': id}, function(res) {
+            if (res.code == 200)
+                window.location.reload();
+        }); 
+});
 });
 
 var POP = {

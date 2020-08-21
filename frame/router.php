@@ -139,4 +139,80 @@ class Router
 		}
 		return true;
 	}
+
+	/**
+	 * @method 生成路由
+	 * @author LiaoMingRong
+	 * @date   2020-08-21
+	 * @param  string     $url  
+	 * @param  array      $param
+	 * @return string
+	 */
+	public static function bindUrl($url = '', $param = []) 
+	{
+		$url = trim(trim($url), '/');
+		if (empty($url)) return Env('APP_DOMAIN');
+
+		switch ($url) {
+			//产品列表
+			case 'productList':
+				$cid = $param['cate_id'] ?? 0;
+				$url = '';
+				if (!empty($cid)) {
+					$categoryService = \App::make('App\Services\CategoryService');
+					$info = $categoryService->getInfoCache($cid);
+					$url = self::specialChar($info['name_en'] ?? '');
+					$url .= '-l-'.$param['cate_id'].'.html';
+				}
+				break;
+			//产品详情
+			case 'product':
+				$proId = $param['pro_id'] ?? 0;
+				$lanId = $param['lan_id'] ?? 0;
+				$url = '';
+				if (!empty($proId) && !empty($lanId)) {
+					$productService = \App::make('App\Services\ProductService');
+					$info = $productService->getInfoCache($proId, $lanId);
+					if (!empty($info['cate_id'])) {
+						$categoryService = \App::make('App\Services\CategoryService');
+						$temp = $categoryService->getInfoCache($info['cate_id']);
+						$url .= ($temp['name_en'] ?? '').'-';
+					}
+					$url .= $info['name_en'] ?? '';
+					$url = self::specialChar($url);
+					$url .= '-p-'.$param['pro_id'].'-'.$param['lan_id'].'.html';
+				}
+				break;
+			//文章详情
+			case 'article':
+				$artId = $param['art_id'] ?? 0;
+				$lanId = $param['lan_id'] ?? 0;
+				$url = '';
+				if (!empty($proId) && !empty($lanId)) {
+					$articleCategoryService = \App::make('App/Services/ArticleCategoryService');
+        			$articleService = \App::make('App/Services/ArticleService');
+        			$temp = $articleService->getInfoCache($artId, $lanId);
+				}
+				break;
+		}
+
+		return Env('APP_DOMAIN').$url;
+	}
+
+	protected static function specialChar($str)
+	{
+		if (empty($str)) return '';
+		$str = trim($str);
+		$trans = [
+            '&' => '-',
+            "'" => '-',
+            '"' => '-',
+            '>' => '-',
+            '<' => '-',
+            ' ' => '-',
+        ];
+		$str = strtr($str, $trans);
+		$str = preg_replace('/-{2,}/', '\\1', trim($str, '-'));
+		return strtolower($str);
+	}
 }
