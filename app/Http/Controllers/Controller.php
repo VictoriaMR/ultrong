@@ -130,7 +130,7 @@ class Controller
         $cateService = \App::make('App/Services/CategoryService');
         
         $articleList = $articleCategoryService->getList();
-        dd($articleList);
+        // dd($articleList);
         $tempData = [];
         if (!empty($articleList)) {
             foreach ($articleList as $key => $value) {

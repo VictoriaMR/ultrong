@@ -191,7 +191,7 @@ class Router
 				if (!empty($artId) && !empty($lanId)) {
         			$articleService = \App::make('App/Services/ArticleService');
         			$info = $articleService->getInfoCache($artId, $lanId);
-        			dd($info);
+        			// dd($info);
         			if (!empty($info['cate_id'])) {
 						$articleCategoryService = \App::make('App/Services/ArticleCategoryService');
 						$temp = $articleCategoryService->getInfoCache($info['cate_id']);
