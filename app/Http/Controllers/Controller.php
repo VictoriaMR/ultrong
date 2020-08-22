@@ -161,6 +161,7 @@ class Controller
                     //获取产品分类
                     $son = $cateService->getList(['status'=>1]);
                     foreach ($son as $k => $v) {
+                        $son[$k]['name'] = dist($v['name']);
                         $son[$k]['url'] = url('productList', ['cate_id' => $v['cate_id']]);
                     }
                     $tempData[] = [
@@ -174,6 +175,7 @@ class Controller
         } else {
             $son = $cateService->getList(['status'=>1]);
             foreach ($son as $k => $v) {
+                $son[$k]['name'] = dist($v['name']);
                 $son[$k]['url'] = url('productList', ['cate_id' => $v['cate_id']]);
             }
             $tempData[] = [
