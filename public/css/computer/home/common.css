@@ -101,6 +101,7 @@
     width: 100%;
     background: #fff;
     position: absolute;
+    z-index: 169999;
 }
 
 #header-content .nav-son li {

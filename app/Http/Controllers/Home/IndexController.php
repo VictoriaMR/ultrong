@@ -47,7 +47,6 @@ class IndexController extends Controller
 				}
 			}
 		}
-		// print_r($cateList);
 		$this->assign('cateList', $cateList);
 		$this->assign('banner', $banner);
 

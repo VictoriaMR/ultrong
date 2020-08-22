@@ -39,6 +39,7 @@ class ProductService extends BaseService
             foreach ($list as $key => $value) {
                 $value['cate_name'] = $cateList[$value['cate_id']]['name'] ?? '';
                 $value['language_name'] = $lanList[$value['lan_id']]['name'] ?? '';
+                $value['url'] = url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);
 
                 if (!empty($value['image'])) {
                     $data = $attchService->getAttachmentById(explode(',', $value['image'])[0]);

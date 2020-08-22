@@ -7,6 +7,7 @@
         <tr>
             <th class="col-md-1 col-1">ID</th>
             <th class="col-md-2 col-2">分类名称</th>
+            <th class="col-md-2 col-2">分类名称(英文)</th>
             <th class="col-md-1 col-1">状态</th>
             <th class="col-md-1 col-1">前端展示</th>
             <th class="col-md-3 col-3">备注</th>
@@ -18,12 +19,14 @@
                 data-cate_id="<?php echo $value['cate_id'];?>"
                 data-parent_id="<?php echo $value['parent_id'];?>"
                 data-name="<?php echo $value['name'];?>"
+                data-name_en="<?php echo $value['name_en'];?>"
                 data-status="<?php echo $value['status'];?>"
                 data-is_index="<?php echo $value['is_index'];?>"
                 data-remark="<?php echo $value['remark'];?>"
             >
             	<td class="col-md-1 col-1"><?php echo $value['cate_id'];?></td>
             	<td class="col-md-2 col-2"><?php echo $value['name'];?></td>
+                <td class="col-md-2 col-2"><?php echo $value['name_en'];?></td>
             	<td class="col-md-1 col-1">
                     <?php if($value['status']){?>
                         <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
@@ -63,6 +66,10 @@
         <div class="input-group">
             <div class="input-group-addon"><span>分类名称：</span></div>
             <input type="text" class="form-control" name="name" required="required" maxlength="30" value="">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon"><span>分类名称(英文)：</span></div>
+            <input type="text" class="form-control" name="name_en" required="required" maxlength="30" value="">
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>状态：</span></div>

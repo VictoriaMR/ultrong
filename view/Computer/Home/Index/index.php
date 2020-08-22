@@ -38,7 +38,7 @@
                 <ul class="inline-block-box">
                     <?php foreach ($value['product'] as $k => $v) { ?>
                     <li class="slider inline-block">
-                        <a class="square" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
+                        <a class="square" href="<?php echo $v['url'];?>">
                             <img src="<?php echo $v['image'];?>" alt="<?php echo $v['name'];?>">
                         </a>
                         <a class="block product-title" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">

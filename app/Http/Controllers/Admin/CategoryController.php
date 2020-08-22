@@ -33,6 +33,7 @@ class CategoryController extends Controller
 	{
 		$cateId = (int)ipost('cate_id');
 		$name = ipost('name');
+		$name_en = ipost('name_en');
 		$status = ipost('status');
 		$isIndex = ipost('is_index');
 		$remark = ipost('remark');
@@ -41,6 +42,8 @@ class CategoryController extends Controller
 
 		if (!empty($name))
 			$data['name'] = $name;
+		if (!empty($name_en))
+			$data['name_en'] = $name_en;
 		if ($status !== null)
 			$data['status'] = (int) $status;
 		if ($isIndex !== null)

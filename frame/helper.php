@@ -172,26 +172,7 @@ function ifile($name = '', $default = null)
 
 function url($url = '', $param = []) 
 {
-
     return \Router::bindUrl($url, $param);
-
-    if (!empty($url)) {
-        $url = trim($url, '/');
-        if (\Router::getFunc('Class') == 'Home') {
-            if (!empty($param)) {
-                $url = implode('_', array_merge([$url], $param));
-            }
-            $url = Env('APP_DOMAIN').$url.'.html';
-        } else {
-            $url = Env('APP_DOMAIN').$url;
-            if (!empty($param)) {
-                $url .= '?'. http_build_query($param);
-            }
-        }
-    } else {
-        $url = Env('APP_DOMAIN');
-    }
-    return $url;
 }
 
 function adminUrl($url = '', $param = [])

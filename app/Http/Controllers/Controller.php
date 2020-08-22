@@ -73,7 +73,6 @@ class Controller
 
         \frame\Html::addCss('common');
         \frame\Html::addJs('common');
-
         $this->assign('navArr', $navArr);
         $this->assign('controller', $controller);
         $this->assign('func', $func);
@@ -131,8 +130,8 @@ class Controller
         
         $articleList = $articleCategoryService->getList();
         $tempData = [];
-        // dd($articleList);
         if (!empty($articleList)) {
+            $cateParentArr = [];
             foreach ($articleList as $key => $value) {
                 //获取挂靠在分类下的文章
                 if (empty($value['son'])) {
@@ -143,15 +142,19 @@ class Controller
                         }
                         $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
                     }
-                } else {
                     //取对应子分类
+                    $value['selected'] = iget('cate_id') == $value['cate_id'] ? 1 : 0;
+                } else {
                     foreach ($value['son'] as $sk => $sv) {
+                        $cateParentArr[$value['cate_id']] = $value['parent_id'];
                         $value['son'][$sk]['name'] = dist($sv['name']);
                         $value['son'][$sk]['url'] = url('articleList', ['cate_id'=>$sv['cate_id']]);
                     }
                     $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
+                    $value['selected'] = ($cateParentArr[iget('cate_id')] ?? 0) === $value['parent_id'] ? 1 : 0;
                 }
                 $tempData[] = [
+                    'selected' => $value['selected'],
                     'name' => dist($value['name']),
                     'url' => $value['url'],
                     'son' => $value['son'],
@@ -164,6 +167,7 @@ class Controller
                     }
                     $tempData[] = [
                         'name' => dist('产品中心'),
+                        'selected' => strpos($controller, 'product') !== false ? 1 : 0,
                         'url' => url('productList'),
                         'son' => $son,
                     ];
@@ -176,10 +180,13 @@ class Controller
             }
             $tempData[] = [
                 'name' => dist('产品中心'),
+                'selected' => strpos($controller, 'product') !== false ? 1 : 0,
                 'url' => url('productList'),
+                'controller' => 'product',
                 'son' => $son,
             ];
         }
+        // print_r($tempData);
         $this->assign('controller', $controller);
         $this->assign('site_language', $site_language);
         $this->assign('language_list', $list);

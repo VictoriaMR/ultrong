@@ -35,7 +35,7 @@ class ProductListController extends Controller
 		$where = [
 			'is_deleted' => 0, 
 			'cate_id' => $cateId,
-			// 'lan_id'=>Session::get('site_language_id'),
+			'lan_id'=>Session::get('site_language_id'),
 		];
 		$total = $this->baseService->getTotal($where);
 

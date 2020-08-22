@@ -4,6 +4,7 @@ class Router
 {	
 	public static $_route = []; //路由
 	public static $_param = []; //参数
+	const CONTROLER_TYPE = ['p', 'pl', 'a', 'al'];
 
 	/**
      * @method 解析网址 解析路由 返回控制器执行路径 
@@ -15,72 +16,95 @@ class Router
         $pathInfo = trim(str_replace('.html', '', $_SERVER['REQUEST_URI'] ?? ''), '/');
 
 		if (strpos($_SERVER['REQUEST_URI'], '.html') !== false) {
-			$temp = explode('_', $pathInfo);
-			self::analyzeParam($temp);
+			self::analyzeParam($pathInfo);
 			$pathInfo = $temp[0] ?? '';
-		}
-        $pathInfo = explode('?', $pathInfo)[0] ?? '';
-
-		/* 对Url网址进行拆分 */
-		$pathInfoArr = explode( '/', $pathInfo );
-
-		/* 进行网址解析 */
-		if (!empty($GLOBALS['route'])) {
-			if (!in_array(strtolower($pathInfoArr[0] ?? ''), $GLOBALS['route'])) {
-				//压入默认站点到路由数组
-				array_unshift($pathInfoArr, $GLOBALS['route'][0]);
-			}
-		}
-
-		/* 去除路由中间空格 */
-		$pathInfoArr = array_map('trim', $pathInfoArr);
-
-        /* 类名 */
-        $Class 	   = array_shift($pathInfoArr);
-
-		if (count($pathInfoArr) > 1) {
-	        /* 方法名 */
-	        $Func 	   = array_pop($pathInfoArr);
-	        /* 中间路径 */
-	        $ClassPath = $pathInfoArr;
 		} else {
-			/* 方法名 */
-	        $ClassPath 	   = array_pop($pathInfoArr);
-	        /* 中间路径 */
-	        $Func = $pathInfoArr;
+	        $pathInfo = explode('?', $pathInfo)[0] ?? '';
+
+			/* 对Url网址进行拆分 */
+			$pathInfoArr = explode( '/', $pathInfo );
+
+			/* 进行网址解析 */
+			if (!empty($GLOBALS['route'])) {
+				if (!in_array(strtolower($pathInfoArr[0] ?? ''), $GLOBALS['route'])) {
+					//压入默认站点到路由数组
+					array_unshift($pathInfoArr, $GLOBALS['route'][0]);
+				}
+			}
+
+			/* 去除路由中间空格 */
+			$pathInfoArr = array_map('trim', $pathInfoArr);
+
+	        /* 类名 */
+	        $Class 	   = array_shift($pathInfoArr);
+
+			if (count($pathInfoArr) > 1) {
+		        /* 方法名 */
+		        $Func 	   = array_pop($pathInfoArr);
+		        /* 中间路径 */
+		        $ClassPath = $pathInfoArr;
+			} else {
+				/* 方法名 */
+		        $ClassPath 	   = array_pop($pathInfoArr);
+		        /* 中间路径 */
+		        $Func = $pathInfoArr;
+			}
+
+	        $funcArr = [
+				'Class'     => !empty($Class) ? $Class : 'Home',
+				'ClassPath' => !empty($ClassPath) ? $ClassPath : 'Index',
+				'Func'      => !empty($Func) ? $Func : 'index',
+			];
+
+			self::$_route = self::realFunc($funcArr);
+		}
+	}
+
+	protected static function analyzeParam($data) {
+		if (empty($data)) return false;
+		$temp = explode('-', $data);
+		$temp = array_reverse($temp);
+		$param = [];
+		$controler = '';
+		foreach ($temp as $value) {
+			if (in_array($value, self::CONTROLER_TYPE)) {
+				$controler = $value;
+				break;
+			}
+			$param[] = $value;
+		}
+		$param = array_reverse($param);
+		switch (strtolower($controler)) {
+			case 'p':
+				$ClassPath = 'product';
+				$_GET['pro_id'] = $param[0] ?? 0;
+				$_GET['lan_id'] = $param[1] ?? 0;
+				break;
+			case 'a':
+				$ClassPath = 'article';
+				$_GET['art_id'] = $param[0] ?? 0;
+				$_GET['lan_id'] = $param[1] ?? 0;
+				break;
+			case 'pl':
+				$ClassPath = 'productList';
+				$_GET['cate_id'] = $param[0] ?? 0;
+				$_GET['page'] = $param[1] ?? 1;
+				break;
+			case 'al':
+				$ClassPath = 'articleList';
+				$_GET['cate_id'] = $param[0] ?? 0;
+				$_GET['page'] = $param[1] ?? 1;
+				break;
 		}
 
-        $funcArr = [
-			'Class'     => !empty($Class) ? $Class : 'Home',
+		 $funcArr = [
+			'Class'     => 'Home',
 			'ClassPath' => !empty($ClassPath) ? $ClassPath : 'Index',
 			'Func'      => !empty($Func) ? $Func : 'index',
 		];
 
 		self::$_route = self::realFunc($funcArr);
-	}
-
-	protected static function analyzeParam($data) {
-		if (empty($data)) return false;
-		$func = $data[0] ?? '';
-		array_shift($data);
-		switch (strtolower($func)) {
-			case 'product':
-				$_GET['pro_id'] = $data[0] ?? 0;
-				$_GET['lan_id'] = $data[1] ?? 0;
-				break;
-			case 'article':
-				$_GET['cate_id'] = $data[0] ?? 0;
-				$_GET['list_id'] = $data[1] ?? 0;
-				$_GET['page'] = $data[2] ?? 1;
-				break;
-			case 'productlist':
-				$_GET['cate_id'] = $data[0] ?? 0;
-				$_GET['page'] = $data[1] ?? 1;
-				break;
-			default:
-				# code...
-				break;
-		}
+		return true;
 	}
 
 	public static function getFunc($name = '')

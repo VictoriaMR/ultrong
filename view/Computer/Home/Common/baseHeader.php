@@ -75,7 +75,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                                 </li>
                                 <?php foreach ($nav_list as $value) { ?>
                                 <li>
-                                    <a href="<?php echo $value['url'];?>" class="title <?php echo $controller == $value['name_en'] ? 'selected' : '';?>"><?php echo $value['name'];?></a>
+                                    <a href="<?php echo $value['url'];?>" class="title <?php echo $value['selected'] ? 'selected' : '';?>"><?php echo $value['name'];?></a>
                                     <?php if (!empty($value['son'])) { ?>
                                     <ul class="nav-son">
                                     <?php foreach ($value['son'] as $v) { ?>
