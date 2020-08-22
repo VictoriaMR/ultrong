@@ -170,3 +170,6 @@
     font-family: arial;
     color: #ee0000;
 }
+.text-center p {
+	line-height: 0;
+}

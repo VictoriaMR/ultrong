@@ -86,8 +86,6 @@ class Controller
 
         $info = \Router::getFunc();
         $controller = strtolower($info['ClassPath']);
-        if (!empty(iget('cate_id')))
-            $controller .= '_'.iget('cate_id');
         
         //站点信息
         $siteService = \App::make('App/Services/SiteService');
@@ -143,7 +141,7 @@ class Controller
                         $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
                     }
                     //取对应子分类
-                    $value['selected'] = iget('cate_id') == $value['cate_id'] ? 1 : 0;
+                    $value['selected'] = strpos($controller, 'product') === false && iget('cate_id') == $value['cate_id'] ? 1 : 0;
                 } else {
                     foreach ($value['son'] as $sk => $sv) {
                         $cateParentArr[$value['cate_id']] = $value['parent_id'];
@@ -151,7 +149,7 @@ class Controller
                         $value['son'][$sk]['url'] = url('articleList', ['cate_id'=>$sv['cate_id']]);
                     }
                     $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
-                    $value['selected'] = ($cateParentArr[iget('cate_id')] ?? 0) === $value['parent_id'] ? 1 : 0;
+                    $value['selected'] = strpos($controller, 'product') === false && ($cateParentArr[iget('cate_id')] ?? 0) === $value['parent_id'] ? 1 : 0;
                 }
                 $tempData[] = [
                     'selected' => $value['selected'],

@@ -45,7 +45,7 @@ class ProductController extends Controller
 		if (!empty($info['lan_id'])) {
 			$where['lan_id'] = $info['lan_id'];
 		}
-		$where[] = ['pro_id', '<>', $proId];
+		$where['pro_id'] = [ '<>', $proId];
 		$recommend = $this->baseService->getList($where, 1, 4, [['is_hot', 'desc'], ['hit_count', 'desc']]);
 
 		$this->assign('cateList', $cateList);

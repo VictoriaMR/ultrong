@@ -100,12 +100,11 @@ class ProductService extends BaseService
         $lanId = (int) $lanId;
         if (empty($lanId) || empty($lanId)) return [];
         $info = $this->baseModel->where('pro_id', $proId)
-                                    ->where('lan_id', $lanId)
-                                    ->find();
+                                ->where('lan_id', $lanId)
+                                ->find();
         if (!empty($info)) {
             //商品详情
             $data = $this->dataModel->getInfo($proId, $lanId);
-
             $info = array_merge($info, $data);
 
             //商品图片
