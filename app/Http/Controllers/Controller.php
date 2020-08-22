@@ -186,7 +186,6 @@ class Controller
                 'son' => $son,
             ];
         }
-        // print_r($tempData);
         $this->assign('controller', $controller);
         $this->assign('site_language', $site_language);
         $this->assign('language_list', $list);
