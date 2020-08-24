@@ -142,7 +142,7 @@ class SiteService extends BaseService
         if (!is_dir($saveFile)) {
             mkdir($saveFile, 0777, true);
         }
-        $saveFile .= 'sitemap.xml';
+        $saveFile .= 'sitemap.js';
         $xmlDom->appendchild($xmlRoot);
         $res = $xmlDom->save($saveFile);
         return $res;
