@@ -47,6 +47,10 @@ class SiteService extends BaseService
         $xmlDom = new \DomDocument('1.0', 'utf-8');
         //创建根节点
         $xmlRoot = $xmlDom->createElement('urlset');
+        $xmlns = $xmlDom->createAttribute('xmlns');
+        $xmlnsUrl = $xmlDom->createTextNode('http://www.sitemaps.org/schemas/sitemap/0.9');
+        $xmlns->appendChild($xmlnsUrl);
+        $xmlRoot->appendchild($xmlns);
 
         //首页
         $tempData = [
@@ -142,7 +146,7 @@ class SiteService extends BaseService
         if (!is_dir($saveFile)) {
             mkdir($saveFile, 0777, true);
         }
-        $saveFile .= 'sitemap.js';
+        $saveFile .= 'sitemap.xml';
         $xmlDom->appendchild($xmlRoot);
         $res = $xmlDom->save($saveFile);
         return $res;
