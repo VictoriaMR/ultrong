@@ -14,11 +14,16 @@ class Paginator
             'last'  => '尾页',  //尾页
             'prev'  => '前一页', // 前一页
             'next'  => '后一页', // 后一页
+            'total_count' => '总数',
+            'page' => '页',
+            'every' => '每页',
+            'line' => '条',
+            'no' => '第',
         ],
     // 显示顺序模版 默认bootstrip风格, {total} 总记录条数, {listRows} 每页显示条数
     // {currentPage} 当前页码, {totalPages} 总计多少页, {first} 首页按钮, {prev} 前一页按钮, {paging} 当前分页序列信息, {next} 下一页,{ last} 尾页
         'template' => [
-            'global' => '<nav><ul class="pagination"><li  class="disabled"><span>总数 {total} 条, 每页 {listRows} 条, 第 {currentPage} 页</span></li>{first}{prev}{paging}{next}{last}</ul></nav>',
+            'global' => '<nav><ul class="pagination"><li  class="disabled"><span>{total_count} {total} {line}, {every} {listRows} {line}, {no} {currentPage} {page}</span></li>{first}{prev}{paging}{next}{last}</ul></nav>',
             'first' => [ // 可以区分是否可用分别定义模版， 如果直接定义模版，表示不区分可用状态
                 'enabled' => '<li><a href="{url}">{text}</a></li>',
                 'disabled' => '<li  class="disabled"><span>{text}</span></li>', // 定义为具体模版， 或者false表示不显示
@@ -173,7 +178,11 @@ class Paginator
     public function setUrlParam($controller = true, $param='')
     {
         if($controller===true){
-            $this->urlParam['controller'] = implode('/', \Router::$_route);
+            if (\Router::getFunc('Class') == 'Home') {
+                $this->urlParam['controller'] = \Router::getFunc('ClassPath');
+            } else {
+                $this->urlParam['controller'] = implode('/', \Router::$_route);
+            }
             $this->urlParam['param'] = iget();
         } else {
             $this->urlParam['controller']=$controller;
@@ -218,30 +227,30 @@ class Paginator
 
         // 开始生成html， 首先处理first, last, prev, next, paging, current 几个子单元
         if($this->currentPage==1){
-            $first = strtr($this->config['template']['first']['disabled'],['{url}'=>$this->url(1),'{text}'=>$this->config['text']['first']]);
-            $prev = strtr($this->config['template']['prev']['disabled'],['{url}'=>$this->url($this->currentPage-1),'{text}'=>$this->config['text']['prev']]);
+            $first = strtr($this->config['template']['first']['disabled'],['{url}'=>$this->url(1),'{text}'=>dist($this->config['text']['first'])]);
+            $prev = strtr($this->config['template']['prev']['disabled'],['{url}'=>$this->url($this->currentPage-1),'{text}'=>dist($this->config['text']['prev'])]);
 
         } else {
-            $first = strtr($this->config['template']['first']['enabled'],['{url}'=>$this->url(1),'{text}'=>$this->config['text']['first']]);
-            $prev = strtr($this->config['template']['prev']['enabled'],['{url}'=>$this->url($this->currentPage-1),'{text}'=>$this->config['text']['prev']]);
+            $first = strtr($this->config['template']['first']['enabled'],['{url}'=>$this->url(1),'{text}'=>dist($this->config['text']['first'])]);
+            $prev = strtr($this->config['template']['prev']['enabled'],['{url}'=>$this->url($this->currentPage-1),'{text}'=>dist($this->config['text']['prev'])]);
         }
 
         if($totalPage==0){
             $last = '';
             if(!is_null($resultSet) && count($resultSet)<$this->listRows){
                 $totalPage = $this->currentPage;
-                $next = strtr($this->config['template']['next']['disabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>$this->config['text']['next']]);
+                $next = strtr($this->config['template']['next']['disabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>dist($this->config['text']['next'])]);
             } else {
-                $next = $next = strtr($this->config['template']['next']['disabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>$this->config['text']['next']]);
-                $last = strtr($this->config['template']['last']['disabled'],['{url}'=>$this->url($totalPage),'{text}'=>$this->config['text']['last']]);
+                $next = $next = strtr($this->config['template']['next']['disabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>dist($this->config['text']['next'])]);
+                $last = strtr($this->config['template']['last']['disabled'],['{url}'=>$this->url($totalPage),'{text}'=>dist($this->config['text']['last'])]);
             }
         } else {
             if($this->currentPage<$totalPage){
-                $next = strtr($this->config['template']['next']['enabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>$this->config['text']['next']]);
-                $last = strtr($this->config['template']['last']['enabled'],['{url}'=>$this->url($totalPage),'{text}'=>$this->config['text']['last']]);
+                $next = strtr($this->config['template']['next']['enabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>dist($this->config['text']['next'])]);
+                $last = strtr($this->config['template']['last']['enabled'],['{url}'=>$this->url($totalPage),'{text}'=>dist($this->config['text']['last'])]);
             } else {
-                $next = strtr($this->config['template']['next']['disabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>$this->config['text']['next']]);
-                $last = strtr($this->config['template']['last']['disabled'],['{url}'=>$this->url($totalPage),'{text}'=>$this->config['text']['last']]);
+                $next = strtr($this->config['template']['next']['disabled'],['{url}'=>$this->url($this->currentPage+1),'{text}'=>dist($this->config['text']['next'])]);
+                $last = strtr($this->config['template']['last']['disabled'],['{url}'=>$this->url($totalPage),'{text}'=>dist($this->config['text']['last'])]);
             }
         }
 
@@ -269,7 +278,6 @@ class Paginator
                 }
             }
         }
-
         $replace = [
             '{total}' => $this->total,
             '{listRows}' => $this->listRows,
@@ -280,6 +288,11 @@ class Paginator
             '{paging}' => $pageStr,
             '{next}' => $next,
             '{last}' => $last,
+            '{total_count}' => dist($this->config['text']['total_count']),
+            '{page}' => dist($this->config['text']['page']),
+            '{every}' => dist($this->config['text']['every']),
+            '{line}' => dist($this->config['text']['line']),
+            '{no}' => dist($this->config['text']['no']),
         ];
 
         $result = strtr($this->config['template']['global'],$replace);
@@ -299,6 +312,7 @@ class Paginator
         if(is_string($this->isAjax)){
             return "javascript:".$this->isAjax."(".$page.")";
         } else {
+            // dd(array_merge($this->urlParam['param'],[$this->pageParam => $page]));
             if($page>1){
                 return url($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
             } else {

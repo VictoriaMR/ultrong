@@ -7,7 +7,7 @@ use App\Services\Base as BaseService;
 class FileService extends BaseService
 {
     const FILE_TYPE = ['temp', 'avatar', 'product', 'banner', 'file', 'article'];
-    const FILE_COMPERSS = ['jpg', 'jpeg', 'png', 'ico', 'gif'];
+    const FILE_COMPERSS = ['jpg', 'jpeg', 'png', 'ico', 'gif', 'mp4', 'flv', 'mp3', 'rmvb'];
     const MAX_OFFSET = 1200;
 
     /**

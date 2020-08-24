@@ -148,6 +148,15 @@ class SiteController extends Controller
 			return $this->result(10000, $result, ['删除失败']);
 	}
 
+	public function sitemap()
+	{
+		$result = $this->baseService->sitemap();
+		if ($result)
+			return $this->result(200, $result, ['更新成功']);
+		else
+			return $this->result(10000, $result, ['更新失败']);
+	}
+
 	public function siteInfo()
 	{
 		Html::addCss('siteinfo');

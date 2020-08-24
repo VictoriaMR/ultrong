@@ -17,6 +17,10 @@
 	            <div class="input-group-addon"><span>商品号码：</span></div>
 	            <input type="text" class="form-control" name="no" value="<?php echo $info['no'] ?? '';?>" maxlength="30"/>
 	        </div>
+	        <div class="input-group margin-top-15">
+	            <div class="input-group-addon"><span>价格：</span></div>
+	            <input type="text" class="form-control" name="price" value="<?php echo $info['sale_price'] ?? '';?>" maxlength="30"/>
+	        </div>
 	        <?php if (!empty($info)) { ?>
 	        <div class="input-group margin-top-15">
 	            <div class="input-group-addon"><span>商品状态：</span></div>

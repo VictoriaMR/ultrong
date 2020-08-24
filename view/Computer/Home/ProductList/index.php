@@ -19,7 +19,7 @@
 			<?php } ?>
 			<div class="nav-title text-right">
 				<span><?php echo dist('当前位置');?>:&nbsp;&nbsp;</span>
-				<?php !empty($siteInfo) { ?>
+				<?php if (!empty($siteInfo)) { ?>
 				<a href="/"><?php echo $_site_name ?? '';?></a>
 				<span>&nbsp;/&nbsp;</span>
 				<?php } ?>
@@ -37,12 +37,22 @@
 						<a class="square product-img" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>">
 							<img src="<?php echo $value['image'];?>" alt="<?php echo $v['name'];?>">
 						</a>
-						<a class="word-ellipsis-1 product-title" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>"><?php echo $value['name'];?></a>
+						<a class="font-16 text-center" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>">
+							<div class="word-ellipsis-2"><?php echo $value['name'];?></div>
+							<?php if (!empty($value['sale_price'])) { ?>
+                            <div class="text-right">
+                                <span class="font-14 color-9"><?php echo dist('价格');?>:&nbsp;</span>
+                                <span class="font-16 font-600 color-blue"><?php echo $value['sale_price'];?></span>
+                                <span class="font-14 color-9">&nbsp;<?php echo dist('元');?></span>
+                            </div>
+                            <?php } ?>
+						</a>
 					</li>
 					<?php } ?>
 				</ul>
-				<div class="clear"> </div>
+				<div class="clear"></div>
 			</div>
+			<?php echo $pageBar;?>
 			<?php } else { ?>
 			<div class="text-center">
 				<img src="<?php echo siteUrl('image/computer/empty.png');?>" />

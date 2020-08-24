@@ -53,6 +53,13 @@
 				<?php } ?>
 				<div class="left product-name">
 					<h2 class="title"><?php echo $info['name'];?></h2>
+					<?php if (!empty($info['sale_price'])) { ?>
+					<div class="font-600 margin-bottom-10">
+						<span><?php echo dist('价格');?>:&nbsp;</span>
+						<span class="font-24"><?php echo $info['sale_price'];?></span>
+						<span>&nbsp;<?php echo dist('元');?></span>
+					</div>
+					<?php } ?>
 					<div class="dashed"></div>
 					<div class="description">
 						<div><?php echo dist('产品简介');?>:</div>

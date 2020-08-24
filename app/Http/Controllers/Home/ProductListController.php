@@ -25,6 +25,7 @@ class ProductListController extends Controller
 
 		$cateId = (int) iget('cate_id', 0);
 		$page = (int) iget('page', 1);
+		$size = (int) iget('size', 20);
 
 		//分类
 		$cateService = \App::make('App/Services/CategoryService');
@@ -40,7 +41,12 @@ class ProductListController extends Controller
 		$total = $this->baseService->getTotal($where);
 
 		if ($total > 0) {
-			$list = $this->baseService->getList($where, $page, 20, [['hit_count', 'desc']]);
+			$list = $this->baseService->getList($where, $page, $size, [['hit_count', 'desc']]);
+		}
+
+		if ($total > $size) {
+			$pageBar = paginator()->make($size, $total);
+			$this->assign('pageBar', $pageBar);
 		}
 
 		$this->assign('cate_id', $cateId);

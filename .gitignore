@@ -1,4 +1,5 @@
 .env
+public/data/*
 public/file_center/*
 composer.lock
 vendor

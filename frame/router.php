@@ -186,10 +186,14 @@ class Router
 					$categoryService = \App::make('App\Services\CategoryService');
 					$info = $categoryService->getInfoCache($cid);
 					$url = self::specialChar($info['name_en'] ?? '');
-					$url .= '-pl-'.$param['cate_id'].'.html';
+					$url .= '-pl-'.$param['cate_id'];
 				} else {
-					$url .= '-pl.html';
+					$url .= '-pl-';
 				}
+				if (!empty($param['page']))
+					$url .= '-'.$param['page'];
+				$url = trim($url, '-');
+				$url .= '.html';
 				break;
 			//产品详情
 			case 'product':
@@ -237,8 +241,14 @@ class Router
 					$temp = $articleCategoryService->getCategoryName($cateId);
 					$url .= $temp.'-';
 					$url = self::specialChar($url);
-					$url .= '-al-'.$cateId.'.html';
+					$url .= '-al-'.$cateId;
+				} else {
+					$url .= '-al-';
 				}
+				if (!empty($param['page']))
+					$url .= '-'.$param['page'];
+				$url = trim($url, '-');
+				$url .= '.html';
 				break;
 			default: 
 				if (!empty($param)) {

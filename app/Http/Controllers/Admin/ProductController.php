@@ -108,7 +108,8 @@ class ProductController extends Controller
 		$isHot = (int) ipost('is_hot', 0);
 		$name = ipost('name');
 		$image = ipost('image');
-		$no = ipost('no');
+		$no = ipost('no', '');
+		$price = (int)ipost('price', 0);
 		$desc = ipost('desc');
 		$content = ipost('content');
 
@@ -120,8 +121,8 @@ class ProductController extends Controller
 		if (!empty($name))
 			$data['name'] = $name;
 
-		if (!empty($no))
-			$data['no'] = $no;
+		$data['no'] = $no;
+		$data['sale_price'] = $price;
 
 		if (!empty($cateId))
 			$data['cate_id'] = $cateId;

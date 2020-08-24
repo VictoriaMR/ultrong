@@ -44,7 +44,14 @@
                         <a class="block product-title" href="<?php echo url('product', ['pro_id'=>$v['pro_id'], 'lan_id' => $v['lan_id']]);?>">
                             <div class="square">
                                 <div class="font-18 word-ellipsis-1"><?php echo $v['name'];?></div>
-                                <div class="font-14 margin-top-10 word-ellipsis-5"><?php echo $v['desc'];?></div>
+                                <?php if (!empty($v['sale_price'])) { ?>
+                                <div class="font-14 font-600 color-blue">
+                                    <span><?php echo dist('价格');?>:&nbsp;</span>
+                                    <span><?php echo $v['sale_price'];?></span>
+                                    <span>&nbsp;<?php echo dist('元');?></span>
+                                </div>
+                                <?php } ?>
+                                <div class="font-14 word-ellipsis-5 margin-top-3"><?php echo $v['desc'];?></div>
                             </div>
                         </a>
                     </li>
