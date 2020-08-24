@@ -138,7 +138,7 @@ class SiteService extends BaseService
                 }
             }
         }
-        $saveFile = ROOT_PATH.'public/data/';
+        $saveFile = ROOT_PATH.'public/';
         if (!is_dir($saveFile)) {
             mkdir($saveFile, 0777, true);
         }
