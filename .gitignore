@@ -1,6 +1,7 @@
 .env
 sitemap.xml
 public/file_center/*
+public/robots.txt
 composer.lock
 vendor
 storage
