@@ -98,7 +98,7 @@ class App
                 $str = substr($str, 0, 255);
             }
             $data[] = [
-                'user_id' => (int) \frame\Session::get('home_user_id'),
+                'user_id' => (int) \frame\Session::get('home_mem_id'),
                 'language' => \frame\Session::get('site_language_name'),
                 'path' => implode('/', $info),
                 'user_agent' => $str,
@@ -109,6 +109,17 @@ class App
 
             $logService = \App::make('App\Services\LogService');
             $logService->create($data);
+        } else if ($info['Class'] == 'Admin') {
+            $data[] = [
+                'user_id' => (int) \frame\Session::get('admin_mem_id'),
+                'path' => implode('/', $info),
+                'param' => json_encode(input(), JSON_UNESCAPED_UNICODE),
+                'ip' => getIp(),
+                'create_at' => time(),
+            ];
+
+            $logService = \App::make('App\Services\LogService');
+            $logService->handleLog($data);
         }
 
         exit();

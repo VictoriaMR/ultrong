@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Services\Base as BaseService;
 use App\Models\Logger;
+use App\Models\HandleLogger;
 
 class LogService extends BaseService
 {
@@ -13,9 +14,10 @@ class LogService extends BaseService
 		'Home/Product/index' => '产品详情',
 	];
 
-	public function __construct(Logger $logger)
+	public function __construct(Logger $logger, HandleLogger $handle)
     {
         $this->baseModel = $logger;
+        $this->handleModel = $handle;
     }
 
     public function create($data)
@@ -99,5 +101,11 @@ class LogService extends BaseService
     	} else {
     		return '未知设备';
 		}
-	}			
+	}
+
+    public function handleLog($data)
+    {
+        return $this->handleModel->insert($data);
+    }
+
 }
