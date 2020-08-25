@@ -125,10 +125,15 @@ Class Query
 
 	public function sum($name = '')
 	{
-		$name = !empty($name) ? $name : 'count';
-		$this->_columns = ['COUNT(*) as '.$name];
-		$result = $this->get();
-		return count($result);
+		if (!empty($name)) {
+			$this->_columns = ['SUM('.$name.') as '.$name];
+			$result = $this->find();
+			return $result[$name] ?? 0;
+		} else {
+			$this->_columns = ['COUNT(*) as count'];
+			$result = $this->get();
+			return count($result);
+		}
 	}
 
 	public function value($name)

@@ -95,7 +95,8 @@ $(function(){
 		contact_url: "<?php echo url('index/sendContact');?>",
 		empty_text: "<?php echo dist('不能为空');?>",
 		create_url: "<?php echo url('index/createContact');?>",
-		list_url: "<?php echo url('index/contactList');?>"
+		list_url: "<?php echo url('index/contactList');?>",
+		count_url: "<?php echo url('index/unread');?>",
 	});
 });
 </script>

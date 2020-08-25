@@ -97,7 +97,7 @@ class Router
 				break;
 		}
 
-		 $funcArr = [
+		$funcArr = [
 			'Class'     => 'Home',
 			'ClassPath' => !empty($ClassPath) ? $ClassPath : 'Index',
 			'Func'      => !empty($Func) ? $Func : 'index',

@@ -89,10 +89,14 @@ var CHAT = {
         _this.data = data;
         _this.lastId = 0;
         _this.interval = null;
+        _this.intervalCount = null;
+        _this.getCount();
+        _this.startCount();
         $('.chat').on('click', '.chat_button_bar', function(){
             $(this).hide();
             _this.get();
             _this.start();
+            _this.stopCount();
             _this.initBottom();
             $('.chat .chat-content').slideDown(100, function(){
                 _this.initBottom();
@@ -102,6 +106,7 @@ var CHAT = {
             $(this).parents('.chat-content').slideUp(100, function(){
                 $('.chat .chat_button_bar').show();
                 _this.stop();
+                _this.startCount();
             });
         });
         //发送按钮
@@ -120,6 +125,45 @@ var CHAT = {
             if(ev.keyCode==13) {
                 $('.chat .chat-button .btn').trigger('click');
             }
+        }
+    },
+    //未读消息
+    startCount: function()
+    {
+        var _this = this;
+        _this.key = localStorage.getItem('chat_group_key');
+        console.log(_this.key)
+        if (!_this.key) {
+            return false;
+        }
+        _this.stop();
+        _this.interval = setInterval(function() { 
+            _this.getCount();
+        }, 3000);
+    },
+    stopCount: function()
+    {
+        var _this = this;
+        $('.chat .unread').remove();
+        clearInterval(_this.intervalCount);
+        _this.intervalCount = null; 
+    },
+    getCount: function()
+    {
+        var _this = this;
+        _this.key = localStorage.getItem('chat_group_key');
+        var res = API.post(_this.data.count_url, {'group_key': _this.key});
+        if (res.code == 200) {
+            _this.initCount(res.data);
+        } else {
+            _this.stopCount();
+        }
+    },
+    initCount: function(num)
+    {
+        $('.chat .unread').remove();
+        if (num > 0) {
+            $('.chat').append('<span class="unread">'+num+'</span>');
         }
     },
     //获取信息

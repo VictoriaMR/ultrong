@@ -219,7 +219,131 @@ class MessageService extends BaseService
 
             $list[$key] = $value;
         }
+        $this->setMessageRead($groupKey, $userId);
+        return $list;
+    }
+
+    public function setMessageRead($groupKey, $userId)
+    {
+        if (empty($groupKey) || empty($userId)) return false;
+        return $this->memberModel->where('group_key', $groupKey)
+                                ->where('user_id', $userId)
+                                ->update(['unread' => 0]);
+    }
+
+    public function getMemberListByGroupkey($groupKey, $userId=0)
+    {
+        if (empty($groupKey)) return [];
+
+        $list = $this->memberModel->where('group_key', $groupKey)
+                                ->select(['user_id'])
+                                ->orderBy('create_at', 'asc')
+                                ->get();
+
+        if (empty($list)) return $list;
+
+        $memberService = \App::make('App/Services/MemberService');
+        $adminMemberService = \App::make('App/Services/Admin/MemberService');
+        foreach ($list as $key => $value) {
+            $info = [];
+            if (!empty($value['user_id'])) {
+                if (substr($value['user_id'], 0, 1) == 5) {
+                    $info = $adminMemberService->getInfoCache($value['user_id']);
+                } else {
+                    $info = $memberService->getInfoCache($value['user_id']);
+                }
+            }
+            $value['user_avatar'] = !empty($info['avatar']) ? $info['avatar'] : $memberService->getDefaultAvatar($value['user_id']);
+            $value['is_self'] = $value['user_id'] == $userId ? 1 : 0;
+
+            $list[$key] = $value;
+        }
 
         return $list;
+    }
+
+    /**
+     * @method 聊天页列表
+     * @author LiaoMingRong
+     * @date   2020-08-25
+     * @param  array      $where [description]
+     * @param  integer    $page  [description]
+     * @param  integer    $size  [description]
+     * @return [type]            [description]
+     */
+    public function getMessageList($where = [], $page = 1, $size = 20)
+    {
+        $total = $this->baseModel->where($where)->count();
+        if ($total > 0) {
+            $list = $this->baseModel->where($where)
+                                    ->offset(($page - 1) * $size)
+                                    ->limit($size)
+                                    ->orderBy('create_at', 'desc')
+                                    ->get();
+            //获取消息人员信息
+            $memberService = \App::make('App/Services/MemberService');
+            $adminMemberService = \App::make('App/Services/Admin/MemberService');
+            foreach ($list as $key => $value) {
+                $info = [];
+                if (!empty($value['user_id'])) {
+                    if (substr($value['user_id'], 0, 1) == 5) {
+                        $info = $adminMemberService->getInfoCache($value['user_id']);
+                    } else {
+                        $info = $memberService->getInfoCache($value['user_id']);
+                    }
+                }
+                $value['user_avatar'] = !empty($info['avatar']) ? $info['avatar'] : $memberService->getDefaultAvatar($value['user_id']);
+                $value['user_name'] = $info['name'] ?? '';
+                $value['user_nickname'] = $info['nickname'] ?? '';
+                if ($value['create_at'] - $lastTime > 600) {
+                    $lastTime = $value['create_at'];
+                    $value['create_at'] = date('Y-m-d H:i', $value['create_at']);
+                } else {
+                    $value['create_at'] = '';
+                }
+
+                $list[$key] = $value;
+            }
+        }
+
+        return $this->getPaginationList($total, $list ?? [], $page, $pagesize);
+    }
+
+    public function getGroupList($where = [], $page = 1, $size = 10)
+    {
+        $total = $this->groupModel->where($where)->count();
+        if ($total > 0) {
+            $list = $this->groupModel->where($where)
+                                    ->offset(($page - 1) * $size)
+                                    ->limit($size)
+                                    ->orderBy('create_at', 'desc')
+                                    ->get();
+            //组内成员
+            foreach ($list as $key => $value) {
+                $value['member_list'] = $this->getMemberListByGroupkey($value['group_key'], $value['user_id']);
+                $list[$key] = $value;
+            }
+        }
+        return $this->getPaginationList($total, $list ?? [], $page, $pagesize);
+    }
+
+    public function changeUser($groupKey, $from, $to)
+    {
+        if (empty($groupKey) || empty($from) || empty($to)) return false;
+        $res = $this->memberModel->where('group_key', $groupKey)
+                                ->where('user_id', $from)
+                                ->update(['user_id' => $to]);
+        $res = $this->baseModel->where('group_key', $groupKey)
+                                ->where('user_id', $from)
+                                ->update(['user_id' => $to]);
+        return $res;
+    }
+
+    public function getUnreadTotal($groupKey, $userId)
+    {
+        if (empty($groupKey) || empty($userId)) return 0;
+        return $this->memberModel->where('group_key', $groupKey)
+                                ->where('user_id', $userId)
+                                ->sum('unread');
     }
 }

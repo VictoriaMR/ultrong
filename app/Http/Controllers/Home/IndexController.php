@@ -136,4 +136,14 @@ class IndexController extends Controller
 		else
 			return $this->result(10000, $res, ['message' => dist('发送失败')]);
 	}
+
+	public function unread()
+	{
+		$groupKey = ipost('group_key');
+		if (empty($groupKey))
+			return $this->result(10000, $res, ['message' => dist('参数错误')]);
+		$message = \App::make('App/Services/MessageService');
+		$total = $message->getUnreadTotal($groupKey, ipUserId());
+		return $this->result(200, $total);
+	}
 }

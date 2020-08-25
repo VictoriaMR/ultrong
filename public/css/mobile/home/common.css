@@ -126,7 +126,6 @@
     z-index: 99999;
     bottom: 0.15rem;
     right: 0.15rem;
-    overflow: hidden;
     cursor: pointer;
     background: #fff;
     border-radius: 0.05rem;
@@ -316,4 +315,19 @@
 .selector .icon-curr {
     left: 0.08rem;
     top: 0.12rem;
+}
+.chat .unread {
+    padding: 0.01rem;
+    display: block;
+    height: 0.18rem;
+    line-height: 0.16rem;
+    min-width: 0.18rem;
+    background-color: #DC3918;
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-size: 0.12rem;
+    position: absolute;
+    top: -0.08rem;
+    text-align: center;
+    right: -0.08rem;
 }
