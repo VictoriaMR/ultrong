@@ -291,8 +291,10 @@ class MemberService extends BaseService
         } else {
             $info = $this->getInfo($userId);
             if (!empty($info)) {
-            	if (!empty($info['avatar'])) {
+            	if (empty($info['avatar'])) {
             		$info['avatar'] = $this->getDefaultAvatar($userId);
+            	} else {
+            		$info['avatar'] = media($info['avatar']);
             	}
             }
             Redis()->set($cacheKey, $info, self::INFO_CACHE_TIMEOUT);
@@ -364,6 +366,7 @@ class MemberService extends BaseService
 			'name',
 			'mobile',
 			'email',
+			'avatar',
 			'is_super',
 			'status',
 			'create_at',
@@ -376,6 +379,11 @@ class MemberService extends BaseService
 			                  
 		if (!empty($list)) {
 			foreach ($list as $key => $value) {
+				if (empty($value['avatar'])) {
+            		$value['avatar'] = $this->getDefaultAvatar($value['mem_id']);
+            	} else {
+            		$value['avatar'] = media($value['avatar']);
+            	}
 				$value['create_at'] = date('Y-m-d', $value['create_at']);
 				$list[$key] = $value;
 			}

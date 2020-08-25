@@ -170,7 +170,7 @@ class MessageService extends BaseService
     	return $this->groupModel->where('group_key', $key)->count() > 0;
     }
 
-    protected function isExistMember($key, $userId)
+    public function isExistMember($key, $userId)
     {
     	$userId = (int) $userId;
     	if (empty($key) || empty($userId)) return false;
@@ -183,10 +183,14 @@ class MessageService extends BaseService
         return 500000002;
     }
 
-    public function getListByGroupkey($groupKey, $userId, $lastId = 0)
+    public function getListByGroupkey($groupKey, $userId = 0, $lastId = 0)
     {
-        if (empty($groupKey) || empty($userId)) return [];
-        if (!$this->isExistMember($groupKey, $userId)) return [];
+        if (empty($groupKey)) return [];
+        if (!empty($userId)) {
+            if (!$this->isExistMember($groupKey, $userId)) return [];
+        } else {
+            if (!$this->isExistGroup($groupKey)) return [];
+        }
 
         $list = $this->baseModel->where('group_key', $groupKey)
                                 ->where('message_id', '>', (int) $lastId)
@@ -255,7 +259,8 @@ class MessageService extends BaseService
             }
             $value['user_avatar'] = !empty($info['avatar']) ? $info['avatar'] : $memberService->getDefaultAvatar($value['user_id']);
             $value['is_self'] = $value['user_id'] == $userId ? 1 : 0;
-
+            $value['user_name'] = $info['name'] ?? '';
+            $value['user_nickname'] = $info['nickname'] ?? '';
             $list[$key] = $value;
         }
 
@@ -306,7 +311,7 @@ class MessageService extends BaseService
             }
         }
 
-        return $this->getPaginationList($total, $list ?? [], $page, $pagesize);
+        return $this->getPaginationList($total, $list ?? [], $page, $size);
     }
 
     public function getGroupList($where = [], $page = 1, $size = 10)
@@ -324,7 +329,7 @@ class MessageService extends BaseService
                 $list[$key] = $value;
             }
         }
-        return $this->getPaginationList($total, $list ?? [], $page, $pagesize);
+        return $this->getPaginationList($total, $list ?? [], $page, $size);
     }
 
     public function changeUser($groupKey, $from, $to)
@@ -345,5 +350,22 @@ class MessageService extends BaseService
         return $this->memberModel->where('group_key', $groupKey)
                                 ->where('user_id', $userId)
                                 ->sum('unread');
+    }
+
+    public function getUnreadByUserId($userId)
+    {
+        if (empty($userId)) return 0;
+        return $this->memberModel->where('user_id', $userId)
+                                ->sum('unread');
+    }
+
+    public function getUserGroupkey($userId)
+    {
+        $list = $this->memberModel->where('user_id', (int)$userId)
+                                ->select('group_key')
+                                ->get();
+        if (empty($list)) return [];
+
+        return array_unique(array_column($list, 'group_key'));
     }
 }

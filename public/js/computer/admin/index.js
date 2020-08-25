@@ -1,8 +1,13 @@
 var INDEX = {
-	init: function() {
+	init: function(data) {
+		var _this = this;
 		var width = $(window).width();
 		var height = $(window).height();
 		var topH = $('#header').height();
+		_this.data = data;
+		_this.intervalCount = null;
+		_this.getCount();
+        _this.startCount();
 		$('#left').css({height: height - topH - 1 + 'px'});
 
 		var iframeTop = $('#iframe-list').height();
@@ -75,6 +80,40 @@ var INDEX = {
 
 		this.frameInit();
 	},
+	//未读消息
+    startCount: function()
+    {
+        var _this = this;
+        _this.stopCount();
+        _this.intervalCount = setInterval(function() { 
+            _this.getCount();
+        }, 3000);
+    },
+    stopCount: function()
+    {
+        var _this = this;
+        $('.chat .unread').remove();
+        clearInterval(_this.intervalCount);
+        _this.intervalCount = null; 
+    },
+    getCount: function()
+    {
+        var _this = this;
+        _this.key = localStorage.getItem('chat_group_key');
+        var res = API.post(_this.data.count_url, {'group_key': _this.key});
+        if (res.code == 200) {
+            _this.initCount(res.data);
+        } else {
+            _this.stopCount();
+        }
+    },
+    initCount: function(num)
+    {
+        $('#message .unread').remove();
+        if (num > 0) {
+            $('#message').append('<span class="unread">'+num+'</span>');
+        }
+    },
 	frameInit: function(){
 		var id = localStorage.getItem('feature');
 		if (id) {

@@ -5,13 +5,13 @@
 	    <a href="<?php echo adminUrl('login/logout');?>" class="right toolbox" data-title="退出系统">
 	    	<img src="<?php echo siteUrl('image/computer/icon/exit.png');?>">
 	    </a>
-	    <a target="subframe" href="<?php echo adminUrl('index/setting');?>" class="right toolbox setting" data-title="个人设置"> 
+	    <a target="subframe" href="<?php echo adminUrl('index/setting');?>" class="right toolbox setting hidden" data-title="个人设置"> 
 	    	<img src="<?php echo siteUrl('image/computer/icon/setting.png');?>">
 	    </a>
-	    <a target="subframe" href="<?php echo adminUrl('message');?>" class="right toolbox" data-title="消息通知"> 
+	    <a id="message" target="subframe" href="<?php echo adminUrl('message');?>" class="right toolbox relative" data-title="消息通知"> 
 	    	<img src="<?php echo siteUrl('image/computer/icon/notice.png');?>">
 	    </a>
-	    <a target="subframe" href="<?php echo adminUrl('profile');?>" class="right toolbox" data-title="用户中心"> 
+	    <a target="subframe" href="<?php echo adminUrl('profile');?>" class="right toolbox hidden" data-title="用户中心"> 
 	    	<img src="<?php echo siteUrl('image/computer/icon/user.png');?>">
 	    </a>
 	</div>
@@ -90,7 +90,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	INDEX.init();
+	INDEX.init({
+		count_url: "<?php echo adminUrl('message/getUnread');?>"
+	});
 });
 </script>
 <?php $this->load('Common.baseFooter');?>

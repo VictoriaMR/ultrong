@@ -226,3 +226,19 @@ body {
 #iframe-list ul > li.select {
 	background-color: #FFF;
 }
+
+.unread{
+    padding: 1px;
+    display: block;
+    height: 18px;
+    line-height: 16px;
+    min-width: 18px;
+    background-color: #DC3918;
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-size: 12px;
+    position: absolute;
+    top: 1px;
+    text-align: center;
+    right: -4px;
+}

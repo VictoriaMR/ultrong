@@ -338,12 +338,11 @@ var CHAT = {
     {
         var _this = this;
         _this.key = localStorage.getItem('chat_group_key');
-        console.log(_this.key)
         if (!_this.key) {
             return false;
         }
-        _this.stop();
-        _this.interval = setInterval(function() { 
+        _this.stopCount();
+        _this.intervalCount = setInterval(function() { 
             _this.getCount();
         }, 3000);
     },

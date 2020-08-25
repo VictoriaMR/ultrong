@@ -87,7 +87,6 @@ var CATEGORY = {
 	save: function ()
 	{
     	API.post(ADMIN_URI + 'articleCategory/modify', $('#dealbox form').serializeArray(), function(res){
-    		$('#dealbox button.save').html('确认');
     		if (res.code == 200) {
     			successTips(res.message);
     			window.location.reload();
