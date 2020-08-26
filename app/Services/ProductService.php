@@ -80,7 +80,7 @@ class ProductService extends BaseService
     {
         $proId = (int) $proId;
         $lanId = (int) $lanId;
-        if (empty($lanId) || empty($lanId)) return [];
+        if (empty($proId) || empty($lanId)) return [];
 
         $cacheKey = 'PRODUCT_INFO_CACHE_'.$proId.'_'.$lanId;
 
@@ -98,7 +98,7 @@ class ProductService extends BaseService
     {
         $proId = (int) $proId;
         $lanId = (int) $lanId;
-        if (empty($lanId) || empty($lanId)) return [];
+        if (empty($proId) || empty($lanId)) return [];
         $info = $this->baseModel->where('pro_id', $proId)
                                 ->where('lan_id', $lanId)
                                 ->find();
@@ -128,7 +128,7 @@ class ProductService extends BaseService
     {
         $proId = (int) $proId;
         $lanId = (int) $lanId;
-        if (empty($lanId) || empty($lanId)) return false;
+        if (empty($proId) || empty($lanId)) return false;
 
         $result = $this->baseModel->where('pro_id', $proId)
                                   ->where('lan_id', $lanId)
@@ -148,7 +148,7 @@ class ProductService extends BaseService
     {
         $proId = (int) $proId;
         $lanId = (int) $lanId;
-        if (empty($lanId) || empty($lanId)) return false;
+        if (empty($proId) || empty($lanId)) return false;
 
         return $this->baseModel->where('pro_id', $proId)
                                ->where('lan_id', $lanId)

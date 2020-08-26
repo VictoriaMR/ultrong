@@ -26,10 +26,6 @@ class ProductController extends Controller
 		$proId = iget('pro_id', 0);
 		$lanId = iget('lan_id', 0);
 
-		//分类
-		$cateService = \App::make('App/Services/CategoryService');
-		$cateList = $cateService->getList(['status'=>1]);
-
 		$info = $this->baseService->getInfo($proId, $lanId);
 		if (!empty($info)) {
 			$this->baseService->hitCountAdd($proId, $lanId);
@@ -48,7 +44,6 @@ class ProductController extends Controller
 		$where['pro_id'] = [ '<>', $proId];
 		$recommend = $this->baseService->getList($where, 1, 4, [['is_hot', 'desc'], ['hit_count', 'desc']]);
 
-		$this->assign('cateList', $cateList);
 		$this->assign('info', $info);
 		$this->assign('recommend', $recommend);
 

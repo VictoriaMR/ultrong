@@ -81,6 +81,7 @@ class Controller
 
     protected function _init()
     {
+        if (IS_AJAX) return false;
         \frame\Html::addCss('common');
         \frame\Html::addJs('common');
 
@@ -135,21 +136,42 @@ class Controller
                 if (empty($value['son'])) {
                     $value['son'] = $articleService->getListFormat(['cate_id' => $value['cate_id'], 'lan_id' => \frame\Session::get('site_language_id')]);
                     if (!empty($value['son'])) {
+                        $cate_id = 0;
                         foreach ($value['son'] as $sk => $sv) {
                             $value['son'][$sk]['url'] = url('article', ['art_id'=>$sv['art_id'], 'lan_id'=>$sv['lan_id']]);
+                            if ($sv['art_id'] == iget('art_id') && $sv['lan_id'] == iget('lan_id')) {
+                                $value['son'][$sk]['selected'] = 1;
+                                $cate_id = $sv['cate_id'];
+                            } else {
+                                $value['son'][$sk]['selected'] = 0;
+                            }
+                        }
+                        if (empty(iget('art_id')) && empty(iget('lan_id'))) {
+                            $value['son'][0]['selected'] = 1;
                         }
                         $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
                     }
                     //取对应子分类
-                    $value['selected'] = strpos($controller, 'product') === false && iget('cate_id') == $value['cate_id'] ? 1 : 0;
+                    if ($controller == 'articlelist') {
+                        $value['selected'] = strpos($controller, 'product') === false && iget('cate_id') == $value['cate_id'] ? 1 : 0;
+                    } else {
+                        $value['selected'] = strpos($controller, 'product') === false && $cate_id == $value['cate_id'] ? 1 : 0;
+                    }
                 } else {
                     foreach ($value['son'] as $sk => $sv) {
-                        $cateParentArr[$value['cate_id']] = $value['parent_id'];
                         $value['son'][$sk]['name'] = dist($sv['name']);
                         $value['son'][$sk]['url'] = url('articleList', ['cate_id'=>$sv['cate_id']]);
+                        $value['son'][$sk]['selected'] = iget('cate_id') == $sv['cate_id'] ? 1 : 0;
                     }
                     $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
-                    $value['selected'] = strpos($controller, 'product') === false && ($cateParentArr[iget('cate_id')] ?? 0) === $value['parent_id'] ? 1 : 0;
+                    if ($controller == 'articlelist') {
+                        $value['selected'] = strpos($controller, 'product') === false && (iget('cate_id') == $value['cate_id'] || in_array(iget('cate_id'), array_column($value['son'], 'cate_id'))) ? 1 : 0;
+                        if (!in_array(iget('cate_id'), array_column($value['son'], 'cate_id'))) {
+                            $value['son'][0]['selected'] = 1;
+                        }
+                    } else {
+
+                    }
                 }
                 $tempData[] = [
                     'selected' => $value['selected'],
@@ -186,7 +208,17 @@ class Controller
                 'son' => $son,
             ];
         }
+        $selectedNav = [];
+        foreach ($tempData as $key => $value) {
+            if ($value['selected']) {
+                $selectedNav = $value;
+                break;
+            }
+        }
+        // dd($tempData);
+        // dd($selectedNav);
         $this->assign('controller', $controller);
+        $this->assign('selectedNav', $selectedNav);
         $this->assign('site_language', $site_language);
         $this->assign('language_list', $list);
         $this->assign('nav_list', $tempData);

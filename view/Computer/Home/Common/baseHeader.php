@@ -88,7 +88,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                                 </li>
                                 <?php } ?>
                                 <li class="relative">
-                                    <a href="javascript:;" class="title">
+                                    <a href="<?php echo url('search');?>" class="title">
                                         <span><?php echo dist('搜索');?></span>
                                         <span class="icon search-icon"></span>
                                     </a>

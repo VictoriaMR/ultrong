@@ -1,7 +1,7 @@
 <?php $this->load('Common.baseHeader');?>
 <div id="product-content" class="bg-f5">
 	<div class="container">
-		<div class="product-box">
+		<div class="info-box">
 			<?php if (!empty($cateList)) { $cateName = '';?>
 			<div class="nav-box">
 				<ul>

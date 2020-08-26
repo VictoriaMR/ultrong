@@ -1,11 +1,11 @@
 <?php $this->load('Common.baseHeader');?>
 <div id="product-content" class="bg-f5">
 	<div class="container">
-		<div class="product-box">
-			<?php if (!empty($cateList)) { $cateName = '';?>
+		<div class="info-box">
+			<?php if (!empty($selectedNav)) { $cateName = '';?>
 			<div class="nav-box">
 				<ul>
-					<?php foreach ($cateList as $key => $value) { 
+					<?php foreach ($selectedNav['son'] as $key => $value) { 
 						if ($info['cate_id'] == $value['cate_id']) {$cateName = $value['name'];}
 					?>
 					<li class="<?php echo $info['cate_id'] == $value['cate_id'] ? 'selected' : '';?>">

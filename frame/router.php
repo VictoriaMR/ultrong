@@ -217,6 +217,7 @@ class Router
 			case 'article':
 				$artId = $param['art_id'] ?? 0;
 				$lanId = $param['lan_id'] ?? 0;
+				$cateId = $param['cate_id'] ?? 0;
 				$url = '';
 				if (!empty($artId) && !empty($lanId)) {
         			$articleService = \App::make('App/Services/ArticleService');

@@ -85,6 +85,16 @@ class ArticleCategoryService extends BaseService
                                ->count() > 0;
     }
 
+    public function hasChildren($cateId)
+    {
+        $cateId = (int) $cateId;
+        if (empty($cateId)) return 0;
+
+        return $this->baseModel->where('cate_id', $cateId)
+                               ->where('parent_id', 0)
+                               ->count() > 0;
+    }
+
     /**
      * @method 根据父ID删除
      * @author LiaoMingRong

@@ -31,7 +31,7 @@ class ArticleService extends BaseService
             $cateList = array_column($cateList, null, 'cate_id');
             //语言列表
             $lanList = $languageService->getList();
-            $lanList = array_column($lanList, null, 'cate_id');
+            $lanList = array_column($lanList, null, 'lan_id');
             foreach ($list as $key => $value) {
                 $value['cate_name'] = $cateList[$value['cate_id']]['name'] ?? '';
                 $value['language_name'] = $lanList[$value['lan_id']]['name'] ?? '';
@@ -112,5 +112,16 @@ class ArticleService extends BaseService
         $cacheKey = 'ARTICLE_INFO_CACHE_'.$artId.'_'.$lanId;
 
         return Redis()->del($cacheKey);
+    }
+
+    public function hitCountAdd($artId, $lanId)
+    {
+        $artId = (int) $artId;
+        $lanId = (int) $lanId;
+        if (empty($artId) || empty($lanId)) return false;
+
+        return $this->baseModel->where('art_id', $artId)
+                               ->where('lan_id', $lanId)
+                               ->increment('hit_count');
     }
 }

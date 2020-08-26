@@ -73,8 +73,11 @@ class App
         } else if ($info['Class'] == 'Home') {
             Html::addJs('syalert');
         }
-
-		call_user_func_array([self::autoload($class), $info['Func']], []);
+        if (is_callable([self::autoload($class), $info['Func']])) {
+            call_user_func_array([self::autoload($class), $info['Func']], []);
+        } else {
+            throw new Exception(implode('->', [self::autoload($class), $info['Func']]) .' was not exist!', 1);
+        }
 	}
 
     /**

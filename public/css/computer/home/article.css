@@ -1,0 +1,75 @@
+.article-list li {
+	padding: 20px 0;
+	border-bottom: 1px solid #d6d6d6;
+}
+.article-list .image-item {
+	display: block;
+    padding: 5px;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+}
+.article-list .article-info {
+	padding-left: 40px;
+}
+
+.article-list .more {
+    display: inline-block;
+    width: 87px;
+    height: 25px;
+    line-height: 25px;
+    border: 2px solid #b2b2b2;
+    text-align: center;
+    margin-top: 15px;
+}
+.article-list li:hover .image-item{
+	border-color: #0a396d;
+}
+.article-list li:hover .title{
+	color: #0a396d;
+}
+.article-list li:hover .more {
+	border-color: #0a396d;
+	background: #0a396d;
+	color: #fff;
+}
+.source {
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #d2d2d2;
+    font-weight: normal;
+}
+.article-detail {
+    height: 35px;
+    background: #eee;
+}
+
+.article-detail li {
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 20px;
+}
+
+.article-detail li.selected {
+    color: #fff;
+    background: #0a396d;
+}
+.recommend-list {
+    font-size: 0;
+}
+.recommend-list li {
+    display: inline-block;
+    width: calc((100% - 40px) / 2);
+    margin-right: 40px;
+    line-height: 22px;
+}
+.recommend-list li a{
+    display: block;
+    float: left;
+    background: url(/image/computer/icon/iconh.jpg) no-repeat left center;
+    padding-left: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
