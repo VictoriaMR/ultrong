@@ -11,8 +11,8 @@ class Base extends Query
 {
     public function __construct()
     {
-        $this->_table = $this->table;
-        $this->_connect = $this->connect;
+        $this->_table = $this->table ?? null;
+        $this->_connect = $this->connect ?? null;
     }
 
     /**

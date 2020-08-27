@@ -9,10 +9,10 @@ function isMobile()
 {
     if (!empty($_SESSION['site_type'])) return $_SESSION['site_type'];
 
-	if (isset($_SERVER['HTTP_VIA']) && stristr($_SERVER['HTTP_VIA'], "wap")) {
+	if (isset($_SERVER['HTTP_VIA']) && stristr($_SERVER['HTTP_VIA'], 'wap')) {
         return true;
     } 
-    if (isset($_SERVER['HTTP_ACCEPT']) && strpos(strtoupper($_SERVER['HTTP_ACCEPT']), "VND.WAP.WML")) {
+    if (isset($_SERVER['HTTP_ACCEPT']) && strpos(strtoupper($_SERVER['HTTP_ACCEPT']), 'VND.WAP.WML')) {
         return true;
     } 
     if (isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
@@ -27,21 +27,21 @@ function isMobile()
 
 function getIp()
 {
-    if ($_SERVER["HTTP_CLIENT_IP"] && strcasecmp($_SERVER["HTTP_CLIENT_IP"], "unknown")) {
-        $ip = $_SERVER["HTTP_CLIENT_IP"];
+    if (isset($_SERVER['HTTP_CLIENT_IP']) && strcasecmp($_SERVER['HTTP_CLIENT_IP'], 'unknown')) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
     } else {
-        if ($_SERVER["HTTP_X_FORWARDED_FOR"] && strcasecmp($_SERVER["HTTP_X_FORWARDED_FOR"], "unknown")) {
-            $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], 'unknown')) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } else {
-            if ($_SERVER["REMOTE_ADDR"] && strcasecmp($_SERVER["REMOTE_ADDR"], "unknown")) {
-                $ip = $_SERVER["REMOTE_ADDR"];
+            if ($_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
+                $ip = $_SERVER['REMOTE_ADDR'];
             } else {
                 if (isset ($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'],
-                        "unknown")
+                        'unknown')
                 ) {
                     $ip = $_SERVER['REMOTE_ADDR'];
                 } else {
-                    $ip = "unknown";
+                    $ip = 'unknown';
                 }
             }
         }
@@ -110,9 +110,7 @@ function go($func = '')
 function load($func = '')
 {
     $func = explode('.', $func);
-
     Router::reload($func);
-
     App::instance()->send();
 }
 
@@ -238,7 +236,7 @@ function Env($name = '', $replace = '')
 function DbConfig($db = 'default')
 {
     if (empty(Config('database'))) {
-        throw new Exception("数据库配置文件不存在", 1);
+        throw new Exception('数据库配置文件不存在', 1);
         exit();
     }
     return Config('database')[$db] ?? [];

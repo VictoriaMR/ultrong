@@ -1,18 +1,18 @@
-.article-list li {
+.item-list li {
 	padding: 20px 0;
 	border-bottom: 1px solid #d6d6d6;
 }
-.article-list .image-item {
+.item-list .image-item {
 	display: block;
     padding: 5px;
     border: 1px solid #d6d6d6;
     border-radius: 4px;
 }
-.article-list .article-info {
+.item-list .item-info {
 	padding-left: 40px;
 }
 
-.article-list .more {
+.item-list .more {
     display: inline-block;
     width: 87px;
     height: 25px;
@@ -21,13 +21,13 @@
     text-align: center;
     margin-top: 15px;
 }
-.article-list li:hover .image-item{
+.item-list li:hover .image-item{
 	border-color: #0a396d;
 }
-.article-list li:hover .title{
+.item-list li:hover .title{
 	color: #0a396d;
 }
-.article-list li:hover .more {
+.item-list li:hover .more {
 	border-color: #0a396d;
 	background: #0a396d;
 	color: #fff;
@@ -39,19 +39,19 @@
     border-bottom: 1px solid #d2d2d2;
     font-weight: normal;
 }
-.article-detail {
+.item-detail {
     height: 35px;
     background: #eee;
 }
 
-.article-detail li {
+.item-detail li {
     float: left;
     height: 35px;
     line-height: 35px;
     padding: 0 20px;
 }
 
-.article-detail li.selected {
+.item-detail li.selected {
     color: #fff;
     background: #0a396d;
 }

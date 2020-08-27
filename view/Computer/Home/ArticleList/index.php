@@ -40,7 +40,7 @@
 				<?php echo $info['content'];?>
 			</div>
 			<?php if (!empty($recommend)) { ?>
-			<div class="article-detail margin-top-20">
+			<div class="item-detail margin-top-20">
                 <ul>
                     <li class="selected"><?php echo dist('相关推荐');?></li>
                 </ul>
@@ -50,7 +50,7 @@
             	<ul>
             		<?php foreach ($recommend as $key => $value) {?>
             		<li class="font-12" <?php if (($key+1)%2 == 0){ ?>style="margin-right: 0;"<?php } ?>>
-            			<a href="<?php echo url('article', ['art_id'=>$value['art_id'], 'lan_id'=>$value['lan_id']]);?>"><?php echo $value['name'];?></a>
+            			<a href="<?php echo $value['url'];?>"><?php echo $value['name'];?></a>
             			<span class="right color-9"><?php echo date('Y-m-d', $value['create_at']);?></span>
             			<div class="clear"></div>
             		</li>
@@ -59,10 +59,10 @@
             </div>
         	<?php } ?>
 			<?php } else if (!empty($list)) { ?>
-			<ul class="article-list">
+			<ul class="item-list">
 			<?php foreach ($list as $key => $value) {?>
 				<li>
-					<a class="block" href="<?php echo url('article', ['art_id'=>$value['art_id'], 'lan_id'=>$value['lan_id']]);?>">
+					<a class="block" href="<?php echo $value['url'];?>">
 						<table width="100%" border="0">
 							<tr>
 								<td width="25%" valign="top">
@@ -71,7 +71,7 @@
 									</div>
 								</td>
 								<td width="75%" valign="top">
-									<div class="article-info">
+									<div class="item-info">
 										<div class="word-ellipsis-2 font-16 title"><?php echo $value['name'];?></div>
 										<div class="color-9 margin-top-3"><?php echo date('Y-m-d H:i:s', $value['create_at']);?></div>
 										<div class="color-8 font-16 margin-top-15"><?php echo $value['desc'];?></div>

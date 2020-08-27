@@ -88,7 +88,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                                 </li>
                                 <?php } ?>
                                 <li class="relative">
-                                    <a href="<?php echo url('search');?>" class="title">
+                                    <a href="<?php echo url('search');?>" class="title <?php echo $controller=='search' ? 'selected' : '';?>">
                                         <span><?php echo dist('搜索');?></span>
                                         <span class="icon search-icon"></span>
                                     </a>

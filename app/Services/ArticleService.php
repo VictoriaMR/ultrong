@@ -40,6 +40,7 @@ class ArticleService extends BaseService
                     $data = $attchService->getAttachmentById(explode(',', $value['image'])[0]);
                     $value['image'] = $data['url'];
                 }
+                $value['url'] = url('article', ['art_id'=>$value['art_id'], 'lan_id'=>$value['lan_id']]);
                 $list[$key] = $value;
             }
         }

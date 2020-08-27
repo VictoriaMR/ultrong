@@ -118,7 +118,6 @@ class Controller
                         $code = 'en';
                 }
             }
-
             \frame\Session::set('site', ['language_name' => $list[$code]['value'] ?? '', 'language_id' => $list[$code]['lan_id'] ?? 0]);
         }
 
@@ -174,7 +173,7 @@ class Controller
                     }
                 }
                 $tempData[] = [
-                    'selected' => $value['selected'],
+                    'selected' => $value['selected'] ?? 0,
                     'name' => dist($value['name']),
                     'url' => $value['url'],
                     'son' => $value['son'],

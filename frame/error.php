@@ -6,6 +6,9 @@ class Erroring
      * 注册异常处理
      * @return void
      */
+
+    private static $_error = [];
+    
     public static function register()
     {
         if (Env('APP_DEBUG')) {
@@ -21,23 +24,29 @@ class Erroring
 
     public static function error_debug($errno, $errStr, $errfile = '', $errline = '')
     {
+    	// dd(error_get_last());
     	$msg = sprintf('<div>[%s]</div> <div> %s </div> <div> 第 %s 行 </div> <div> 错误: %s </div><br />', date( "Y-m-d H:i:s" ), $errfile, $errline, $errStr);
-    	self::error_echo($msg);
+    	self::$_error[] = $msg;
     }
 
     public static function exception_debug($exception)
     {
     	$msg = sprintf('<div>[%s]</div> <div> %s </div> <div> 第 %s 行 </div> <div> 错误: %s </div><br />', date( "Y-m-d H:i:s" ), $exception->getFile(), $exception->getLine(), $exception->getMessage());
+    	// dd($msg);
     	foreach ($exception->getTrace() as $key => $value) {
-    		$msg .= '<div>'.sprintf(' %s, 第 %s 行', $value['file'] ?? '', $value['line']).'</div>';
+    		$msg .= '<div>'.sprintf(' %s, 第 %s 行', $value['file'] ?? '', $value['line'] ?? '').'</div>';
     	}
-    	self::error_echo($msg);
+    	self::$_error[] = $msg;
+    	\App::Error(sprintf('[%s] %s 第 %s 行 错误: %s', date( "Y-m-d H:i:s" ), $exception->getFile(), $exception->getLine(), $exception->getMessage()));
+		self::error_echo();
     }
 
-    public static function error_echo($msg = '')
+    public static function error_echo()
 	{
-		echo '<div style="position: absolute; z-index: 9999;"><div style="clear:both;word-wrap: break-word;font-family: Arial;font-size: 18px;border: 2px solid #c00;border-radius: 20px;margin:0 30px;padding: 20px;background-color:#FFFFE1;font-weight:600;">';
-		echo $msg;
+		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" /><style>*{padding:0;margin:0;}img{max-width:100%;max-height:100%;}</style><div style="z-index: 9999;"><div style="clear:both;word-wrap: break-word;font-family: Arial;font-size: 18px;border: 2px solid #c00;border-radius: 20px;margin:0 30px;padding: 20px;background-color:#FFFFE1;font-weight:600;">';
+		foreach (self::$_error as $value) {
+			echo $value;
+		}
 		echo '</div></div>';
 		exit();
 	}
@@ -58,7 +67,9 @@ class Erroring
 			$msg .= '<div style="color:#c00">'.$_error['message'].'</div>';
 			$msg .= '文件: <strong>'.$_error['file'].'</strong></br>';
 			$msg .= '在第: <strong>'.$_error['line'].'</strong> 行</br>';
-			self::error_echo($msg);
+			self::$_error[] = $msg;
+			\App::Error();
+			self::error_echo();
 		}
 	}
 
@@ -68,7 +79,8 @@ class Erroring
 	 */
 	public static function catch_error()
 	{
-		// echo '404';
+		\App::Error();
+		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" /><style>*{padding:0;margin:0;}img{max-width:100%;max-height:100%;}</style><div style="width: 100%;"><img src="'.siteUrl('image/computer/404.jpg').'"/></div>';
 		exit();
 	}
 }

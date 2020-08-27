@@ -64,18 +64,6 @@ Class Query
 		return $this->where($column, 'IN', $value);
 	}
 
-	public function orWhere($column, $operator, $value = null)
-	{
-		if ($value === null) {
-			$value = $operator;
-			$operator = '=';
-		}
-
-		$this->_where[] = [[$column, $operator, $value]];
-
-		return $this;
-	}
-
 	public function select($columns = ['*'])
 	{
         $this->_columns = is_array($columns) ? $columns : func_get_args();
@@ -85,7 +73,8 @@ Class Query
 
 	public function groupBy($value = '')
 	{
-		$this->_groupBy = $value;
+		if (!empty($value))
+			$this->_groupBy = '`'.explode('` ,`', $value).'`';
 
 		return $this;
 	}
@@ -94,12 +83,12 @@ Class Query
 	{
 		if (is_array($value)) {
 			foreach ($value as $k => $v) {
-				$this->_orderBy .= ','.$v[0] . ' ' . strtoupper($v[1] ?? 'desc');
+				$this->_orderBy .= ', `'.$v[0] . '` ' . strtoupper($v[1] ?? 'desc');
 			}
 		} else {
-			$this->_orderBy .= ','.$value . ' ' . strtoupper($type);
+			$this->_orderBy .= ', `'.$value . '` ' . strtoupper($type);
 		}
-		$this->_orderBy = trim($this->_orderBy, ',');
+		$this->_orderBy = trim(trim($this->_orderBy, ','));
 		return $this;
 	}
 
@@ -168,6 +157,7 @@ Class Query
 	public function getResult()
 	{
 		$sql = $this->getSql();
+		$sql = preg_replace('/\s(?=\s)/', '\\1', $sql);
 		return $this->getQuery($sql, $this->_param);
 	}
 
@@ -180,7 +170,7 @@ Class Query
 		//解析条件
 		$this->analyzeWhere();
 
-		$sql = sprintf('SELECT %s FROM %s', !empty($this->_columns) ? implode(',', $this->_columns) : '*', $this->_table ?? '');
+		$sql = sprintf('SELECT %s FROM `%s`', !empty($this->_columns) ? implode(', ', $this->_columns) : '*', $this->_table ?? '');
 
 		if (!empty($this->_whereStr)) {
 			$sql .= ' WHERE ' . $this->_whereStr;
@@ -434,91 +424,50 @@ Class Query
 		$returnData = ['where'=>'', 'param' => []];
 		if (empty($this->_where)) return ['where'=>'', 'param' => []];
 
-		$orStatus = false;
-		foreach ($this->_where as $key => $value) {
-			$where = '';
-			$param = [];
-			if (is_array($value)) {
-				if (is_array($value[0])) { // OR 分组
-					$tempOrStr = '';
-					$orStatus = true;
-					foreach ($value as $k => $v) {
-						$tempCount = count($v);
-						if ($tempCount == 3) {
-							switch (strtoupper($v[1])) {
-								case 'IN':
-									$tempOrStr .= sprintf(' OR %s %s (?)', $v[0], strtoupper($v[1]));
-									break;
-								default:
-									$tempOrStr .= sprintf(' OR %s %s ?', $v[0], strtoupper($v[1]));
-									break;
-							}
-							$param[] = is_array($v[2]) ? implode(',', $v[2]) : $v[2];
-						} else if (!empty($v[0]) && $tempCount == 2){ 
-							//默认 = 条件的
-							$tempOrStr .= ' OR '.$v[0].' = ?';
-							$param[] = $v[1];
-						} else { //键值对条件的
-							foreach ($v as $kk => $vv) { 
-								$tempOrStr .= ' OR '.$k.' = ?';
-								$param[] = $v;
-							}
-						}
-					}
+		$where = '';
+		$param = [];
+		foreach ($this->_where as $item) {
+			$fields = $item[0];
+			$operator = $item[1];
+			$value = $item[2];
+			if (empty($fields) || empty($operator) || empty($value)) continue;
 
-					$where = $tempOrStr;
-				} else {
-					$tempCount = count($value);
-					if ($tempCount == 3) {
-						switch (strtoupper($value[1])) {
-							case 'IN':
-								$inStr = '';
-								foreach ($value[2] as $invalue) {
-									$inStr .= ' ? ,';
-								}
-								$inStr = trim(trim($inStr, ','));
-								$where .= sprintf(' AND %s %s (%s)', $value[0], strtoupper($value[1]), $inStr);
-								break;
-							default:
-								$where .= sprintf(' AND %s %s ?', $value[0], strtoupper($value[1]));
-								break;
-						}
-
-						$param = array_merge($param, is_array($value[2]) ? $value[2] : [$value[2]]);
-					} else if (!empty($value[0]) && $tempCount == 2){ //默认 = 条件的
-						$where .= ' AND '.$value[0].' = ?';
-						$param[] = $value[1];
-					} else { //键值对条件的
-						foreach ($value as $k => $v) { 
-							$where .= ' AND '.$k.' = ?';
-							$param[] = $v;
-						}
-					}
-				}
+			$operator = strtoupper($operator);
+			$fields = explode(',', $fields);
+			if (count($fields) > 1) {
+				$where .= ' AND (';
+				$type = ' OR';
 			} else {
-				$where .= ' AND '.$key.' = ?';
+				$type = ' AND';
+			}
+			$tempStr = '';
+			foreach ($fields as $fk => $fv) {
+				$fv = trim($fv);
+				switch ($operator) {
+					case 'IN':
+						if (!is_array($value)) $value = explode(',', $value);
+						$inStr = '';
+						foreach ($value as $invalue) {
+							$inStr .= '?, ';
+						}
+						$inStr = trim(trim($inStr), ',');
+						$tempStr .= sprintf('%s `%s` %s (%s)', $fk == 0 && count($fields) > 1 ? '' : $type, $operator, $inStr);
+						break;
+					default:
+						$tempStr .= sprintf('%s `%s` %s ?', $fk == 0 && count($fields) > 1 ? '' : $type, $fv, $operator);
+						break;
+				}
 				$param[] = $value;
 			}
+			$where .= $tempStr;
 
-			if (empty($returnData['where']) && $orStatus) {
-				$returnData['where'] = trim(trim(trim($where), 'OR'));
-			} else if (!empty($returnData['where'])) {
-				if ($orStatus) {
-					$returnData['where'] = '('.trim(trim(trim($returnData['where']), 'AND')).')'.$where;
-				} else {
-					$returnData['where'] .= $where;
-					$orStatus = false;
-				}
-			} else {
-				$returnData['where'] .= $where;
-				$orStatus = false;
+			if (count($fields) > 1) {
+				$where .= ' )';
 			}
-
-			$returnData['param'] = array_merge($returnData['param'] ?? [], $param);
 		}
 
-		$this->_whereStr = trim(trim(trim($returnData['where']), 'AND'));
-		$this->_param = $returnData['param'] ?? [];
+		$this->_whereStr = trim(trim(trim($where), 'AND'));
+		$this->_param = $param;
 
 		return $this;
 	}

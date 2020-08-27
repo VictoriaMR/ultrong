@@ -1,5 +1,6 @@
 .env
 public/file_center/*
+runtime/*
 composer.lock
 vendor
 storage

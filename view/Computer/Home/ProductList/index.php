@@ -34,7 +34,8 @@
 				<ul>
 					<?php foreach ($list as $key => $value) {?>
 					<li <?php if (($key+1) % 3 == 0) { ?>style="margin-right: 0;"<?php } ?>>
-						<a class="square product-img" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>">
+						<a class="square product-img" href="<?php echo 
+						$value['url'];?>">
 							<img src="<?php echo $value['image'];?>" alt="<?php echo $v['name'];?>">
 						</a>
 						<a class="font-16 text-center" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>">

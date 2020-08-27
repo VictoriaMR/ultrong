@@ -255,4 +255,36 @@ class App
 
         echo fetch('frame/pagetrace');
     }
+
+    public static function Error($msg = '')
+    {
+        $now         = date('Y-m-d H:i:s');
+        $destination = ROOT_PATH.'runtime/'.date('Ymd').'/error_log.log';
+
+        $path = dirname($destination);
+        !is_dir($path) && mkdir($path, 0755, true);
+
+        // 获取基本信息
+        if (isset($_SERVER['HTTP_HOST'])) {
+            $current_uri = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        } else {
+            $current_uri = "cmd:" . implode(' ', $_SERVER['argv']);
+        }
+
+        $runtime    = number_format(microtime(true) - APP_START_TIME, 10,'.','');
+        $reqs       = $runtime > 0 ? number_format(1 / $runtime, 2,'.','') : '∞';
+        $time_str   = ' [Time：' . number_format($runtime, 6) . 's][QPS：' . $reqs . 'req/s]';
+        $memory_use = number_format((memory_get_usage() - MEM0RY_START) / 1024, 2,'.','');
+        $memory_str = ' [MEM：' . $memory_use . 'kb]';
+        $file_load  = ' [Files：' . count(get_included_files()) . ']';
+        $info   = '[ log ] ' . $current_uri . $time_str . $memory_str . $file_load . "\r\n";
+        $server = isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '0.0.0.0';
+        $remote = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'CLI';
+        $message = error_get_last()['message'] ?? '';
+        if (empty($message)) $message = $msg;
+
+        return error_log("[{$now}] {$server} {$remote} {$method} {$current_uri}\r\n{$info}{$message}\r\n---------------------------------------------------------------\r\n",
+                3, $destination);
+    }
 }
