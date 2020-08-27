@@ -207,7 +207,7 @@ class Controller
                 'url' => url('productList'),
                 'controller' => 'product',
                 'son' => $son,
-                'id' => $value['pro_id'],
+                'id' => $value['pro_id'] ?? 0,
             ];
         }
         $selectedNav = [];
