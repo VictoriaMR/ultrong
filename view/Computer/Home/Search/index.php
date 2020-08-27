@@ -16,7 +16,7 @@
 				<?php } ?>
 				<a href="<?php echo url('search');?>"><?php echo dist('搜索区域');?></a>
 			</div>
-			<?php if (!empty($product) && !empty($article)) { ?>
+			<?php if (!empty($product) || !empty($article)) { ?>
 			<?php if (!empty($product)) { ?>
 			<ul class="item-list">
 			<?php foreach ($product as $key => $value) {?>
