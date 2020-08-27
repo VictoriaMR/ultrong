@@ -25,7 +25,7 @@ class ArticleListController extends Controller
 		Html::addCss('article');
 		$cateId = iget('cate_id', 0);
 		$page = iget('page', 1);
-		$size = iget('size', 1);
+		$size = iget('size', 10);
 
 		//是父分类且没有子分类, 拿第一篇文章
 		if ($this->baseService->isParent($cateId)) {
@@ -56,7 +56,7 @@ class ArticleListController extends Controller
 
 		$this->assign('pageBar', $pageBar ?? '');
 		$this->assign('list', $list);
-		$this->assign('info', $info);
+		$this->assign('info', $info ?? []);
 
 		return view();
 	}

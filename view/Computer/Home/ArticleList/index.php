@@ -2,11 +2,11 @@
 <div class="bg-f5" style="padding: 40px 0;">
 	<div class="container">
 		<div class="info-box">
-			<?php if (!empty($selectedNav)) { $cateName = '';?>
+			<?php if (!empty($selectedNav)) { $cateName = ''; $cateId= 0;?>
 			<div class="nav-box">
 				<ul>
 					<?php foreach ($selectedNav['son'] as $key => $value) { 
-						if ($value['selected']) {$cateName = $value['name'];}
+						if ($value['selected']) {$cateName = $value['name']; $cateId = $value['cate_id'];}
 					?>
 					<li class="<?php echo $value['selected'] ? 'selected' : '';?>">
 						<a class="block" href="<?php echo $value['url'];?>">
@@ -23,10 +23,10 @@
 				<a href="/"><?php echo $_site_name ?? '';?></a>
 				<span>&nbsp;/&nbsp;</span>
 				<?php } ?>
-				<a href="<?php echo url('productList');?>"><?php echo $selectedNav['name'];?></a>
+				<a href="<?php echo url('productList', ['cate_id'=>$selectedNav['id']]);?>"><?php echo $selectedNav['name'];?></a>
 				<?php if (!empty($cateName)) { ?>
 				<span>&nbsp;/&nbsp;</span>
-				<a href="<?php echo url('productList', ['cate_id' => $cate_id]);?>"><?php echo dist($cateName);?></a>
+				<a href="<?php echo url('articleList', ['cate_id' => $cateId]);?>"><?php echo dist($cateName);?></a>
 				<?php } ?>
 			</div>
 			<?php if (!empty($info)) { ?>
@@ -37,7 +37,7 @@
 					<span>&nbsp;&nbsp;&nbsp;<?php echo dist('人气');?>：<?php echo $info['hit_count'];?></span>
 					<span>&nbsp;&nbsp;&nbsp;<?php echo dist('发表时间');?>：<?php echo date('Y-m-d H:i:s', $info['create_at']);?></span>
 				</div>
-				<?php echo $info['content'];?>
+				<?php echo $info['content'] ?? '';?>
 			</div>
 			<?php if (!empty($recommend)) { ?>
 			<div class="item-detail margin-top-20">

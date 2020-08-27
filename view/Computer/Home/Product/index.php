@@ -101,7 +101,7 @@
 					<?php foreach ($recommend as $key => $value) {?>
 					<li <?php if (($key+1) % 4 == 0) { ?>style="margin-right: 0;"<?php } ?>>
 						<a class="square product-img" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>">
-							<img src="<?php echo $value['image'];?>" alt="<?php echo $v['name'];?>">
+							<img src="<?php echo $value['image'];?>" alt="<?php echo $value['name'] ??;?>">
 						</a>
 						<a class="word-ellipsis-1 product-title" href="<?php echo url('product', ['pro_id'=>$value['pro_id'], 'lan_id' => $value['lan_id']]);?>"><?php echo $value['name'];?></a>
 					</li>

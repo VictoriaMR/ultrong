@@ -322,7 +322,7 @@ Class Query
 			    		$stmt->execute();
 				        $meta = $stmt->result_metadata(); 
 
-				        if ($meta->type) {
+				        if ($meta && $meta->type) {
 					        $variables = [];
 					        $data = [];
 					        while ($field = $meta->fetch_field()) { 
@@ -430,7 +430,7 @@ Class Query
 			$fields = $item[0];
 			$operator = $item[1];
 			$value = $item[2];
-			if (empty($fields) || empty($operator) || empty($value)) continue;
+			if (empty($fields) || empty($operator)) continue;
 
 			$operator = strtoupper($operator);
 			$fields = explode(',', $fields);
@@ -469,7 +469,7 @@ Class Query
 
 		$this->_whereStr = trim(trim(trim($where), 'AND'));
 		$this->_param = $param;
-		
+
 		return $this;
 	}
 

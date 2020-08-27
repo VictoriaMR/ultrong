@@ -12,7 +12,7 @@ class Erroring
     public static function register()
     {
         if (Env('APP_DEBUG')) {
-			error_reporting(E_ALL & ~ E_NOTICE);
+			error_reporting(E_ALL);
 	    	set_error_handler([__CLASS__, 'error_debug']);
 	        set_exception_handler([__CLASS__, 'exception_debug']);
 			register_shutdown_function([__CLASS__, 'shutdown_debug']);
@@ -24,20 +24,20 @@ class Erroring
 
     public static function error_debug($errno, $errStr, $errfile = '', $errline = '')
     {
-    	// dd(error_get_last());
     	$msg = sprintf('<div>[%s]</div> <div> %s </div> <div> 第 %s 行 </div> <div> 错误: %s </div><br />', date( "Y-m-d H:i:s" ), $errfile, $errline, $errStr);
     	self::$_error[] = $msg;
+    	\App::Error(str_replace(['<div>', '</div>', 'br/'], ['', '', '\r\n'], $msg));
+    	self::error_echo();
     }
 
     public static function exception_debug($exception)
     {
     	$msg = sprintf('<div>[%s]</div> <div> %s </div> <div> 第 %s 行 </div> <div> 错误: %s </div><br />', date( "Y-m-d H:i:s" ), $exception->getFile(), $exception->getLine(), $exception->getMessage());
-    	// dd($msg);
     	foreach ($exception->getTrace() as $key => $value) {
     		$msg .= '<div>'.sprintf(' %s, 第 %s 行', $value['file'] ?? '', $value['line'] ?? '').'</div>';
     	}
     	self::$_error[] = $msg;
-    	\App::Error(sprintf('[%s] %s 第 %s 行 错误: %s', date( "Y-m-d H:i:s" ), $exception->getFile(), $exception->getLine(), $exception->getMessage()));
+    	\App::Error(str_replace(['<div>', '</div>', 'br/'], ['', '', '\r\n'], $msg));
 		self::error_echo();
     }
 

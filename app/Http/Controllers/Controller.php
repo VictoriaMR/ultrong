@@ -177,6 +177,7 @@ class Controller
                     'name' => dist($value['name']),
                     'url' => $value['url'],
                     'son' => $value['son'],
+                    'id' => $value['cate_id'],
                 ];
                 if ($key == 0) {
                     //获取产品分类
@@ -190,6 +191,7 @@ class Controller
                         'selected' => strpos($controller, 'product') !== false ? 1 : 0,
                         'url' => url('productList'),
                         'son' => $son,
+                        'id' => $value['cate_id'],
                     ];
                 }
             }
@@ -205,6 +207,7 @@ class Controller
                 'url' => url('productList'),
                 'controller' => 'product',
                 'son' => $son,
+                'id' => $value['pro_id'],
             ];
         }
         $selectedNav = [];

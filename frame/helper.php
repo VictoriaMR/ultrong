@@ -253,7 +253,7 @@ function dist($name = '')
 
 function paginator()
 {
-    return \frame\Paginator::getInstance($db);
+    return \frame\Paginator::getInstance();
 }
 
 function isJson($string) 
