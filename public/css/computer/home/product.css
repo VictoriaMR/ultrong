@@ -18,7 +18,7 @@
 
 #product-content .product-pic .pic-left li {
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
 	border: 2px solid #d9d9d9;
 	margin-bottom: 10px;
 	line-height: 0;
