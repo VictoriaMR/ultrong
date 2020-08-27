@@ -13,8 +13,8 @@ class Erroring
     {
         if (Env('APP_DEBUG')) {
 			error_reporting(E_ALL & ~ E_NOTICE);
-	    	// set_error_handler([__CLASS__, 'error_debug']);
-	        // set_exception_handler([__CLASS__, 'exception_debug']);
+	    	set_error_handler([__CLASS__, 'error_debug']);
+	        set_exception_handler([__CLASS__, 'exception_debug']);
 			register_shutdown_function([__CLASS__, 'shutdown_debug']);
 		} else {
 			error_reporting(0);

@@ -451,13 +451,14 @@ Class Query
 							$inStr .= '?, ';
 						}
 						$inStr = trim(trim($inStr), ',');
-						$tempStr .= sprintf('%s `%s` %s (%s)', $fk == 0 && count($fields) > 1 ? '' : $type, $operator, $inStr);
+						$tempStr .= sprintf('%s `%s` %s (%s)', $fk == 0 && count($fields) > 1 ? '' : $type, $fv, $operator, $inStr);
+						$param = array_merge($param, $value);
 						break;
 					default:
 						$tempStr .= sprintf('%s `%s` %s ?', $fk == 0 && count($fields) > 1 ? '' : $type, $fv, $operator);
+						$param[] = $value;
 						break;
 				}
-				$param[] = $value;
 			}
 			$where .= $tempStr;
 
@@ -468,7 +469,7 @@ Class Query
 
 		$this->_whereStr = trim(trim(trim($where), 'AND'));
 		$this->_param = $param;
-
+		
 		return $this;
 	}
 
