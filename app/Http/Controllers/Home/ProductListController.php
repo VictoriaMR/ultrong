@@ -46,9 +46,9 @@ class ProductListController extends Controller
 
 		if ($total > $size) {
 			$pageBar = paginator()->make($size, $total);
-			$this->assign('pageBar', $pageBar);
 		}
 
+		$this->assign('pageBar', $pageBar ?? '');
 		$this->assign('cate_id', $cateId);
 		$this->assign('list', $list ?? []);
 		$this->assign('cateList', $cateList);

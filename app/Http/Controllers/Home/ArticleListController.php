@@ -51,10 +51,10 @@ class ArticleListController extends Controller
 			}
 			if ($total > $size) {
 				$pageBar = paginator()->make($size, $total);
-				$this->assign('pageBar', $pageBar);
 			}
 		}
 
+		$this->assign('pageBar', $pageBar ?? '');
 		$this->assign('list', $list);
 		$this->assign('info', $info);
 
