@@ -79,11 +79,13 @@ class Erroring
 	 */
 	public static function catch_error()
 	{
-		if (error_get_last())
+		$err = error_get_last();
+		if ($err)
 		{
 			\App::Error();
-			
-			// echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" /><style>*{padding:0;margin:0;}img{max-width:100%;max-height:100%;}</style><div style="width: 100%;"><img src="'.siteUrl('image/computer/404.jpg').'"/></div>';
+			if ($err['type'] == 1) {
+				echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" /><style>*{padding:0;margin:0;}img{max-width:100%;max-height:100%;}</style><div style="width: 100%;text-align:center;padding-top:200px;"><a href="'.url('').'"><img src="'.siteUrl('image/computer/404.jpg').'"/></a></div>';
+			}
 		}
 		exit();
 	}

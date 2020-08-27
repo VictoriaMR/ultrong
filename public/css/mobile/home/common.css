@@ -57,10 +57,6 @@
     overflow: auto;
     left: -100%;
 }
-.menu-box .menu-content .item-box {
-    width: 100%;
-    border-bottom: .01rem solid #E7E7E7;
-}
 .menu-box .menu-content .item {
     height: .48rem;
     line-height: .48rem;
@@ -110,7 +106,7 @@
     background-color: #0a396d;
 }
 .footer-nav ul li {
-    width: calc(100% / 4);
+    width: calc((100% - 3px) / 4);
     border-right: 0.01rem solid #fff;
     float: left;
     text-align: center;
@@ -330,4 +326,11 @@
     top: -0.08rem;
     text-align: center;
     right: -0.08rem;
+}
+.crumbs {
+    padding: .08rem 0;
+}
+.gray-width {
+    height: .16rem;
+    width: 100%;
 }

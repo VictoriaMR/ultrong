@@ -42,6 +42,9 @@
 									<img src="<?php echo $pv['image'];?>">
 								</div>
 								<p class="word-ellipsis-2 font-14 margin-top-8"><?php echo $pv['name'];?></p>
+								<?php if (!empty($pv['sale_price'])) { ?>
+								<div class="margin-top-8 font-16 font-600"><?php echo sprintf('%.2f', $pv['sale_price']);?>&nbsp;&nbsp;<span class="color-9"><?php echo dist('元');?></span></div>
+								<?php } ?>
 							</a>
 						</li>
 					<?php } ?>

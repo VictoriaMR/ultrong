@@ -55,7 +55,7 @@ class ArticleListController extends Controller
 		}
 
 		$this->assign('pageBar', $pageBar ?? '');
-		$this->assign('list', $list);
+		$this->assign('list', $list ?? []);
 		$this->assign('info', $info ?? []);
 
 		return view();

@@ -32,7 +32,6 @@
 				<?php if (!empty($info['image_list'])) { ?>
 				<div class="left product-pic">
 					<div class="left pic-left">
-						<?php if (!empty($info['image_list'])) { ?>
 						<ul>
 							<?php foreach ($info['image_list'] as $key => $value) { ?>
 							<li class="<?php echo $key == 0 ? 'selected' : '';?>">
@@ -42,7 +41,6 @@
 							</li>
 							<?php } ?>
 						</ul>
-						<?php } ?>
 					</div>
 					<div class="left pic-right">
 						<a href="javascript:;" class="block text-center">
