@@ -32,7 +32,7 @@ class LoginController extends Controller
 		if ($result) {
 			$data[] = [
 	            'user_id' => (int) \frame\Session::get('admin_mem_id'),
-	            'path' => implode('/', $info),
+	            'path' => implode('/', \Router::$_route),
 	            'param' => json_encode(input(), JSON_UNESCAPED_UNICODE),
 	            'ip' => getIp(),
 	            'create_at' => time(),

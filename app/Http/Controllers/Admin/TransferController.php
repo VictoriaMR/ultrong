@@ -31,27 +31,25 @@ class TransferController extends Controller
 
 		$where = [];
 		if (!empty($type)) 
-			$where[] = ['type', '=', $type];
+			$where['type'] = $type;
 
 		if (!empty($filter)) 
-			$where[] = ['value', $filter == 1 ? '=' : '<>' , ''];
+			$where['value'] = [$filter == 1 ? '=' : '<>' , ''];
 		
 		if (!empty($keyword))
-			$where[] = ['name', 'like' , '%'.$keyword.'%'];
+			$where['name'] = ['like' , '%'.$keyword.'%'];
 
 		$total = $this->baseService->getListTotal($where);
-
 		if ($total > 0) {
 			$list = $this->baseService->getList($where, $page, $size);
 		}
 
 		$list = $this->baseService->getPaginationList($total, $list ?? [], $page, $size);
 
-		$pageBar = paginator()->make($size, $total);
+		$pageBar = paginator(false)->make($size, $total);
 
 		$this->assign('list', $list);
 		$this->assign('pageBar', $pageBar);
-
 		return view();
 	}
 
@@ -70,7 +68,7 @@ class TransferController extends Controller
 			$list = $this->baseService->getInterfaceList($where, $page, $size);
 		}
 
-		$pageBar = paginator()->make($size, $total);
+		$pageBar = paginator(false)->make($size, $total);
 
 		$this->assign('list', $list);
 		$this->assign('pageBar', $pageBar);

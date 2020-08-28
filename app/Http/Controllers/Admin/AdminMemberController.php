@@ -44,7 +44,7 @@ class AdminMemberController extends Controller
 
 		$list = $this->baseService->getPaginationList($total, $list ?? [], $page, $size);
 
-		$pageBar = paginator()->make($size, $total);
+		$pageBar = paginator(false)->make($size, $total);
 
 		$this->assign('self_id', $this->self_id);
 		$this->assign('is_super', $this->is_super);

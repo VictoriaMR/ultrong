@@ -73,8 +73,14 @@ Class Query
 
 	public function groupBy($value = '')
 	{
-		if (!empty($value))
-			$this->_groupBy = '`'.explode('` ,`', $value).'`';
+		if (!empty($value)) {
+			if (!is_array($value))
+				$value = explode(',', $value);
+
+			$value = array_map('trim', $value);
+
+			$this->_groupBy = '`'.implode('`,`', $value).'`';
+		}
 
 		return $this;
 	}
@@ -157,6 +163,7 @@ Class Query
 	public function getResult()
 	{
 		$sql = $this->getSql();
+		// print_r($sql);
 		$sql = preg_replace('/\s(?=\s)/', '\\1', $sql);
 		return $this->getQuery($sql, $this->_param);
 	}

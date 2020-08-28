@@ -57,7 +57,7 @@ class ProductController extends Controller
 		$languageService = \App::make('App/Services/LanguageService');
 		$lanList = $languageService->getList();
 
-		$pageBar = paginator()->make($size, $total);
+		$pageBar = paginator(false)->make($size, $total);
 
 		$this->assign('cateList', $cateList);
 		$this->assign('lanList', $lanList);

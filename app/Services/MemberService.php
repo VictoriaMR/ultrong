@@ -46,41 +46,6 @@ class MemberService extends BaseService
 	}
 
 	/**
-	 * @method 获取密码与随机值的组合
-	 * @author Victoria
-	 * @date   2020-01-10
-	 * @return string password
-	 */
-	public function getPasswd($password, $salt)
-	{
-		$passwordArr = str_split($password);
-		$saltArr = str_split($salt);
-		$countpwd = count($passwordArr);
-		$countSalt = count($saltArr);
-
-		$password = '';
-		if ($countSalt > $countpwd) {
-			foreach ($saltArr as $key => $value) {
-				$password .= $passwordArr[$key] ?? '' . $value;
-			}
-		} else {
-			$i = 0;
-			$sign = floor($countpwd / $countSalt);
-			foreach ($passwordArr as $key => $value) {
-				$password .= $value;
-				if ($key % $sign == 0) {
-					if (empty($saltArr[$i])) $i = 0;
-
-					$password .= $saltArr[$i];
-					$i ++;
-				}
-			}
-		}
-
-		return $password;
-	}
-
-	/**
 	 * @method 登陆
 	 * @author Victoria
 	 * @date   2020-01-11
@@ -106,7 +71,7 @@ class MemberService extends BaseService
 				'name' => $info['name'],
 				'mobile' => $info['mobile'],
 				'nickname' => $info['nickname'],
-				'avatar' => media($info['avatar'], 'avatar', ['female'=> $info['gender'] == 0 ? true : false]),
+				'avatar' => media($info['avatar'], 'avatar', ['female'=> ($info['gender'] ?? 0) == 0 ? true : false]),
 				'salt' => $info['salt'],
 			];
 

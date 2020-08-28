@@ -64,7 +64,7 @@ class MessageController extends Controller
 			$list['list'][$key] = $value;
 		}
 
-		$pageBar = paginator()->make($size, $list['total']);
+		$pageBar = paginator(false)->make($size, $list['total']);
 
 		$memberService = \App::make('App\Services\Admin\MemberService');
 		$member_list = $memberService->getList([], 1, 9999);

@@ -44,13 +44,13 @@ class ShowController extends Controller
 		$page = iget('page', 1);
 		$size = iget('size', 40);
 		$date = iget('date');
-
+		$where = [];
 		$total = $this->baseService->getListTotal($where);
 		if ($total > 0) {
 			$list = $this->baseService->getList($where, $page, $size);
 		}
 
-		$pageBar = paginator()->make($size, $total);
+		$pageBar = paginator(false)->make($size, $total);
 		$this->assign('list', $list ?? []);
 		$this->assign('pageBar', $pageBar);
 

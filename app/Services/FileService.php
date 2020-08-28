@@ -7,7 +7,8 @@ use App\Services\Base as BaseService;
 class FileService extends BaseService
 {
     const FILE_TYPE = ['temp', 'avatar', 'product', 'banner', 'file', 'article'];
-    const FILE_COMPERSS = ['jpg', 'jpeg', 'png', 'ico', 'gif', 'mp4', 'flv', 'mp3', 'rmvb'];
+    const FILE_ACCEPT = ['jpg', 'jpeg', 'png', 'ico', 'gif', 'mp4', 'flv', 'mp3', 'rmvb'];
+    const FILE_COMPERSS = ['jpg', 'jpeg', 'png'];
     const MAX_OFFSET = 1200;
 
     /**
@@ -24,8 +25,10 @@ class FileService extends BaseService
         $extension = $tmpname[1] ?? ''; //后缀
         $tmpFile = $file['tmp_name']; //上传文件路径
 
-        if (!in_array($extension, self::constant('FILE_COMPERSS')))
+        if (!in_array($extension, self::constant('FILE_ACCEPT')))
             return false;
+
+        $imageService = \App::make('App/Services/ImageService');
 
         if ($cate == 'file') {
             if (!empty($ext))
@@ -34,11 +37,27 @@ class FileService extends BaseService
             $saveUrl = ROOT_PATH.'public/image/'.$prev.'.'.$extension;
             $result = move_uploaded_file($tmpFile, $saveUrl);
             if ($result) {
+                //压缩icon
+                if ($extension == 'ico') {
+                    $imageService->thumbImage($saveUrl, $saveUrl, 32, 32);
+                } else {
+                    $imageService->compressImg($saveUrl);
+                }
                 $returnData = [
                     'url' => str_replace(ROOT_PATH.'public/', Env('APP_DOMAIN'), $saveUrl).'?v='.time(),
                 ];
             }
         } else {
+             if (in_array($extension, self::constant('FILE_COMPERSS'))) {
+                $temp = ROOT_PATH.'public/file_center/temp/'.$this->getPasswd(time(), $this->getSalt(6)).'.'.$extension;
+                move_uploaded_file($tmpFile, $temp);
+                $tmpFile = $temp;
+                $imageService = \App::make('App/Services/ImageService');
+
+                $imageService->thumbImage($tmpFile, $tmpFile);
+                dd();
+             }
+
             $hash = hash_file('md5', $tmpFile); //生成文件hash值
             $attachmentService = \App::make('App\Services\AttachmentService');
 

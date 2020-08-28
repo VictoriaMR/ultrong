@@ -245,15 +245,16 @@ function DbConfig($db = 'default')
 /**
  * 转换翻译文本
  */
-function dist($name = '')
+function dist($name = '', $check = true)
 {
+    if (!$check) return $name;
     $translateService = \App::make('App/Services/TranslateService');
     return $translateService->getText($name);
 }
 
-function paginator()
+function paginator($check = true)
 {
-    return \frame\Paginator::getInstance();
+    return \frame\Paginator::getInstance($check);
 }
 
 function isJson($string) 
