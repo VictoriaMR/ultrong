@@ -39,12 +39,17 @@ class ArticleListController extends Controller
 				
 				$this->assign('recommend', $recommend);
 			} else {
-				$cateId = $cateList[$cateId]['son'][0]['cate_id'];
+				if (!isMobile()) {
+					$cateId = [$cateList[$cateId]['son'][0]['cate_id']];
+				} else {
+					$cateId = array_column($cateList[$cateId]['son'], 'cate_id');
+				}
 			}
 		}
 
 		if (empty($info)) {
-			$where = ['cate_id' => $cateId, 'lan_id' => \frame\Session::get('site_language_id')];
+			$where = ['lan_id' => \frame\Session::get('site_language_id')];
+			$where['cate_id'] = ['in', $cateId];
 			$total = $this->articleService->getTotal($where); 
 			if ($total > 0) {
 				$list = $this->articleService->getList($where, $page, $size); 
@@ -53,7 +58,7 @@ class ArticleListController extends Controller
 				$pageBar = paginator()->make($size, $total);
 			}
 		}
-
+		
 		$this->assign('pageBar', $pageBar ?? '');
 		$this->assign('list', $list ?? []);
 		$this->assign('info', $info ?? []);

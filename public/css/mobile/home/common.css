@@ -86,10 +86,12 @@
 .menu-box .menu-content .nav-category ul>li {
     height: .48rem;
     line-height: .48rem;
-    padding-left: .32rem;
     border-bottom: .01rem solid #E7E7E7;
     display: block;
     position: relative;
+}
+.menu-box .menu-content .nav-category ul>li>a {
+    padding-left: 0.32rem;
 }
 .menu-box .menu-content .view-all {
     font-size: 0.12rem;
@@ -333,4 +335,21 @@
 .gray-width {
     height: .16rem;
     width: 100%;
+}
+.item-list li {
+    padding-bottom: 0.1rem;
+    border-bottom: 0.01rem solid #cacaca;
+    margin-bottom: 0.1rem;
+}
+
+.item-list .image-item {
+    border: 0.04rem solid #fefefe;
+    box-shadow: 0 0 0 0.01rem rgba(10,10,10,.2);
+    display: inline-block;
+    line-height: 0;
+    transition: box-shadow .2s ease-out;
+    border-radius: 0;
+}
+.item-list .item-info {
+    padding-left: 0.1rem;
 }

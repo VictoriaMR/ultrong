@@ -34,7 +34,7 @@
 										<div class="word-ellipsis-2 font-18 title"><?php echo $value['name'];?></div>
 										<div class="color-9 margin-top-3"><?php echo date('Y-m-d H:i:s', $value['create_at']);?></div>
 										<div class="color-8 font-16 margin-top-15"><?php echo $value['desc'];?></div>
-										<div class="more"><?php echo dist('查看详情');?> ></a>
+										<div class="more"><?php echo dist('查看详情');?> ></div>
 									</div>
 								</td>
 							</tr>
@@ -61,7 +61,7 @@
 										<div class="word-ellipsis-2 font-18 title"><?php echo $value['name'];?></div>
 										<div class="color-9 margin-top-3"><?php echo date('Y-m-d H:i:s', $value['create_at']);?></div>
 										<div class="color-8 font-16 margin-top-15"><?php echo $value['desc'];?></div>
-										<div class="more"><?php echo dist('查看详情');?> ></a>
+										<div class="more"><?php echo dist('查看详情');?> ></div>
 									</div>
 								</td>
 							</tr>

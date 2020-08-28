@@ -1,0 +1,10 @@
+.search-input {
+	height: 0.38rem;
+	line-height: 0.38rem;
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+.search-btn {
+	width: 0.65rem;
+	background-color: #0a396d;
+}

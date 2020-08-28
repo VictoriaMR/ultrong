@@ -18,7 +18,7 @@ class SearchController extends Controller
 
 	public function index()
 	{	
-		Html::addCss('article');
+		Html::addCss('search');
 		$keyword = iget('keyword', '');
 		$size = empty($keyword) ? 10 : 999;
 		

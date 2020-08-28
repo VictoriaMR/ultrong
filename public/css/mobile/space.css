@@ -1,8 +1,17 @@
+.margin-top-3 {
+	margin-top: 0.03rem;
+}
 .margin-top-5 {
 	margin-top: 0.05rem;
 }
 .margin-top-8 {
 	margin-top: 0.08rem;
+}
+.margin-top-10 {
+	margin-top: 0.10rem;
+}
+.margin-top-15 {
+	margin-top: 0.15rem;
 }
 .margin-top-20 {
 	margin-top: 0.2rem;
@@ -25,6 +34,10 @@
 
 .margin-right-15 {
 	margin-right: 0.15rem;
+}
+
+.margin-right-20 {
+	margin-right: 0.20rem;
 }
 
 .padding-top-8 {

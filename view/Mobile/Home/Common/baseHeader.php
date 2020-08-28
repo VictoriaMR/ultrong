@@ -50,7 +50,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
             </a>
         </div>
         <div class="right top-right flex">
-            <a class="block item search padding-top-8 margin-right-5" href="<?php echo url('index/search');?>">
+            <a class="block item search padding-top-8 margin-right-5" href="<?php echo url('search');?>">
                 <i class="iconfont icon-search font-24 color-blue"></i>
                 <span class="word-ellipsis-1 color-blue"><?php echo dist('搜索');?></span>
             </a>
@@ -104,7 +104,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                     <ul>
                         <?php foreach ($value['son'] as $sonv) { ?>
                         <li>
-                            <a class="font-14" href="<?php echo $sonv['url'];?>"><?php echo $sonv['name'];?></a>
+                            <a class="font-14 block" href="<?php echo $sonv['url'];?>"><?php echo $sonv['name'];?></a>
                         </li>
                         <?php } ?>
                     </ul>

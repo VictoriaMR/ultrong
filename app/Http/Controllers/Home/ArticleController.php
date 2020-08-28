@@ -59,9 +59,13 @@ class ArticleController extends Controller
 					$value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
 					if ($value['cate_id'] == $cateId) {
 						$value['selected'] = 1;
+						$parentId = $value['parent_id'];
+						$parentName = $cateList[$parentId]['name'];
 					}
 					$navArr[$key] = $value;
 				}
+				$this->assign('selected_parent_id', $parentId ?? 0);
+				$this->assign('selected_parent_name', dist($parentName ?? ''));
 			}
 
 			$this->assign('_title2', $info['name']);

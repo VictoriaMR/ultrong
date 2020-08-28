@@ -19,11 +19,9 @@
 			<?php } ?>
 			<div class="nav-title text-right">
 				<span><?php echo dist('当前位置');?>:&nbsp;&nbsp;</span>
-				<?php if (!empty($siteInfo)) { ?>
 				<a href="/"><?php echo $_site_name ?? '';?></a>
 				<span>&nbsp;/&nbsp;</span>
-				<?php } ?>
-				<a href="<?php echo url('productList', ['cate_id'=>$selectedNav['id']]);?>"><?php echo $selectedNav['name'];?></a>
+				<a href="<?php echo url('articleList', ['cate_id'=>$selectedNav['id']]);?>"><?php echo $selectedNav['name'];?></a>
 				<?php if (!empty($cateName)) { ?>
 				<span>&nbsp;/&nbsp;</span>
 				<a href="<?php echo url('articleList', ['cate_id' => $cateId]);?>"><?php echo dist($cateName);?></a>

@@ -165,7 +165,7 @@ class Controller
                     $value['url'] = url('articleList', ['cate_id'=>$value['cate_id']]);
                     if ($controller == 'articlelist') {
                         $value['selected'] = strpos($controller, 'product') === false && (iget('cate_id') == $value['cate_id'] || in_array(iget('cate_id'), array_column($value['son'], 'cate_id'))) ? 1 : 0;
-                        if (!in_array(iget('cate_id'), array_column($value['son'], 'cate_id'))) {
+                        if (!in_array(iget('cate_id'), array_column($value['son'], 'cate_id')) && !isMobile()) {
                             $value['son'][0]['selected'] = 1;
                         }
                     } else {

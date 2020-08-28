@@ -6,9 +6,9 @@
 			<div class="nav-box">
 				<ul>
 					<?php foreach ($navArr as $key => $value) { 
-						if ($value['selected']) {$cateName = $value['name'] ?? '';}
+						if (($value['selected'] ?? false)) {$cateName = $value['name'] ?? '';}
 					?>
-					<li class="<?php echo $value['selected'] ? 'selected' : '';?>">
+					<li class="<?php echo ($value['selected'] ?? false) ? 'selected' : '';?>">
 						<a class="block" href="<?php echo $value['url'];?>">
 							<span><?php echo dist($value['name'] ?? '');?></span>
 						</a>
@@ -20,22 +20,24 @@
 			<div class="nav-title text-right">
 				<span><?php echo dist('当前位置');?>:&nbsp;&nbsp;</span>
 				<a href="/"><?php echo dist($_site_name ?? '');?></a>
+				<?php if (!empty($selected_parent_id)) { ?>
 				<span>&nbsp;/&nbsp;</span>
-				<a href="<?php echo url('productList');?>"><?php echo dist('产品中心');?></a>
+				<a href="<?php echo url('articleList', ['cate_id' => $selected_parent_id]);?>"><?php echo $selected_parent_name;?></a>
+				<?php } ?>
 				<?php if (!empty($cateName)) { ?>
 				<span>&nbsp;/&nbsp;</span>
-				<a href="<?php echo url('productList', ['cate_id' => $info['cate_id']]);?>"><?php echo dist($cateName);?></a>
+				<a href="<?php echo url('articleList', ['cate_id' => $info['cate_id']]);?>"><?php echo dist($cateName);?></a>
 				<?php } ?>
 			</div>
 			<?php if (!empty($info)) { ?>
 			<div style="padding-top: 20px;">
 				<div class="text-center font-20 color-6"><?php echo $info['name'];?></div>
 				<div class="source color-9 margin-bottom-10">
-					<span><?php echo dist('文章来源');?>：<?php echo $_name;?></span>
-					<span><?php echo dist('人气');?>：<?php echo $info['hit_count'];?></span>
-					<span><?php echo dist('发表时间');?>：<?php echo date('Y-m-d H:i:s', $info['create_at']);?></span>
+					<span><?php echo dist('文章来源');?>：<?php echo $_name;?>&nbsp;</span>
+					<span><?php echo dist('人气');?>：<?php echo $info['hit_count'];?>&nbsp;</span>
+					<span><?php echo dist('发表时间');?>：<?php echo date('Y-m-d', $info['create_at']);?></span>
 				</div>
-				<?php echo $info['content'];?>
+				<?php echo $info['content'] ?? '';?>
 			</div>
 			<?php if (!empty($recommend)) { ?>
 			<div class="article-detail margin-top-20">
