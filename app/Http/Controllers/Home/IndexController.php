@@ -141,7 +141,7 @@ class IndexController extends Controller
 	{
 		$groupKey = ipost('group_key');
 		if (empty($groupKey))
-			return $this->result(10000, $res, ['message' => dist('参数错误')]);
+			return $this->result(10000, false, ['message' => dist('参数错误')]);
 
 		$message = \App::make('App/Services/MessageService');
 		$total = $message->getUnreadTotal($groupKey, ipUserId());
