@@ -85,7 +85,6 @@
     	</tr>
     	<?php } ?>
     </table>
-	<?php echo $pageBar;?>
 </div>
 <div id="dealbox" style="display: none;">
     <form class="form-horizontal">

@@ -43,8 +43,8 @@
 						</ul>
 					</div>
 					<div class="left pic-right">
-						<a href="javascript:;" class="block text-center">
-							<img src="<?php echo $info['image_list'][0]['url'];?>">
+						<a href="javascript:;" class="table-cell text-center">
+							<img src="<?php echo str_replace('300x300', '800x800', $info['image_list'][0]['url']);?>">
 						</a>
 					</div>
 				</div>

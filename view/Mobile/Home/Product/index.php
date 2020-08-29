@@ -17,7 +17,7 @@
 				<?php foreach ($info['image_list'] as $key => $value) { ?>
 				<li>
 					<a class="block" href="javascript:;">
-						<img src="<?php echo $value['url'];?>">
+						<img src="<?php echo str_replace('300x300', '600x600', $value['url']);?>">
 					</a>
 				</li>
 				<?php } ?>
@@ -52,7 +52,7 @@
 	<div class="gray-width bg-f5 margin-top-8"></div>
 	<?php if (!empty($info['content'])) {?>
 	<div class="container item-content">
-		<?php echo $info['content'];?>
+		<?php echo str_replace('800x800', '600x600', $info['content']);?>
 	</div>
 	<div class="gray-width bg-f5 margin-top-8"></div>
 	<?php } ?>

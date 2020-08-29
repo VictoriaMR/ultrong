@@ -43,7 +43,7 @@ class ProductService extends BaseService
 
                 if (!empty($value['image'])) {
                     $data = $attchService->getAttachmentById(explode(',', $value['image'])[0]);
-                    $value['image'] = $data['url'];
+                    $value['image'] = $this->pathUrl($data['url'], '300x300');
                 }
                 $list[$key] = $value;
             }
@@ -111,6 +111,9 @@ class ProductService extends BaseService
             if (!empty($info['image'])) {
                 $attchService = \App::make('App/Services/AttachmentService');
                 $imageList = $attchService->getAttachmentListById($info['image']);
+                foreach ($imageList as $key => $value) {
+                    $imageList[$key]['url'] = $this->pathUrl($value['url'], '300x300');
+                }
             }
             $info['image_list'] = $imageList ?? [];
         }

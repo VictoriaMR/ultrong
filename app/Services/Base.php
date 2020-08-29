@@ -252,4 +252,19 @@ class Base
 
         return $password;
     }
+
+    public function pathUrl($url, $prev = '')
+    {
+        if (empty($prev)) return $url;
+        $temp = [];
+        $arr = explode('/', $url);
+        $count = count($arr);
+        foreach ($arr as $key => $value) {
+            $temp[] = $value;
+            if ($count == $key + 2) {
+                $temp[] = $prev;
+            }
+        }
+        return implode('/', $temp);
+    }
 }

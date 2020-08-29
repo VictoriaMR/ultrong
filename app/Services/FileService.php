@@ -48,15 +48,6 @@ class FileService extends BaseService
                 ];
             }
         } else {
-             if (in_array($extension, self::constant('FILE_COMPERSS'))) {
-                $temp = ROOT_PATH.'public/file_center/temp/'.$this->getPasswd(time(), $this->getSalt(6)).'.'.$extension;
-                move_uploaded_file($tmpFile, $temp);
-                $tmpFile = $temp;
-                $imageService = \App::make('App/Services/ImageService');
-
-                $imageService->thumbImage($tmpFile, $tmpFile);
-                dd();
-             }
 
             $hash = hash_file('md5', $tmpFile); //生成文件hash值
             $attachmentService = \App::make('App\Services\AttachmentService');
@@ -98,6 +89,16 @@ class FileService extends BaseService
                 $result = move_uploaded_file($tmpFile, $saveUrl);
 
                 if ($result) {
+                    //压缩文件
+                    if (in_array($cate, ['banner'])) {
+                        $imageService->compressImg($saveUrl, $this->pathUrl($saveUrl, '_thumb'));
+                        $saveUrl = $this->pathUrl($saveUrl, '_thumb');
+                    } elseif (in_array($cate, ['avatar', 'product', 'article'])) {
+                        $imageService->thumbImage($saveUrl, $this->pathUrl($saveUrl, '800x800'), 800, 800);
+                        $imageService->thumbImage($saveUrl, $this->pathUrl($saveUrl, '600x600'), 600, 600);
+                        $imageService->thumbImage($saveUrl, $this->pathUrl($saveUrl, '300x300'), 300, 300);
+                        $saveUrl = $this->pathUrl($saveUrl, '800x800');
+                    }
                     //新增文件记录
                     $attachmentId = $attachmentService->addAttactment($insert);
                     if (!$attachmentId) return false;
@@ -122,80 +123,5 @@ class FileService extends BaseService
         } else {
             return mb_convert_encoding($str, 'UTF-8', $encode);
         }
-    }
-
-    /**
-     * @method 图片填充正方形
-     * @author Victoria
-     * @date   2020-06-25
-     * @return image/data
-     */
-    protected function squareImage($image)
-    {
-    	if (empty($image)) return $image;
-
-		$temp = getimagesize($image);
-		$width = $temp[0] ?? 0;
-		$height = $temp[1] ?? 0;
-
-		$mime = $temp['mime'] ?? '';
-
-    	if ($width <= 0 || $height <= 0  || $width == $height) return $image;
-
-    	$format = strtolower(preg_replace('/^.*?\//', '', $mime));
-    	switch ($format) {
-		    case 'jpg':
-		    case 'jpeg':
-		        $image_data = imagecreatefromjpeg($image);
-		    break;
-		    case 'png':
-		        $image_data = imagecreatefrompng($image);
-		    break;
-		    case 'gif':
-		        $image_data = imagecreatefromgif($image);
-		    break;
-		    default:
-		        return $image;
-		    break;
-		}
-
-		if ($image_data == false) return false;
-
-		$max_offset = max($height, $width);
-
-		$max_offset = min($max_offset, self::constant('MAX_OFFSET'));
-
-		$bg = imagecreatetruecolor($max_offset, $max_offset);
-		$white = imagecolorallocate($bg, 255,255,255);
-		imagefill($bg, 0, 0, $white);//填充背景
-
-		$x = ($max_offset - $width) / 2;
-		$y = ($max_offset - $height) / 2;
-
-		dd($x);
-
-		//创建画布
-    	imagecopymerge($bg, $image_data, $x, $y, 0, 0, $width, $height, $max_offset);
-
-	    switch( $format) {
-	        case 'jpg':
-	        case 'jpeg':
-	            imagejpeg($bg, $image, $max_offset);
-	        break;
-	        case 'png':
-	            imagepng($bg, $image);
-	        break;
-	        case 'gif':
-	            imagegif($bg, $image);
-	        break;
-	        default:
-	            return $image;
-	        break;
-	    }
-
-		imagedestroy($bg);
-		imagedestroy($image_data);
-
-		return $image;
     }
 }

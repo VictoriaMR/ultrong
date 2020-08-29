@@ -58,6 +58,9 @@ class BannerService extends BaseService
             if (!empty($info['content'])) {
                 $attachmentService = \App::make('App/Services/AttachmentService');
                 $bannerArr = $attachmentService->getAttachmentListById(array_column($info['content'], 'attach_id'));
+                foreach ($bannerArr as $key => $value) {
+                    $bannerArr[$key]['url'] = $this->pathUrl($value['url'], '_thumb');
+                }
                 $bannerArr = array_column($bannerArr, null, 'attach_id');
                 foreach ($info['content'] as $k => $v) {
                     $info['content'][$k] = array_merge($v, $bannerArr[$v['attach_id']] ?? []);

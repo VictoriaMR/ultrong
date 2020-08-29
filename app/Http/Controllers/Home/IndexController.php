@@ -147,4 +147,27 @@ class IndexController extends Controller
 		$total = $message->getUnreadTotal($groupKey, ipUserId());
 		return $this->result(200, $total);
 	}
+
+	public function test()
+	{
+		set_time_limit(0);
+		$imageService = \App::make('App/Services/ImageService');
+		$basePath = ROOT_PATH.'public/file_center/';
+		$arr = ['product', 'banner'];
+		foreach ($arr as $key => $value) {
+			$dir = $basePath.$value.'/';
+			foreach (scandir($dir) as $v) {
+				if ($v == '.' || $v == '..' || is_dir($v)) continue;
+				$file = $dir.$v;
+				if ($value == 'banner') {
+					$imageService->compressImg($file, $imageService->pathUrl($file, '_thumb'));
+				} else {
+					$imageService->thumbImage($file, $imageService->pathUrl($file, '800x800'), 800, 800);
+					$imageService->thumbImage($file, $imageService->pathUrl($file, '600x600'), 600, 600);
+                    $imageService->thumbImage($file, $imageService->pathUrl($file, '300x300'), 300, 300);
+				}
+			}
+		}
+		exit('done');
+	}
 }

@@ -14,23 +14,19 @@ class ImageService extends BaseService
 		if (!extension_loaded('gd')) {
 			return false;
 		}
+		if (!is_file($src)) return false;
 		//图片信息
 		$srcImageInfo = getimagesize($src);
 		$srcImageWidth = $srcImageInfo[0];
 		$srcImageHeight = $srcImageInfo[1];
 		$srcImageMime = $srcImageInfo['mime'];
-		$img = imagecreatetruecolor($srcImageWidth, $srcImageHeight);
-		$white = imagecolorallocate($img, 255, 255, 255);//白色
-	 	//图片填充白色背景
-	 	imagecolortransparent($img, $white);
-		imagefill($img, 0, 0, $white);
 
 		if ($srcImageWidth == $outputWidth && $srcImageHeight == $outputHeight) {
 			if ($src != $moveto)
 				copy($src, $moveto);
 			return true;
 		}
-	 	
+	 	$imagecreatefromfunc = $imagefunc = null;
 		switch($srcImageMime) {
 			case 'image/jpeg':
 				$imagecreatefromfunc = function_exists('imagecreatefromjpeg') ? 'imagecreatefromjpeg' : '';
@@ -82,33 +78,35 @@ class ImageService extends BaseService
 		//左右留白
 		$diff_x = ($outputWidth - $real_w) / 2;
 
-		imagecopy($img, $srcImage, 0, 0, 0, 0, $srcImageWidth, $srcImageHeight);
+		// imagecopy($img, $srcImage, 0, 0, 0, 0, $srcImageWidth, $srcImageHeight);
+		$white = imagecolorallocate($returnPic, 255, 255, 255);//白色
 		imagefill($returnPic, 0, 0, $white);
 
-		imagecopyresampled($returnPic, $img, $dst_x + $diff_x, $dst_y + $diff_y, $src_x, $src_y, $real_w, $real_h, $src_w, $src_h);
+		imagecopyresampled($returnPic, $srcImage, $dst_x + $diff_x, $dst_y + $diff_y, $src_x, $src_y, $real_w, $real_h, $src_w, $src_h);
+		$dirPath = dirname($moveto);
+		if (!is_dir($dirPath)) {
+			mkdir($dirPath, 0755, true);
+		}
 		$imagefunc($returnPic, $moveto);
 		imagedestroy($returnPic);
-		imagedestroy($img);
+		imagedestroy($srcImage);
 		clearstatcache();
 		return true;
 	}
 
 	//图片压缩
-	public function compressImg($src, $percent = 1)
+	public function compressImg($src, $moveto = '', $percent = 1)
 	{
 		if (!extension_loaded('gd')) {
 			return false;
 		}
+		if (!is_file($src)) return false;
 		//图片信息
 		$srcImageInfo = getimagesize($src);
 		$srcImageWidth = $srcImageInfo[0];
 		$srcImageHeight = $srcImageInfo[1];
 		$srcImageMime = $srcImageInfo['mime'];
-		$white = imagecolorallocate($img, 255, 255, 255);//白色
-	 	//图片填充白色背景
-	 	imagecolortransparent($img, $white);
-		imagefill($img, 0, 0, $white);
-
+		$imagecreatefromfunc = $imagefunc = null;
 		switch($srcImageMime) {
 			case 'image/jpeg':
 				$imagecreatefromfunc = function_exists('imagecreatefromjpeg') ? 'imagecreatefromjpeg' : '';
@@ -138,7 +136,15 @@ class ImageService extends BaseService
 		imagefill($returnPic, 0, 0, $white);
 
 		imagecopyresampled($returnPic, $srcImage, 0, 0, 0, 0, $new_w, $new_h, $srcImageWidth, $srcImageHeight);
-		$imagefunc($returnPic, $src);
+		if (empty($moveto))
+			$moveto = $src;
+
+		$dirPath = dirname($moveto);
+		if (!is_dir($dirPath)) {
+			mkdir($dirPath, 0755, true);
+		}
+
+		$imagefunc($returnPic, $moveto);
 		imagedestroy($returnPic);
 		imagedestroy($srcImage);
 		clearstatcache();
