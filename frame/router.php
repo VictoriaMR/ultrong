@@ -136,7 +136,6 @@ class Router
 				}
 			}
 		}
-
 		return $funcArr;
 	}
 

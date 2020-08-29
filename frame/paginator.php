@@ -185,11 +185,8 @@ class Paginator
                 $this->urlParam['controller'] = implode('/', \Router::$_route);
             }
             $this->urlParam['param'] = iget();
+            array_shift($this->urlParam['param']);
         } else {
-            $this->urlParam['controller']=$controller;
-            if (is_string($param)) {
-                parse_str($param,$param);
-            }
             $this->urlParam['param'] =$param;
         }
         if(isset($this->urlParam['param'][$this->pageParam])){
@@ -313,11 +310,16 @@ class Paginator
         if(is_string($this->isAjax)){
             return "javascript:".$this->isAjax."(".$page.")";
         } else {
-            // dd(array_merge($this->urlParam['param'],[$this->pageParam => $page]));
             if($page>1){
-                return url($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
+                if (\Router::getFunc('Class') == 'admin')
+                    return adminUrl($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
+                else
+                    return url($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
             } else {
-                return url($this->urlParam['controller'],$this->urlParam['param']);
+                if (\Router::getFunc('Class') == 'admin')
+                    return adminUrl($this->urlParam['controller'], $this->urlParam['param']);
+                else
+                    return url($this->urlParam['controller'], $this->urlParam['param']);
             }
         }
     }

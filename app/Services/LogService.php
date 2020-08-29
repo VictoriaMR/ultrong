@@ -12,6 +12,9 @@ class LogService extends BaseService
 		'Home/Index/index' => '首页',
 		'Home/ProductList/index' => '产品列表',
 		'Home/Product/index' => '产品详情',
+        'Home/Search/index' => '搜索页',
+        'Home/ArticleList/index' => '文章列表',
+        'Home/Article/index' => '文章详情',
 	];
 
 	public function __construct(Logger $logger, HandleLogger $handle)
