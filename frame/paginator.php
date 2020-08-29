@@ -182,6 +182,7 @@ class Paginator
             if (\Router::getFunc('Class') == 'Home') {
                 $this->urlParam['controller'] = \Router::getFunc('ClassPath');
             } else {
+                // dd(\Router::$_route);
                 $this->urlParam['controller'] = implode('/', \Router::$_route);
             }
             $this->urlParam['param'] = iget();
@@ -311,15 +312,9 @@ class Paginator
             return "javascript:".$this->isAjax."(".$page.")";
         } else {
             if($page>1){
-                if (\Router::getFunc('Class') == 'admin')
-                    return adminUrl($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
-                else
-                    return url($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
+                return url($this->urlParam['controller'], array_merge($this->urlParam['param'],[$this->pageParam => $page]));
             } else {
-                if (\Router::getFunc('Class') == 'admin')
-                    return adminUrl($this->urlParam['controller'], $this->urlParam['param']);
-                else
-                    return url($this->urlParam['controller'], $this->urlParam['param']);
+                return url($this->urlParam['controller'], $this->urlParam['param']);
             }
         }
     }

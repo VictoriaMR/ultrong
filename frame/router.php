@@ -55,7 +55,6 @@ class Router
 				'ClassPath' => !empty($ClassPath) ? $ClassPath : 'Index',
 				'Func'      => !empty($Func) ? $Func : 'index',
 			];
-
 			self::$_route = self::realFunc($funcArr);
 		}
 	}
@@ -175,10 +174,10 @@ class Router
 	{
 		$url = trim(trim($url), '/');
 		if (empty($url)) return Env('APP_DOMAIN');
-		$url = strtolower($url);
-		switch ($url) {
+		switch (strtolower($url)) {
 			//产品列表
 			case 'productlist':
+				$url = strtolower($url);
 				$cid = $param['cate_id'] ?? 0;
 				if (!empty($cid)) {
 					$url = '';
@@ -196,6 +195,7 @@ class Router
 				break;
 			//产品详情
 			case 'product':
+				$url = strtolower($url);
 				$proId = $param['pro_id'] ?? 0;
 				$lanId = $param['lan_id'] ?? 0;
 				$url = '';
@@ -214,6 +214,7 @@ class Router
 				break;
 			//文章详情
 			case 'article':
+				$url = strtolower($url);
 				$artId = $param['art_id'] ?? 0;
 				$lanId = $param['lan_id'] ?? 0;
 				$cateId = $param['cate_id'] ?? 0;
@@ -234,6 +235,7 @@ class Router
 				break;
 			//文章列表
 			case 'articlelist':
+				$url = strtolower($url);
 				$cateId = $param['cate_id'] ?? 0;
 				$url = '';
 				if (!empty($cateId)) {
