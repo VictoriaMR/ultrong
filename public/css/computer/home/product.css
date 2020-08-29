@@ -73,7 +73,7 @@
 
 .product-list li {
 	margin-right: 20px;
-	width: calc((100% - 41px) / 3);
+	width: calc((100% - 61px) / 4);
 	float: left;
 	margin-bottom: 20px;
 	text-align: center;

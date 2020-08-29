@@ -33,7 +33,7 @@
 			<div class="product-list padding-top-10">
 				<ul>
 					<?php foreach ($list as $key => $value) {?>
-					<li <?php if (($key+1) % 3 == 0) { ?>style="margin-right: 0;"<?php } ?>>
+					<li <?php if (($key+1) % 4 == 0) { ?>style="margin-right: 0;"<?php } ?>>
 						<a class="square product-img" href="<?php echo 
 						$value['url'];?>">
 							<img src="<?php echo $value['image'];?>" alt="<?php echo $value['name'] ?? '';?>">
