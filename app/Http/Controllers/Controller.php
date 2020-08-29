@@ -65,8 +65,8 @@ class Controller
             $navArr[] = $data['name'];
         }
 
-        $controller = strtolower($info['ClassPath']);
-        $func = strtolower($info['Func']);
+        $controller = $info['ClassPath'];
+        $func = $info['Func'];
 
         if (!empty($navArr))
             krsort($navArr);

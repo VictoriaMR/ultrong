@@ -25,7 +25,7 @@
             <td>redis</td>
             <td>2.8</td>
             <td>
-                <?php if(version_compare(Redis()->info()['redis_version'], '2.8','>=')){?>
+                <?php if(version_compare(Redis()->info()['redis_version'] ?? 0, '2.8','>=')){?>
                     <span class="install">已安装</span>
                 <?php }else{?>
                     <span class="notinstall">未安装</span>
