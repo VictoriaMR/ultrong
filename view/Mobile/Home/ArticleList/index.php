@@ -18,7 +18,7 @@
 			<a href="<?php echo url('articleList', ['cate_id'=>$selectedNav['id']]);?>"><?php echo $selectedNav['name'];?></a>
 			<?php if (!empty($cateName)) { ?>
 			<span>&nbsp;/&nbsp;</span>
-			<a href="<?php echo url('articleList', ['cate_id' => $cateId]);?>"><?php echo dist($cateName);?></a>
+			<a href="<?php echo url('articleList', ['cate_id' => $cateId]);?>"><?php echo $cateName;?></a>
 			<?php } ?>
 		</div>
 		<?php if (!empty($list)) { ?>

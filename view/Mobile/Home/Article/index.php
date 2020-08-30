@@ -10,14 +10,14 @@
 					}
 				}
 			} ?>
-			<a href="/"><?php echo dist($_site_name ?? '');?></a>
+			<a href="/"><?php echo $_site_name ?? '';?></a>
 			<?php if (!empty($selected_parent_id)) { ?>
 			<span>&nbsp;/&nbsp;</span>
 			<a href="<?php echo url('articleList', ['cate_id' => $selected_parent_id]);?>"><?php echo $selected_parent_name;?></a>
 			<?php } ?>
 			<?php if (!empty($cateName)) { ?>
 			<span>&nbsp;/&nbsp;</span>
-			<a href="<?php echo url('articleList', ['cate_id' => $info['cate_id']]);?>"><?php echo dist($cateName);?></a>
+			<a href="<?php echo url('articleList', ['cate_id' => $info['cate_id']]);?>"><?php echo $cateName;?></a>
 			<?php } ?>
 		</div>
 		<?php if (!empty($info)) { ?>

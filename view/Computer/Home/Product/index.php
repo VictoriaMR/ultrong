@@ -24,7 +24,7 @@
 				<a href="<?php echo url('productList');?>"><?php echo dist('产品中心');?></a>
 				<?php if (!empty($cateName)) { ?>
 				<span>&nbsp;/&nbsp;</span>
-				<a href="<?php echo url('productList', ['cate_id' => $info['cate_id']]);?>"><?php echo dist($cateName);?></a>
+				<a href="<?php echo url('productList', ['cate_id' => $info['cate_id']]);?>"><?php echo $cateName;?></a>
 				<?php } ?>
 			</div>
 			<?php if (!empty($info)) { ?>

@@ -2,12 +2,12 @@
 <div class="margin-top-58">
 	<div class="container">
 		<div class="crumbs">
-			<a href="/"><?php echo dist($_site_name ?? '');?></a>
+			<a href="/"><?php echo $_site_name ?? '';?></a>
 			<span>&nbsp;/&nbsp;</span>
 			<a href="<?php echo url('productList');?>"><?php echo dist('产品中心');?></a>
 			<?php if (!empty($cateName)) { ?>
 			<span>&nbsp;/&nbsp;</span>
-			<a href="<?php echo url('productList', ['cate_id' => $cate_id]);?>"><?php echo dist($cateName);?></a>
+			<a href="<?php echo url('productList', ['cate_id' => $cate_id]);?>"><?php echo $cateName;?></a>
 			<?php } ?>
 		</div>
 		<?php if (!empty($list)) { ?>

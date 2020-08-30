@@ -1,8 +1,8 @@
 <?php $this->load('header');?>
 <div class="margin-top-58">
 	<div class="container">
-		<div class="crumbs flex">
-			<a href="/"><?php echo dist($_site_name ?? '');?></a>
+		<div class="crumbs flex" style="line-height: 0.16rem;">
+			<a href="/"><?php echo $_site_name ?? '';?></a>
 			<span>&nbsp;/&nbsp;</span>
 			<a href="<?php echo url('search');?>"><?php echo dist('搜索');?></a>
 			<?php if (!empty(iget('keyword'))) { ?>

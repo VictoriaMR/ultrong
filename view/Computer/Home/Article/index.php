@@ -26,7 +26,7 @@
 				<?php } ?>
 				<?php if (!empty($cateName)) { ?>
 				<span>&nbsp;/&nbsp;</span>
-				<a href="<?php echo url('articleList', ['cate_id' => $info['cate_id']]);?>"><?php echo dist($cateName);?></a>
+				<a href="<?php echo url('articleList', ['cate_id' => $info['cate_id']]);?>"><?php echo $cateName;?></a>
 				<?php } ?>
 			</div>
 			<?php if (!empty($info)) { ?>

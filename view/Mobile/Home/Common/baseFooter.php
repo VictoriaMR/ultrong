@@ -12,7 +12,7 @@
 		</ul>
 		<div class="clear"></div>
 	</div>
-	<p class="margin-top-8 text-center">&copy;2020-<?php echo date('Y', strtotime('+1 year', strtotime(date('Y-m-d', time()))));?>&nbsp;<?php echo dist($site['name']);?>&reg;&nbsp;<?php echo dist('版权所有');?></p>
+	<p class="margin-top-8 text-center">&copy;2020-<?php echo date('Y', strtotime('+1 year', strtotime(date('Y-m-d', time()))));?>&nbsp;<?php echo $_name;?>&reg;&nbsp;<?php echo dist('版权所有');?></p>
 	<?php if (!empty($site['ipc'])) { ?>
 	<p class="margin-top-8 text-center"><?php echo dist($site['ipc']);?></p>
 	<?php } ?>
@@ -20,7 +20,7 @@
 <div class="chat">
 	<div class="chat_button_bar">
 		<div class="favicon">💬</div>
-		<div class="title color-white"><?php echo dist('联系我们');?></div>
+		<div class="title color-white"><?php echo dist('客服');?></div>
 	</div>
 	<div class="chat-content hidden">
 		<div class="content-title">
