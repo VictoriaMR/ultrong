@@ -84,7 +84,7 @@
                     <div class="clear"></div>
                 </div>
                 <div class="margin-top-15 text-center">
-                	<?php echo $info['content'];?>
+                	<?php echo str_replace('800x800', '_thumb', $info['content']);?>
                 </div>
 			</div>
 			<?php if (!empty($recommend)) { ?>

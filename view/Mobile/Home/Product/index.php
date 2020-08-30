@@ -52,7 +52,7 @@
 	<div class="gray-width bg-f5 margin-top-8"></div>
 	<?php if (!empty($info['content'])) {?>
 	<div class="container item-content">
-		<?php echo str_replace('800x800', '600x600', $info['content']);?>
+		<?php echo str_replace('800x800', '_thumb', $info['content']);?>
 	</div>
 	<div class="gray-width bg-f5 margin-top-8"></div>
 	<?php } ?>

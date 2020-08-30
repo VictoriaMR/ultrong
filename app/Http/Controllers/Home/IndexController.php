@@ -162,6 +162,7 @@ class IndexController extends Controller
 				if ($value == 'banner') {
 					$imageService->compressImg($file, $imageService->pathUrl($file, '_thumb'));
 				} else {
+					$imageService->compressImg($file, $imageService->pathUrl($file, '_thumb'));
 					$imageService->thumbImage($file, $imageService->pathUrl($file, '800x800'), 800, 800);
 					$imageService->thumbImage($file, $imageService->pathUrl($file, '600x600'), 600, 600);
                     $imageService->thumbImage($file, $imageService->pathUrl($file, '300x300'), 300, 300);
