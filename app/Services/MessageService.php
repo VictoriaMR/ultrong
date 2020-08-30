@@ -133,7 +133,7 @@ class MessageService extends BaseService
 		$result = $this->memberModel->insert($insert);
         if (empty($type) && substr($toUser, 0, 1) == 5) {
             // 发送初始化聊天术语
-            $content = '您好, 欢迎您的咨询, 请问有什么需要帮助的吗';
+            $content = dist('您好, 欢迎您的咨询, 请问有什么需要帮助的吗');
             $this->sendMessageByKey($groupKey, dist($content), $toUser);
         }
 		if (!$result) return false;
