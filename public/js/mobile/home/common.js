@@ -112,8 +112,11 @@ function slider_init(e){
         return false;
     }
     $this.unbind();
+    $this.find('ul li').css({position: 'absolute', top: 0, left: 0});
     var height = $this.height();
-    $this.css({height: height}).find('ul li').css({position: 'absolute', height: height, top: 0, left: 0});
+    if (height > 100) {
+        $this.css({height: height});
+    }
     $this.each(function(){
         var _this = $(this);
         _this.interval = null;

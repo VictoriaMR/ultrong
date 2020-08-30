@@ -1,5 +1,6 @@
 .image-slider {
     width: 100%;
+    height: calc(100vw - 0.2rem);
     overflow: hidden;
     position: relative;
     text-align: center;
