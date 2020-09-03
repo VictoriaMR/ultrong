@@ -164,7 +164,8 @@ class App
         if (is_file($fileName)){
 			require_once $fileName;
 		} else {
-			throw new Exception( $fileName .' was not exist!', 1);
+            \App::Error();
+            redirect(url(''));
 		}
 
         $concrete = Container::getInstance()->autoload($abstract);
