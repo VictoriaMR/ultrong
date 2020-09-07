@@ -16,8 +16,8 @@
 	    </a>
 	</div>
 </div>
-<div id="content" class="flex">
-	<table width="100%" border="0">
+<div id="content" class="flex" style="height: calc(100vh - 35px);">
+	<table width="100%" border="0" hight="100%">
 		<tr>
 			<td width="185" height="100%" valign="top">
 				<div id="left" <?php if (!empty($info['color_value'])) { ?> style="background-color: <?php echo $info['color_value'];?>" <?php } ?>>
@@ -89,10 +89,8 @@
 	</table>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){
-	INDEX.init({
-		count_url: "<?php echo adminUrl('message/getUnread');?>"
-	});
+INDEX.init({
+	count_url: "<?php echo adminUrl('message/getUnread');?>"
 });
 </script>
 <?php $this->load('Common.baseFooter');?>

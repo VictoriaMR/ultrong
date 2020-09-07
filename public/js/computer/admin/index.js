@@ -8,7 +8,7 @@ var INDEX = {
 		_this.intervalCount = null;
 		_this.getCount();
         _this.startCount();
-		$('#left').css({height: height - topH - 1 + 'px'});
+		$('#left').css({height: height - topH + 'px'});
 
 		var iframeTop = $('#iframe-list').height();
 		$('#iframe-list-content').css({height: height - topH - iframeTop + 'px', 'margin-top': '-10px'})
