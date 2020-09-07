@@ -1,5 +1,5 @@
 <?php $this->load('Common.baseHeader');?>
-<div class="margin-top-58">
+<div class="margin-top-58" style="min-height: calc(100vh - 1.6rem);">
 	<?php if (!empty($banner['content'])) { ?>
 	<div class="image-slider">
 		<ul class="font-0">
