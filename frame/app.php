@@ -69,7 +69,7 @@ class App
 
         if ($info['Class'] == 'Admin') {
             Html::addCss(['bootstrap', 'datepicker'], true);
-            Html::addJs(['modal', 'button', 'datetimepicker', 'datepicker_cn']);
+            Html::addJs(['modal', 'button', 'datepicker']);
         } else if ($info['Class'] == 'Home') {
             Html::addJs('syalert');
         }
