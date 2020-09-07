@@ -281,6 +281,7 @@ class MessageService extends BaseService
             //获取消息人员信息
             $memberService = \App::make('App/Services/MemberService');
             $adminMemberService = \App::make('App/Services/Admin/MemberService');
+            $lastTime = 0;
             foreach ($list as $key => $value) {
                 $info = [];
                 if (!empty($value['user_id'])) {

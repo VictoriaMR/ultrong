@@ -22,7 +22,7 @@
                 <td class="col-md-3 col-3"><?php echo $value['content'];?></td>
                 <td class="col-md-3 col-3">
                 	<?php if ($value['can_replay']) { ?>
-                    <button class="btn btn-success btn-sm replay-btn" type="button" data-parent_id="<?php echo $value['cate_id'];?>"><span class="glyphicon glyphicon-plus"></span>&nbsp;回复</button>
+                    <button class="btn btn-success btn-sm replay-btn" type="button"><span class="glyphicon glyphicon-plus"></span>&nbsp;回复</button>
                 	<?php } ?>
                 	<a class="btn btn-primary btn-sm modify-btn" type="button" href="<?php echo adminUrl('message/groupInfo', ['group_key'=>$value['group_key']]);?>"><span class="glyphicon glyphicon-edit"></span>&nbsp;查看</a>
                 </td>
