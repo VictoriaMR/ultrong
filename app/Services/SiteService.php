@@ -152,6 +152,51 @@ class SiteService extends BaseService
         return $res;
     }
 
+    public function sendSitemap()
+    {
+        $data[] = Env('APP_DOMAIN');
+        $cateService = \App::make('App/Services/CategoryService');
+        $productService = \App::make('App/Services/ProductService');
+        $articleCategoryService = \App::make('App/Services/ArticleCategoryService');
+        $articleService = \App::make('App/Services/ArticleService');
+
+        $cateList = $cateService->getList(['status'=>1]);
+        foreach ($cateList as $key => $value) {
+            $data[] = url('productList', ['cate_id' => $value['cate_id']]);
+            //分类下产品列表
+            $where = [
+                'is_deleted' => 0, 
+                'cate_id'=>$value['cate_id'],
+            ];
+            $productList = $productService->getList($where, 1, 9999);
+            foreach ($productList as $pk => $pv) {
+                $data[] = url('product', ['pro_id' => $pv['pro_id'], 'lan_id' => $pv['lan_id']]);
+            }
+        }
+        //文章分类列表
+        $articleList = $articleCategoryService->getList();
+        foreach ($articleList as $key => $value) {
+            if (!empty($value['son'])) {
+                foreach ($value['son'] as $ak => $av) {
+                    $data[] = url('articleList', ['cate_id' => $av['cate_id']]);
+                    $list = $articleService->getListFormat(['cate_id' => $av['cate_id']]);
+                    foreach ($list as $aak => $aav) {
+                        $data[] = url('article', ['art_id' => $aav['art_id'], 'lan_id' => $aav['lan_id']]);
+                    }
+                }
+            } else {
+                $data[] = url('articleList', ['cate_id' => $value['cate_id']]);
+                $list = $articleService->getListFormat(['cate_id' => $value['cate_id']]);
+                foreach ($list as $ak => $av) {
+                    $data[] = url('article', ['art_id' => $av['art_id'], 'lan_id' => $av['lan_id']]);
+                }
+            }
+        }
+        $res = \frame\Http::post('http://data.zz.baidu.com/urls?site=ultrong3d.com&token=DJ60rSA90Rpvqr3W',  implode("\n", $data));
+        $res = json_decode($res, true);
+        return $res['success'] ?? 0;
+    }
+
     protected function createSingleXml($xmlDom, $type, $data)
     {
         if (is_null($xmlDom)) return false;
