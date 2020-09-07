@@ -157,16 +157,9 @@ class MessageService extends BaseService
     	return md5($key);
     }
 
-    /**
-     * @method 群组是否存在
-     * @author LiaoMingRong
-     * @date   2020-08-14
-     * @return boolean
-     */
     protected function isExistGroup($key)
     {
     	if (empty($key)) return false;
-
     	return $this->groupModel->where('group_key', $key)->count() > 0;
     }
 

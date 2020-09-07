@@ -234,7 +234,7 @@ class App
                     $trace[$title] = $info;
                     break;
                 case 'sql': // 文件信息
-                    $trace[$title] = $GLOBALS['exec_sql'];
+                    $trace[$title] = $GLOBALS['exec_sql'] ?? '';
                     break;
                 default: // 调试信息
                     if (strpos($name, '|')) {
