@@ -1,5 +1,0 @@
-User-agent: *
-Disallow:/Admin/
-Disallow:/admin/
-
-Sitemap: http://ultrong3d.com/sitemap.xml
