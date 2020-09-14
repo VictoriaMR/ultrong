@@ -192,9 +192,9 @@ class SiteService extends BaseService
                 }
             }
         }
-        $res = \frame\Http::post('http://data.zz.baidu.com/urls?site=ultrong3d.com&token=DJ60rSA90Rpvqr3W',  implode("\n", $data));
+        $res = \frame\Http::post('http://data.zz.baidu.com/urls?site=ultrong3d.com&token=DJ60rSA90Rpvqr3W',  implode(PHP_EOL, $data));
         $res = json_decode($res, true);
-        return $res['success'] ?? 0;
+        return $res ?? [];
     }
 
     protected function createSingleXml($xmlDom, $type, $data)
