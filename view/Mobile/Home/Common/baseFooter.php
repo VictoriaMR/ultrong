@@ -5,7 +5,7 @@
 				<a class="block color-white font-14" href="<?php echo url('');?>"><?php echo dist('首页');?></a>
 			</li>
 			<?php foreach ($nav_list as $k => $v) { ?>
-			<li>
+			<li <?php if (in_array($k, [2, 6])){ echo 'style="border: none;"'}?>>
 				<a class="block color-white font-14" href="<?php echo $v['url'];?>"><?php echo $v['name'];?></a>
 			</li>
 			<?php } ?>
