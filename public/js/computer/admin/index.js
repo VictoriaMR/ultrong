@@ -87,7 +87,7 @@ var INDEX = {
         _this.stopCount();
         _this.intervalCount = setInterval(function() { 
             _this.getCount();
-        }, 3000);
+        }, 10000);
     },
     stopCount: function()
     {
