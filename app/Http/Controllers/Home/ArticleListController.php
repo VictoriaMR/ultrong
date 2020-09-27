@@ -46,7 +46,6 @@ class ArticleListController extends Controller
 				}
 			}
 		}
-
 		if (empty($info)) {
 			$where = ['lan_id' => \frame\Session::get('site_language_id')];
 			$where['cate_id'] = ['in', $cateId];
@@ -59,9 +58,11 @@ class ArticleListController extends Controller
 			}
 		}
 		
+		$cateInfo = $this->baseService->getInfoCache($cateId);
 		$this->assign('pageBar', $pageBar ?? '');
 		$this->assign('list', $list ?? []);
 		$this->assign('info', $info ?? []);
+		$this->assign('is_fujian', $cateInfo['type'] ?? 0);
 
 		return view();
 	}

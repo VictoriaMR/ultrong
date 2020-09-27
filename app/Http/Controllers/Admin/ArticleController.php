@@ -23,6 +23,7 @@ class ArticleController extends Controller
 
 	public function index()
 	{
+		Html::addJs('article/list');
 		$page = iget('page', 1);
 		$size = iget('size', 30);
 		$artId = iget('art_id', '');
@@ -109,11 +110,16 @@ class ArticleController extends Controller
 		$no = ipost('no');
 		$desc = ipost('desc');
 		$content = ipost('content');
+		$fujian = ipost('fujian');
 
 		if (empty($lanId))
 			return $this->result(10000, false, ['未选择语言']);
 
-		$data = ['status' => $status, 'is_hot' => $isHot];
+		$data = ['status' => $status, 'is_hot' => $isHot, 'fujian' => $fujian];
+
+		if (!empty($data['fujian'])) {
+			$data['hit_count'] = rand(100, 1000);
+		}
 
 		if (!empty($name))
 			$data['name'] = $name;
@@ -160,6 +166,36 @@ class ArticleController extends Controller
 			return $this->result(200, ['url' => adminUrl('article/info', ['art_id' => $artId, 'lan_id' => $lanId])], ['保存成功']);
 		} else {
 			return $this->result(10000, $result, ['保存失败']);
+		}
+	}
+
+	public function modify()
+	{
+		$artId = (int) ipost('art_id', 0);
+		$status = (int) ipost('status', 0);
+		if (empty($artId)) {
+			$this->result(10000, false, ['参数不正确']);
+		}
+		$result = $this->baseService->updateDataById($artId, ['status'=>$status]);
+		if ($result) {
+			$this->result(200, $result, ['修改成功']);
+		} else {
+			$this->result(10000, $result, ['修改失败']);
+		}
+	}
+
+	public function delete()
+	{
+		$artId = (int) ipost('art_id', 0);
+		$lanId = (int) ipost('lan_id', 0);
+		if (empty($artId) || empty($lanId)) {
+			$this->result(10000, false, ['参数不正确']);
+		}
+		$result = $this->baseService->deleteArticle($artId, $lanId);
+		if ($result) {
+			$this->result(200, $result, ['删除成功']);
+		} else {
+			$this->result(10000, $result, ['删除失败']);
 		}
 	}
 }

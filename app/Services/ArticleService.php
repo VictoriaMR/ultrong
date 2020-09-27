@@ -125,4 +125,16 @@ class ArticleService extends BaseService
                                ->where('lan_id', $lanId)
                                ->increment('hit_count');
     }
+
+    public function deleteArticle($artId, $lanId)
+    {
+        $this->baseModel->where('art_id', $artId)
+                        ->where('lan_id', $lanId)
+                        ->delete();
+        $this->dataModel->where('art_id', $artId)
+                        ->where('lan_id', $lanId)
+                        ->delete();
+        $this->clearCache($artId, $lanId);
+        return true;
+    }
 }

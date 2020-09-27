@@ -11,6 +11,7 @@ class ArticleData extends BaseModel
 { 
 	//表名
     public $table = 'article_data';
+    protected $primaryKey = 'art_id';
 
     public function getInfo($artId, $lanId)
     {

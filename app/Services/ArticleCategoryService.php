@@ -110,6 +110,15 @@ class ArticleCategoryService extends BaseService
                                ->delete();
     }
 
+    public function modifyIndoByParentId($parentId, $data)
+    {
+        $parentId = (int) $parentId;
+        if (empty($parentId)) return false;
+
+        return $this->baseModel->where('parent_id', $parentId)
+                               ->update($data);
+    }
+
     public function getInfoCache($cateId)
     {
         $cateId = (int) $cateId;

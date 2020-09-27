@@ -64,6 +64,21 @@ var CATEGORY = {
 	    		});
 	    	});
 	    });
+	     //状态
+	    $('table .switch_botton.status .switch_status').on('click', function() {
+	    	var _thisobj = $(this);
+	    	var cate_id = _thisobj.parents('tr').data('cate_id');
+	    	var status = _thisobj.hasClass('on') ? 0 : 1;
+	    	API.post(ADMIN_URI + 'articleCategory/modify', {cate_id: cate_id, status: status }, function(res) {
+    			if (res.code == 200) {
+    				successTips(res.message);
+    				switch_status(_thisobj, status);
+    				_thisobj.parents('tr').data('status', status);
+    			} else {
+    				errorTips(res.message);
+    			}
+    		});
+	    });
 	},
 	initShow:function (data)
 	{	
@@ -80,6 +95,15 @@ var CATEGORY = {
 				$('#dealbox [name="status"]').val(0).parents('.input-group').find('.switch_status').removeClass('on').addClass('off');
 			} else {
 				$('#dealbox [name="status"]').val(1).parents('.input-group').find('.switch_status').removeClass('off').addClass('on');
+			}
+		}
+		if (typeof data.type != 'undefined') {
+			if (data.type) {
+				$('#dealbox [name="type"][value="1"]').attr('checked', true);
+				$('#dealbox [name="type"][value="0"]').attr('checked', false);
+			} else {
+				$('#dealbox [name="type"][value="1"]').attr('checked', false);
+				$('#dealbox [name="type"][value="0"]').attr('checked', true);
 			}
 		}
 		$('#dealbox').show();

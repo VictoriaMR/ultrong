@@ -6,7 +6,12 @@ var ARTICLE = {
 			obj: $('.upload-item'),
 			success: function(res){
 				if(res.code == 200) {
-					$('.avatar').find('img').attr('src', res.data.url);
+					if (res.data.cate == 'fujian') {
+						$('.btn[data-site="fujian"]').text(res.data.name+'.'+res.data.type);
+						$('.btn[data-site="fujian"]').next().val(res.data.name+'.'+res.data.type);
+					} else {
+						$('.avatar').find('img').attr('src', res.data.url);
+					}
 				} else {
 					errorTips(res.message);
 				}
@@ -28,7 +33,7 @@ var ARTICLE = {
 	    		}
 	    	});
 	    	if (!check) return false;
-			// $(this).button('loading');
+			$(this).button('loading');
 			_this.initImage();
 			_this.save($(this).parents('form').serializeArray());
 		});

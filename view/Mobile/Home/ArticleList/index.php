@@ -24,6 +24,15 @@
 		<?php if (!empty($list)) { ?>
 		<ul class="item-list">
 			<?php foreach ($list as $key => $value) {?>
+			<?php if ($is_fujian) { ?>
+			<li style="border-bottom: 1px dotted #e0e0e0;padding: 10px 0;">
+				<a class="block flex" target="_blank" href="<?php echo $value['fujian'] ? media('fujian/'.$value['fujian']) : 'javascript:;';?>">
+					<img class="margin-right-20" src="<?php echo siteUrl('image/computer/downa.png');?>">
+					<div class="word-ellipsis-2 font-16 title"><?php echo $value['name'];?></div>
+					<div style="margin-left:auto;"> 下载次数：<?php echo $value['hit_count'];?> </div>
+				</a>
+			</li>
+			<?php } else { ?>
 			<li>
 				<a class="block" href="<?php echo $value['url'];?>">
 					<table width="100%" border="0">
@@ -48,6 +57,7 @@
 					</table>
 				</a>
 			</li>
+			<?php } ?>
 			<?php } ?>
 		</ul>
 		<?php echo $pageBar;?>

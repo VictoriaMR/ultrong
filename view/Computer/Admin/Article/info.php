@@ -48,6 +48,15 @@
 	                <input type="hidden" name="is_hot" value="<?php echo $info['is_hot'] ?? 0;?>">
 	            </div>
 	        </div>
+	   		<div class="input-group margin-top-15">
+	            <div class="input-group-addon"><span>添加附件：</span></div>
+	            <div style="padding: 1px 0 1px 15px;border-left: 1px solid #ccc;" id="fujian" data-site="fujian">
+		            <div class="btn upload-item" data-site="fujian">
+		            	<?php echo $info['fujian'] ? $info['fujian'] : '上传附件';?>
+					</div>
+					<input type="hidden" name="fujian" value="<?php echo $info['fujian'] ?? '';?>"/>
+				</div>
+	        </div>
 	   		<?php } ?>
 	        <div class="input-group margin-top-15">
 	            <div class="input-group-addon"><span>语言：</span></div>
@@ -62,7 +71,12 @@
 	            <div class="input-group-addon"><span>文章分类：</span></div>
 	            <select class="form-control" name="cate_id">
 	            	<?php foreach ($cateList as $key => $value) { ?>
-	            	<option value="<?php echo $value['cate_id'];?>" <?php echo ($info['cate_id'] ?? 0) == $value['cate_id'] ? 'selected' : '';?>><?php echo $value['name'];?></option>
+	            	<option value="<?php echo $value['cate_id'];?>" <?php echo ($info['cate_id'] ?? 0) == $value['cate_id'] ? 'selected' : '';?> <?php if (!empty($value['son'])){ echo 'disabled';}?>><?php echo $value['name'];?></option>
+	            	<?php if (!empty($value['son'])) { ?>
+	            	<?php foreach ($value['son'] as $k => $v) { ?>
+	            	<option value="<?php echo $v['cate_id'];?>" <?php echo ($info['cate_id'] ?? 0) == $v['cate_id'] ? 'selected' : '';?>>&nbsp;&nbsp;&nbsp;<?php echo $v['name'];?></option>
+	            	<?php } ?>
+	            	<?php } ?>
 	            	<?php } ?>
 	            </select>
 	        </div>

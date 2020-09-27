@@ -41,7 +41,9 @@
 	        </tr>
 			<?php if (!empty($list)) { ?>
 			<?php foreach ($list as $key => $value) { ?>
-			<tr>
+			<tr data-art_id="<?php echo $value['art_id'];?>"
+				data-lan_id="<?php echo $value['lan_id'];?>"
+			>
 				<td><?php echo $value['art_id'];?></td>
 				<td>
 					<?php if (!empty($value['image'])){ ?>
@@ -73,4 +75,7 @@
 	</div>
 	<?php echo $pageBar ?? '';?>
 </div>
+<script type="text/javascript">
+	ARTICLELIST.init();
+</script>
 <?php $this->load('Common.baseFooter');?>

@@ -10,6 +10,7 @@
             <th class="col-md-1 col-1">ID</th>
             <th class="col-md-2 col-2">名称</th>
             <th class="col-md-2 col-2">名称(英文)</th>
+            <th class="col-md-1 col-1">文章类型</th>
             <th class="col-md-1 col-1">状态</th>
             <th class="col-md-3 col-3">操作</th>
         </tr>
@@ -20,12 +21,14 @@
                 data-parent_id="<?php echo $value['parent_id'];?>"
                 data-name="<?php echo $value['name'];?>"
                 data-name_en="<?php echo $value['name_en'];?>"
-                data-status="<?php echo $value['name'];?>"
+                data-status="<?php echo $value['status'];?>"
+                data-type="<?php echo $value['type'];?>"
                 class="parent"
             >
             	<td class="col-md-1 col-1"><?php echo $value['cate_id'];?></td>
             	<td class="col-md-2 col-2"><?php echo $value['name'];?></td>
                 <td class="col-md-2 col-2"><?php echo $value['name_en'];?></td>
+                <td class="col-md-1 col-1"><?php echo $value['type'] ? '文件类型' : '普通文章';?></td>
                 <td class="col-md-1 col-1">
                     <?php if($value['status']){?>
                         <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
@@ -45,12 +48,16 @@
                 data-cate_id="<?php echo $v['cate_id'];?>"
                 data-parent_id="<?php echo $v['parent_id'];?>"
                 data-name="<?php echo $v['name'];?>"
-                data-status="<?php echo $v['name'];?>"
+                data-name_en="<?php echo $v['name_en'];?>"
+                data-status="<?php echo $v['status'];?>"
+                data-type="<?php echo $v['type'];?>"
                 class="son"
-                style="display: none; background: #fffcfc;"
+                style="background: #fffcfc;"
             >
                 <td class="col-md-1 col-1"><?php echo $v['cate_id'];?></td>
                 <td class="col-md-2 col-2" style="padding-left: 20px;"><?php echo $v['name'];?></td>
+                <td class="col-md-2 col-2"><?php echo $v['name_en'];?></td>
+                <td class="col-md-1 col-1"><?php echo $v['type'] ? '文件类型' : '普通文章';?></td>
                 <td class="col-md-1 col-1">
                     <?php if($v['status']){?>
                         <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
@@ -86,6 +93,17 @@
         <div class="input-group">
             <div class="input-group-addon"><span>分类名称(英文)：</span></div>
             <input type="text" class="form-control" name="name_en" required="required" maxlength="30" value="">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon"><span>文章类型：</span></div>
+            <div class="form-control" style="padding-top: 5px;width: 182px;">
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="type" checked="checked"> 普通文章
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="type"> 文件类型
+                </label>
+            </div>
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>状态：</span></div>

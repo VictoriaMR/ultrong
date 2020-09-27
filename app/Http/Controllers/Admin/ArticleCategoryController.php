@@ -40,10 +40,15 @@ class ArticleCategoryController extends Controller
 		$name = ipost('name', '');
 		$name_en = ipost('name_en', '');
 		$status = ipost('status', null);
+		$type = ipost('type', null);
 		$data = [];
 
 		if ($status !== null) {
 			$data['status'] = (int) $status;
+		}
+
+		if (!is_null($type)) {
+			$data['type'] = (int) $type;
 		}
 
 		if (!empty($name))
@@ -59,8 +64,8 @@ class ArticleCategoryController extends Controller
 
 			if ($result) {
 				if ($status == $this->baseService::constant('STATUS_CLOSE')) {
-					if ($this->baseService->isParent($conId)) {
-						$result = $this->baseService->modifyIndoByParentId($conId, ['status' => $status]);
+					if ($this->baseService->isParent($cateId)) {
+						$result = $this->baseService->modifyIndoByParentId($cateId, ['status' => $status]);
 					}
 				}
 			}

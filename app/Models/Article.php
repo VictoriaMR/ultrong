@@ -11,6 +11,7 @@ class Article extends BaseModel
 {
 	//表名
     public $table = 'article';
+    protected $primaryKey = 'art_id';
 
     /**
      * @method 获取列表
