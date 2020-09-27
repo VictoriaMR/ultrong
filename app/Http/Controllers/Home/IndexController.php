@@ -41,7 +41,7 @@ class IndexController extends Controller
 			$cateList[$key]['product'] = $productService->getList($where, 1, isMobile() ? 8 : 20, [['is_hot', 'desc'], ['hit_count', 'desc']]);
 			if (empty($cateList[$key]['product'])) unset($cateList[$key]);
 			if (isMobile()) {
-				$tempCount = count($cateList[$key]['product']);
+				$tempCount = count($cateList[$key]['product'] ?? []);
 				if ($tempCount > 2 && $tempCount % 2 != 0) {
 					array_pop($cateList[$key]['product']);
 				}

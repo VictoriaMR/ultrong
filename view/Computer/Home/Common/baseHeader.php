@@ -69,12 +69,13 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                     </td>
                     <td width="80%">
                         <div class="nav width-100">
+                            <?php $count = 2+count($nav_list);?>
                             <ul>
-                                <li>
+                                <li style="width: calc(100% / <?php echo $count;?>);">
                                     <a href="<?php echo url();?>" class="title <?php echo $controller == 'index' ? 'selected' : '';?>"><?php echo dist('首页');?></a>
                                 </li>
                                 <?php foreach ($nav_list as $value) { ?>
-                                <li>
+                                <li style="width: calc(100% / <?php echo $count;?>);">
                                     <a href="<?php echo $value['url'];?>" class="title <?php echo $value['selected'] || $value['id'] === ($selected_parent_id ?? null) ? 'selected' : '';?>"><?php echo $value['name'];?></a>
                                     <?php if (!empty($value['son'])) { ?>
                                     <ul class="nav-son">
@@ -87,7 +88,7 @@ var HOME_URI = "<?php echo Env('APP_DOMAIN').'home/';?>";
                                     <?php } ?>
                                 </li>
                                 <?php } ?>
-                                <li class="relative">
+                                <li class="relative" style="width: calc(100% / <?php echo $count;?>);">
                                     <a href="<?php echo url('search');?>" class="title <?php echo $controller=='search' ? 'selected' : '';?>">
                                         <span><?php echo dist('搜索');?></span>
                                         <span class="icon search-icon"></span>

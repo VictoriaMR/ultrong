@@ -134,8 +134,8 @@ class Controller
                 //获取挂靠在分类下的文章
                 if (empty($value['son'])) {
                     $value['son'] = $articleService->getListFormat(['cate_id' => $value['cate_id'], 'lan_id' => \frame\Session::get('site_language_id')]);
+                    $cate_id = 0;
                     if (!empty($value['son'])) {
-                        $cate_id = 0;
                         foreach ($value['son'] as $sk => $sv) {
                             $value['son'][$sk]['url'] = url('article', ['art_id'=>$sv['art_id'], 'lan_id'=>$sv['lan_id']]);
                             if ($sv['art_id'] == iget('art_id') && $sv['lan_id'] == iget('lan_id')) {
@@ -175,7 +175,7 @@ class Controller
                 $tempData[] = [
                     'selected' => $value['selected'] ?? 0,
                     'name' => dist($value['name']),
-                    'url' => $value['url'],
+                    'url' => $value['url'] ?? 'javascript:;',
                     'son' => $value['son'],
                     'id' => $value['cate_id'],
                 ];
