@@ -400,6 +400,7 @@ body {
 
 .table {
     display: table;
+    width: 100%;
 }
 
 .table-cell {
@@ -407,6 +408,7 @@ body {
     vertical-align: middle;
     text-align: center;
     line-height: 0;
+    width: 100%;
 }
 
 .square {

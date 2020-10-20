@@ -35,10 +35,9 @@ class ArticleService extends BaseService
             foreach ($list as $key => $value) {
                 $value['cate_name'] = $cateList[$value['cate_id']]['name'] ?? '';
                 $value['language_name'] = $lanList[$value['lan_id']]['name'] ?? '';
-
                 if (!empty($value['image'])) {
                     $data = $attchService->getAttachmentById(explode(',', $value['image'])[0]);
-                    $value['image'] = $data['url'];
+                    $value['image'] = $data['url'] ?? '';
                 }
                 $value['url'] = url('article', ['art_id'=>$value['art_id'], 'lan_id'=>$value['lan_id']]);
                 $list[$key] = $value;
@@ -124,6 +123,17 @@ class ArticleService extends BaseService
         return $this->baseModel->where('art_id', $artId)
                                ->where('lan_id', $lanId)
                                ->increment('hit_count');
+    }
+
+    public function downloadCountAdd($artId, $lanId)
+    {
+        $artId = (int) $artId;
+        $lanId = (int) $lanId;
+        if (empty($artId) || empty($lanId)) return false;
+
+        return $this->baseModel->where('art_id', $artId)
+                               ->where('lan_id', $lanId)
+                               ->increment('download_count');
     }
 
     public function deleteArticle($artId, $lanId)

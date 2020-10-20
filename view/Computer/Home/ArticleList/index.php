@@ -60,16 +60,28 @@
 			<ul class="item-list">
 			<?php foreach ($list as $key => $value) {?>
 				<?php if ($is_fujian) { ?>
+				<?php if ($is_fujian == 1) {?>
 				<li style="border-bottom: 1px dotted #e0e0e0;padding: 10px 0;">
-					<a class="block flex" target="_blank" href="<?php echo $value['fujian'] ? media('fujian/'.$value['fujian']) : 'javascript:;';?>">
+					<a class="block flex" href="<?php echo !empty($value['link']) ? $value['link'] : ($value['fujian'] ? url('article/download', ['art_id' => $value['art_id'], 'lan_id'=>$value['lan_id']]) : 'javascript:;');?>">
 						<img class="margin-right-20" src="<?php echo siteUrl('image/computer/downa.png');?>">
 						<div class="word-ellipsis-2 font-16 title"><?php echo $value['name'];?></div>
-						<div style="margin-left:auto;"> 下载次数：<?php echo $value['hit_count'];?> </div>
+						<div style="margin-left:auto;font-size: 12px;line-height: 24px;"> 下载次数：<?php echo $value['download_count'];?> </div>
 					</a>
 				</li>
 				<?php } else { ?>
+				<li class="square-item" <?php if (($key+1) % 4 == 0) { ?>style="margin-right: 0;"<?php } ?>>
+					<a class="square product-img" href="<?php echo 
+					$value['url'];?>">
+						<img src="<?php echo $value['image'];?>" alt="<?php echo $value['name'] ?? '';?>">
+					</a>
+					<a class="font-16 text-center" href="<?php echo url('article', ['art_id'=>$value['art_id'], 'lan_id' => $value['lan_id']]);?>">
+						<div class="word-ellipsis-2"><?php echo $value['name'];?></div>
+					</a>
+				</li>
+				<?php }?>
+				<?php } else { ?>
 				<li>
-					<a class="block" href="<?php echo $value['url'];?>">
+					<a class="block" href="<?php echo !empty($value['link']) ? $value['link'] : $value['url'];?>">
 						<table width="100%" border="0">
 							<tr>
 								<td width="25%" valign="top">
@@ -92,6 +104,7 @@
 				<?php } ?>
 			<?php } ?>
 			</ul>
+			<div class="clear"></div>
 			<?php echo $pageBar;?>
 			<?php } else { ?>
 			<div class="text-center">

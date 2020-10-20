@@ -111,15 +111,12 @@ class ArticleController extends Controller
 		$desc = ipost('desc');
 		$content = ipost('content');
 		$fujian = ipost('fujian');
+		$link = ipost('link');
 
 		if (empty($lanId))
 			return $this->result(10000, false, ['未选择语言']);
 
-		$data = ['status' => $status, 'is_hot' => $isHot, 'fujian' => $fujian];
-
-		if (!empty($data['fujian'])) {
-			$data['hit_count'] = rand(100, 1000);
-		}
+		$data = ['status' => $status, 'is_hot' => $isHot, 'fujian' => $fujian, 'link'=>$link];
 
 		if (!empty($name))
 			$data['name'] = $name;

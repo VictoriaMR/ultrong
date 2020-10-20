@@ -55,10 +55,21 @@ class ArticleCategoryService extends BaseService
     			if (!empty($temp)) {
 	    			$value['son'] = $temp;
     			}
+                $value['type_text'] = $this->getTypeText($value['type']);
 	    		$returnData[] = $value;
     		}
     	}
     	return $returnData;
+    }
+
+    protected function getTypeText($type)
+    {
+        $arr = [
+            '普通文章',
+            '列表文件',
+            '详细文件',
+        ];
+        return $arr[$type] ?? '';
     }
 
     public function cleanCache()

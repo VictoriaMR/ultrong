@@ -57,7 +57,6 @@ class ArticleListController extends Controller
 				$pageBar = paginator()->make($size, $total);
 			}
 		}
-		
 		$cateInfo = $this->baseService->getInfoCache($cateId);
 		$this->assign('pageBar', $pageBar ?? '');
 		$this->assign('list', $list ?? []);

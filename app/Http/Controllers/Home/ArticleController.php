@@ -24,7 +24,7 @@ class ArticleController extends Controller
 		$artId = iget('art_id', 0);
 		$lanId = iget('lan_id', 0);
 
-		$info = $this->baseService->getInfoCache($artId, $lanId);
+		$info = $this->baseService->getInfo($artId, $lanId);
 
 		if (!empty($info)) {
 			//分类名称
@@ -80,5 +80,18 @@ class ArticleController extends Controller
 		$this->assign('navArr', $navArr);
 
 		return view();
+	}
+
+	public function download()
+	{
+		$artId = iget('art_id', 0);
+		$lanId = iget('lan_id', 0);
+		$info = $this->baseService->getInfo($artId, $lanId);
+		if (!empty($info)) {
+			$url = ROOT_PATH.'public/file_center/fujian/'.$info['fujian'];
+			$this->baseService->downloadCountAdd($artId, $lanId);
+			\frame\Http::download($url);
+		}
+		return true;
 	}
 }

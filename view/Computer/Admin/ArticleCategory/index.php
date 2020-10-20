@@ -57,7 +57,7 @@
                 <td class="col-md-1 col-1"><?php echo $v['cate_id'];?></td>
                 <td class="col-md-2 col-2" style="padding-left: 20px;"><?php echo $v['name'];?></td>
                 <td class="col-md-2 col-2"><?php echo $v['name_en'];?></td>
-                <td class="col-md-1 col-1"><?php echo $v['type'] ? '文件类型' : '普通文章';?></td>
+                <td class="col-md-1 col-1"><?php echo $v['type_text'];?></td>
                 <td class="col-md-1 col-1">
                     <?php if($v['status']){?>
                         <div class="switch_botton status" data-status="1"><div class="switch_status on"></div></div>
@@ -80,7 +80,7 @@
     	<?php } ?>
     </table>
 </div>
-<div id="dealbox" style="display: none;">
+<div id="dealbox" style="display: none;width: 500px;">
     <form class="form-horizontal">
         <input type="hidden" class="form-control" name="cate_id" value="0">
         <input type="hidden" class="form-control" name="parent_id" value="0">
@@ -96,18 +96,21 @@
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>文章类型：</span></div>
-            <div class="form-control" style="padding-top: 5px;width: 182px;">
+            <div class="form-control" style="padding-top: 2px;width: calc(100% - 24px);">
                 <label class="radio-inline">
                     <input type="radio" value="0" name="type" checked="checked"> 普通文章
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" value="1" name="type"> 文件类型
+                    <input type="radio" value="1" name="type"> 列表文件
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="2" name="type"> 详细文件
                 </label>
             </div>
         </div>
         <div class="input-group">
             <div class="input-group-addon"><span>状态：</span></div>
-            <div class="form-control" style="padding-top: 2px;width: 210px;">
+            <div class="form-control" style="padding-top: 2px;width: calc(100% - 24px);">
                 <div class="switch_botton status" data-status="1" style="margin-top: 8px;">
                     <div class="switch_status on"></div>
                 </div>

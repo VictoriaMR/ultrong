@@ -30,15 +30,47 @@
 				<?php } ?>
 			</div>
 			<?php if (!empty($info)) { ?>
-			<div style="padding-top: 20px;">
+			<div style="padding-top: 20px;" id="product-content">
 				<div class="text-center font-20 color-6"><?php echo $info['name'];?></div>
+				<?php if ($info['fujian']){ ?>
+				<?php if (!empty($info['image_list'])) { ?>
+				<div class="left product-pic margin-top-20">
+					<div class="left pic-left">
+						<ul>
+							<?php foreach ($info['image_list'] as $key => $value) { ?>
+							<li class="<?php echo $key == 0 ? 'selected' : '';?>">
+								<a href="javascript:;" class="block">
+									<img src="<?php echo $value['url'];?>" />
+								</a>
+							</li>
+							<?php } ?>
+						</ul>
+					</div>
+					<div class="left pic-right">
+						<div class="table">
+							<a href="javascript:;" class="table-cell text-center">
+								<img src="<?php echo str_replace('300x300', '800x800', $info['image_list'][0]['url']);?>">
+							</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="model_down margin-top-10">
+						<a href="<?php echo url('article/download', ['art_id' => $info['art_id'], 'lan_id'=>$info['lan_id']]);?>">立即下载</a>
+						<span class="d1">浏览<i><?php echo $info['hit_count'];?></i></span>
+						<span class="d2">下载<i><?php echo $info['download_count'];?></i></span>
+					</div>
+				</div>
+				<?php } ?>
+				<?php } else { ?>
 				<div class="source color-9 margin-bottom-10">
 					<span><?php echo dist('文章来源');?>：<?php echo $_name;?>&nbsp;</span>
 					<span><?php echo dist('人气');?>：<?php echo $info['hit_count'];?>&nbsp;</span>
 					<span><?php echo dist('发表时间');?>：<?php echo date('Y-m-d', $info['create_at']);?></span>
 				</div>
 				<?php echo $info['content'] ?? '';?>
+				<?php } ?>
 			</div>
+			<div class="clear"></div>
 			<?php if (!empty($recommend)) { ?>
 			<div class="article-detail margin-top-20">
                 <ul>

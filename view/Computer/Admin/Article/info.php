@@ -57,6 +57,10 @@
 					<input type="hidden" name="fujian" value="<?php echo $info['fujian'] ?? '';?>"/>
 				</div>
 	        </div>
+	        <div class="input-group margin-top-15">
+	            <div class="input-group-addon"><span>超链接：</span></div>
+	            <input type="text" class="form-control" name="link" required="required" maxlength="150" value="<?php echo $info['link'] ?? '';?>" />
+	        </div>
 	   		<?php } ?>
 	        <div class="input-group margin-top-15">
 	            <div class="input-group-addon"><span>语言：</span></div>
