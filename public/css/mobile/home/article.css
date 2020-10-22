@@ -1,0 +1,36 @@
+.model_down span {
+    border: 1px solid #ededed;
+    background: #fafafa url(/image/computer/model_icon1.png) no-repeat 10px center;
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    padding: 0 15px 0 30px;
+    font-size: 14px;
+    color: #555;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.model_down a {
+    float: right;
+    width: 110px;
+    height: 45px;
+    border: 1px solid #41bdd7;
+    border-radius: 3px;
+    background: #ef8400 url(/image/computer/download_icon.png) no-repeat 10px center;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    line-height: 45px;
+    padding-left: 15px;
+    transition: all 0.3s;
+}
+.model_down .d2 {
+    background: #fafafa url(/image/computer/model_icon2.png) no-repeat 10px center;
+}
+.model_down span i {
+    font-style: normal;
+    color: #888;
+    margin-left: 5px;
+}

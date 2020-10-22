@@ -23,15 +23,15 @@ class ArticleCategoryService extends BaseService
     {
     	$list = Redis()->get(self::CACHE_KEY);
     	if (empty($list)) {
-    		$list = $this->getListFormat();
+            $list = $this->baseModel->get();
     		Redis()->set(self::CACHE_KEY, $list, -1);
     	}
     	return $list;
     }
 
-    protected function getListFormat()
+    public function getListFormat()
     {
-    	$list = $this->baseModel->get();
+    	$list = $this->getList();
     	if (!empty($list)) {
     		$list = $this->listFormat($list);
     	}

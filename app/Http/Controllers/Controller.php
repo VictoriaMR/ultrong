@@ -126,7 +126,7 @@ class Controller
         $articleService = \App::make('App/Services/ArticleService');
         $cateService = \App::make('App/Services/CategoryService');
         
-        $articleList = $articleCategoryService->getList();
+        $articleList = $articleCategoryService->getListFormat();
         $tempData = [];
         if (!empty($articleList)) {
             $cateParentArr = [];

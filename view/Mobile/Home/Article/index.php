@@ -48,6 +48,13 @@
 				<span><?php echo dist('文章来源');?>：<?php echo $_name;?>&nbsp;</span>
 				<span><?php echo dist('发表时间');?>：<?php echo date('Y-m-d', $info['create_at']);?></span>
 			</div>
+			<?php if (!empty($info['fujian'])) { ?>
+			<div class="model_down margin-top-10">
+				<a href="<?php echo url('article/download', ['art_id' => $info['art_id'], 'lan_id'=>$info['lan_id']]);?>">立即下载</a>
+				<span class="d1">浏览<i><?php echo $info['hit_count'];?></i></span>
+				<span class="d2">下载<i><?php echo $info['download_count'];?></i></span>
+			</div>
+			<?php } ?>
 			<div class="margin-top-10">
 				<?php echo $info['content'] ?? '';?>
 			</div>
@@ -60,9 +67,4 @@
 	</div>
 	<div class="gray-width bg-f5 margin-top-8"></div>
 </div>
-<script type="text/javascript">
-$(function(){
-	PRODUCT.init();
-});
-</script>
 <?php $this->load('Common.baseFooter');?>

@@ -54,11 +54,13 @@
 						</div>
 					</div>
 					<div class="clear"></div>
+					<?php if (!empty($info['fujian'])) { ?>
 					<div class="model_down margin-top-10">
 						<a href="<?php echo url('article/download', ['art_id' => $info['art_id'], 'lan_id'=>$info['lan_id']]);?>">立即下载</a>
 						<span class="d1">浏览<i><?php echo $info['hit_count'];?></i></span>
 						<span class="d2">下载<i><?php echo $info['download_count'];?></i></span>
 					</div>
+					<?php } ?>
 				</div>
 				<?php } ?>
 				<?php } else { ?>

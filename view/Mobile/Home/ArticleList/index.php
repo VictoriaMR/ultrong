@@ -24,14 +24,43 @@
 		<?php if (!empty($list)) { ?>
 		<ul class="item-list">
 			<?php foreach ($list as $key => $value) {?>
-			<?php if ($is_fujian) { ?>
+			<?php if ($value['type']) { ?>
+			<?php if ($value['type'] == 1) {?>
 			<li style="border-bottom: 1px dotted #e0e0e0;padding: 10px 0;">
-				<a class="block flex" target="_blank" href="<?php echo $value['fujian'] ? media('fujian/'.$value['fujian']) : 'javascript:;';?>">
+				<a class="block flex" target="_blank" href="<?php echo !empty($value['link']) ? $value['link'] : ($value['fujian'] ? url('article/download', ['art_id' => $value['art_id'], 'lan_id'=>$value['lan_id']]) : 'javascript:;');?>">
 					<img class="margin-right-20" src="<?php echo siteUrl('image/computer/downa.png');?>">
 					<div class="word-ellipsis-2 font-16 title"><?php echo $value['name'];?></div>
 					<div style="margin-left:auto;"> 下载次数：<?php echo $value['hit_count'];?> </div>
 				</a>
 			</li>
+			<?php } else { ?>
+			<li>
+				<a class="block" href="<?php echo $value['url'];?>">
+					<table width="100%" border="0">
+						<tr>
+							<td width="32%" valign="top">
+								<div class="image-item table-cell">
+									<img src="<?php echo $value['image'];?>">
+								</div>
+							</td>
+							<td width="68%" valign="top">
+								<div class="item-info">
+									<div class="word-ellipsis-2 font-16 title"><?php echo $value['name'];?></div>
+									<?php if (!empty($value['sale_price'])){?>
+									<div class="color-9 margin-top-3">
+										<span><?php echo dist('价格');?>:</span>
+										<span class="font-14 font-600"><?php echo $value['sale_price'];?></span>
+										<span><?php echo dist('元');?></span>
+									</div>
+									<?php } ?>
+									<div class="color-8 font-14 margin-top-8"><?php echo $value['desc'];?></div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</a>
+			</li>
+			<?php } ?>
 			<?php } else { ?>
 			<li>
 				<a class="block" href="<?php echo $value['url'];?>">

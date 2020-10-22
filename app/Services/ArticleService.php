@@ -40,6 +40,7 @@ class ArticleService extends BaseService
                     $value['image'] = $data['url'] ?? '';
                 }
                 $value['url'] = url('article', ['art_id'=>$value['art_id'], 'lan_id'=>$value['lan_id']]);
+                $value['type'] = $cateList[$value['cate_id']]['type'] ?? '';
                 $list[$key] = $value;
             }
         }

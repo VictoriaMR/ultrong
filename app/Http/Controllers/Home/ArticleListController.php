@@ -29,7 +29,7 @@ class ArticleListController extends Controller
 
 		//是父分类且没有子分类, 拿第一篇文章
 		if ($this->baseService->isParent($cateId)) {
-			$cateList = $this->baseService->getList();
+			$cateList = $this->baseService->getListFormat();
 			$cateList = array_column($cateList, null, 'cate_id');
 			if (empty($cateList[$cateId]['son'])) {
 				$list = $this->articleService->getListFormat(['cate_id' => $cateId, 'lan_id' => \frame\Session::get('site_language_id')]);
@@ -61,7 +61,6 @@ class ArticleListController extends Controller
 		$this->assign('pageBar', $pageBar ?? '');
 		$this->assign('list', $list ?? []);
 		$this->assign('info', $info ?? []);
-		$this->assign('is_fujian', $cateInfo['type'] ?? 0);
 
 		return view();
 	}

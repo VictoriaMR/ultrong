@@ -59,8 +59,8 @@
 			<?php } else if (!empty($list)) { ?>
 			<ul class="item-list">
 			<?php foreach ($list as $key => $value) {?>
-				<?php if ($is_fujian) { ?>
-				<?php if ($is_fujian == 1) {?>
+				<?php if ($value['type']) { ?>
+				<?php if ($value['type'] == 1) {?>
 				<li style="border-bottom: 1px dotted #e0e0e0;padding: 10px 0;">
 					<a class="block flex" href="<?php echo !empty($value['link']) ? $value['link'] : ($value['fujian'] ? url('article/download', ['art_id' => $value['art_id'], 'lan_id'=>$value['lan_id']]) : 'javascript:;');?>">
 						<img class="margin-right-20" src="<?php echo siteUrl('image/computer/downa.png');?>">
@@ -70,8 +70,7 @@
 				</li>
 				<?php } else { ?>
 				<li class="square-item" <?php if (($key+1) % 4 == 0) { ?>style="margin-right: 0;"<?php } ?>>
-					<a class="square product-img" href="<?php echo 
-					$value['url'];?>">
+					<a class="square product-img" href="<?php echo !empty($value['link']) ? $value['link'] : $value['url'];?>">
 						<img src="<?php echo $value['image'];?>" alt="<?php echo $value['name'] ?? '';?>">
 					</a>
 					<a class="font-16 text-center" href="<?php echo url('article', ['art_id'=>$value['art_id'], 'lan_id' => $value['lan_id']]);?>">
